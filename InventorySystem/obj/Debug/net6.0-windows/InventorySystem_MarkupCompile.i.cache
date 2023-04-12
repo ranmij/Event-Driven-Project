@@ -1,0 +1,20 @@
+﻿InventorySystem
+1.0.0.0
+
+winexe
+VB
+.vb
+D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\
+InventorySystem
+none
+false
+
+D:\SCHOOL FILES\InventorySystem\InventorySystem\Application.xaml
+5-1405865807
+
+16879133624
+197669462578
+Dialogs\LoadingDialog.xaml;Forms\Dashboard.xaml;Forms\LoginForm.xaml;Forms\SignUpForm.xaml;Forms\SplashScreen.xaml;
+
+True
+

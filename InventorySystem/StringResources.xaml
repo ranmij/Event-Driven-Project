@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <!--#region LOGIN LABELS -->
+    <system:String x:Key="login_form_label" xml:space="preserve">Already have an&#x0d;&#x0a;Account?</system:String>
+    <!--#endregion-->
+    
+    <!--#region SIGN UP LABELS -->
+    <system:String x:Key="en_firstname">First Name</system:String>
+    <system:String x:Key="en_lastname">Last Name</system:String>
+    <system:String x:Key="en_gender">Gender</system:String>
+    <system:String x:Key="en_phone">Phone</system:String>
+    <system:String x:Key="en_email">Email</system:String>
+    <system:String x:Key="en_password">Password</system:String>
+    <system:String x:Key="en_username">Username</system:String>
+    <system:String x:Key="en_male">Male</system:String>
+    <system:String x:Key="en_female">Female</system:String>
+    <system:String x:Key="en_next">Next</system:String>
+    <system:String x:Key="en_confirmpass">Confrim password</system:String>
+    <system:String x:Key="en_signup">SIGN UP</system:String>
+    <!--#endregion-->
+    
+    <!--#region STRING PATHS-->
+    <system:String x:Key="ic_maximize_path">/Resources/ic_maximize.png</system:String>
+    <system:String x:Key="ic_restoredown_path">/Resources/ic_restoredown.png</system:String>
+    <!--#endregion-->
+</ResourceDictionary>

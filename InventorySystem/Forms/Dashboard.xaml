@@ -1,0 +1,313 @@
+﻿<Window x:Class="Dashboard"
+        Name="Dashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InventorySystem"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        mc:Ignorable="d"
+        Title="Dashboard" Height="600" Width="900"
+        Padding="0"
+        Margin="0"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Resources/ic_icon.ico" WindowStyle="None" ResizeMode="CanResizeWithGrip"
+        Background="Transparent" Top="-19" AllowsTransparency="True" MinWidth="900" MinHeight="600">
+    <Grid Name="GridPanel"
+          Height="{Binding Height, ElementName=Dashboard}"
+          Width="{Binding Width,ElementName=Dashboard}"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center" Background="White"
+          Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Name="TitleBarPanel"
+                      Width="{Binding Width, ElementName=GridPanel}"
+                      Height="40"
+                      Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="1">
+            <hc:Row x:Name="RowTitleBar" Width="{Binding Width, ElementName=TitleBarPanel}" Height="{Binding Height, ElementName=TitleBarPanel}">
+                <hc:Col x:Name="LeftCol" Span="3" Background="Blue" Height="40">
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Margin="8 0 0 0">
+                        <hc:ImageBlock Source="/Resources/ic_icon.png" Width="24" Height="24"/>
+                        <TextBlock Text="Dashboard" VerticalAlignment="Center" Padding="2 0 0 0"/>
+                    </StackPanel>
+                </hc:Col>
+                <hc:Col Span="15" Height="40" Name="MiddleCol">
+                    <hc:Row Width="{Binding Width, ElementName=MiddleCol}" Height="{Binding Height, ElementName=MiddleCol}">
+                        <hc:Col Span="3" Height="{Binding Height, ElementName=MiddleCol}"/>
+                        <hc:Col Span="18" Height="{Binding Height, ElementName=MiddleCol}">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                                <hc:SearchBar Height="24" Width="Auto"/>
+                            </StackPanel>
+                        </hc:Col>
+                        <hc:Col Span="3" Height="{Binding Height, ElementName=MiddleCol}"/>
+                    </hc:Row>
+                </hc:Col>
+                <hc:Col Span="6" Height="40">
+                    <hc:FlexPanel Grid.Column="2"
+                          Width="200"
+                          JustifyContent="SpaceBetween"
+                          Height="40"
+                          HorizontalAlignment="Right">
+
+                        <hc:Gravatar Width="24" Height="24" hc:BorderElement.CornerRadius="100"
+                             VerticalAlignment="Center">
+                            <Image Source="/Resources/ic_user.png" Height="12" Width="12"/>
+                        </hc:Gravatar>
+                        <StackPanel Width="150" Orientation="Horizontal"
+                                    Height="32"
+                                    VerticalAlignment="Top">
+                            <Button x:Name="MinimizeButton" Style="{StaticResource TitleBarButtonStyle1}"
+                                    Width="50"
+                                    Height="32"
+                                    BorderThickness="0">
+                                <hc:ImageBlock x:Name="MinimizeIcon" Source="/Resources/ic_minimize.png" Height="16" Width="16"/>
+                            </Button>
+                            <Button x:Name="RestoreDButton" Style="{StaticResource TitleBarButtonStyle1}"
+                                    Width="50"
+                                    Height="32"
+                                    BorderThickness="0">
+                                <hc:ImageBlock x:Name="RestoreDIcon" Source="/Resources/ic_maximize.png" Height="16" Width="16"/>
+                            </Button>
+                            <Button x:Name="CloseButton" Style="{DynamicResource TitleBarButtonStyle}"
+                                    Width="50"
+                                    Height="32"
+                                    BorderThickness="0">
+                                <hc:ImageBlock x:Name="CloseIcon" Source="/Resources/ic_closedark.png" Height="16" Width="16"/>
+                            </Button>
+                        </StackPanel>
+                    </hc:FlexPanel>
+                </hc:Col>
+                <!--<StackPanel Grid.Column="2" Background="red" Width="200">-->
+
+                <!--</StackPanel>-->
+            </hc:Row>
+        </StackPanel>
+        <Grid Grid.Row="1" Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <hc:SimplePanel Name="LeftPanel"
+                Width="50" Grid.Column="0">
+                <Border Width="50"
+                        Height="{Binding Height, ElementName=LeftPanel}"
+                        BorderThickness="0 0 1 0" BorderBrush="#D3D3D3"/>
+                <StackPanel Orientation="Vertical" Height="200"
+                             VerticalAlignment="Top">
+                    <Button Template="{DynamicResource DashboardButton}" Name="SalesButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
+                            BorderThickness="0">
+                        <hc:ImageBlock x:Name="imageBlock" Source="/Resources/ic_sales.png" Width="32"
+                                       Height="32" RenderTransformOrigin="0.5,0.5">
+                            <hc:ImageBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </hc:ImageBlock.RenderTransform>
+                        </hc:ImageBlock>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.MouseEnter">
+                                <BeginStoryboard Storyboard="{StaticResource RotateImg}" />
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Template="{DynamicResource DashboardButton}" Name="StocksButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
+                            BorderThickness="0">
+                        <hc:ImageBlock Name="imageBlock1"  Source="/Resources/ic_stocks.png" Width="32"
+                                       Height="32" RenderTransformOrigin="0.5,0.5">
+                            <hc:ImageBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </hc:ImageBlock.RenderTransform>
+                        </hc:ImageBlock>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.MouseEnter">
+                                <BeginStoryboard Storyboard="{StaticResource RotateImg1}" />
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Template="{DynamicResource DashboardButton}" Name="ItemsButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
+                            BorderThickness="0">
+                        <hc:ImageBlock Name="imageBlock2" Source="/Resources/ic_items.png" Width="28"
+                                       Height="28" RenderTransformOrigin="0.5,0.5">
+                            <hc:ImageBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </hc:ImageBlock.RenderTransform>
+                        </hc:ImageBlock>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.MouseEnter">
+                                <BeginStoryboard Storyboard="{StaticResource RotateImg2}" />
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Template="{DynamicResource DashboardButton}" Name="InvoicesButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
+                            BorderThickness="0">
+                        <hc:ImageBlock Name="imageBlock3" Source="/Resources/ic_invoice.png" Width="32"
+                                       Height="32" RenderTransformOrigin="0.5,0.5">
+                            <hc:ImageBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </hc:ImageBlock.RenderTransform>
+                        </hc:ImageBlock>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.MouseEnter">
+                                <BeginStoryboard Storyboard="{StaticResource RotateImg3}" />
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </StackPanel>
+                <Button Template="{DynamicResource DashboardButton}" Name="HelpButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
+                            BorderThickness="0" VerticalAlignment="Bottom">
+                    <hc:ImageBlock Name="imageBlock4" Source="/Resources/ic_help.png" Width="32"
+                                       Height="32" RenderTransformOrigin="0.5,0.5">
+                        <hc:ImageBlock.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </hc:ImageBlock.RenderTransform>
+                    </hc:ImageBlock>
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.MouseEnter">
+                            <BeginStoryboard Storyboard="{StaticResource RotateImg4}" />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </hc:SimplePanel>
+            <Grid Background="blue"
+              Grid.Column="1">
+                
+            </Grid>
+        </Grid>
+        <!--<hc:FlexPanel Grid.Row="1" Background="#F7F7F7" FlexDirection="Row">
+            <hc:SimplePanel Name="LeftPanel"
+                Width="50">
+                <Border Width="50"
+                        Height="{Binding Height, ElementName=LeftPanel}"
+                        BorderThickness="0 0 1 0" BorderBrush="#D3D3D3"/>
+                <StackPanel Orientation="Vertical" Height="200"
+                             VerticalAlignment="Top">
+                    <Button Template="{DynamicResource DashboardButton}" Name="SalesButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
+                            BorderThickness="0">
+                        <hc:ImageBlock x:Name="imageBlock" Source="/Resources/ic_sales.png" Width="32"
+                                       Height="32" RenderTransformOrigin="0.5,0.5">
+                            <hc:ImageBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </hc:ImageBlock.RenderTransform>
+                        </hc:ImageBlock>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.MouseEnter">
+                                <BeginStoryboard Storyboard="{StaticResource RotateImg}" />
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Template="{DynamicResource DashboardButton}" Name="StocksButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
+                            BorderThickness="0">
+                        <hc:ImageBlock Name="imageBlock1"  Source="/Resources/ic_stocks.png" Width="32"
+                                       Height="32" RenderTransformOrigin="0.5,0.5">
+                            <hc:ImageBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </hc:ImageBlock.RenderTransform>
+                        </hc:ImageBlock>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.MouseEnter">
+                                <BeginStoryboard Storyboard="{StaticResource RotateImg1}" />
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Template="{DynamicResource DashboardButton}" Name="ItemsButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
+                            BorderThickness="0">
+                        <hc:ImageBlock Name="imageBlock2" Source="/Resources/ic_items.png" Width="28"
+                                       Height="28" RenderTransformOrigin="0.5,0.5">
+                            <hc:ImageBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </hc:ImageBlock.RenderTransform>
+                        </hc:ImageBlock>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.MouseEnter">
+                                <BeginStoryboard Storyboard="{StaticResource RotateImg2}" />
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Template="{DynamicResource DashboardButton}" Name="InvoicesButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
+                            BorderThickness="0">
+                        <hc:ImageBlock Name="imageBlock3" Source="/Resources/ic_invoice.png" Width="32"
+                                       Height="32" RenderTransformOrigin="0.5,0.5">
+                            <hc:ImageBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </hc:ImageBlock.RenderTransform>
+                        </hc:ImageBlock>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.MouseEnter">
+                                <BeginStoryboard Storyboard="{StaticResource RotateImg3}" />
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </StackPanel>
+                <Button Template="{DynamicResource DashboardButton}" Name="HelpButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
+                            BorderThickness="0" VerticalAlignment="Bottom">
+                    <hc:ImageBlock Name="imageBlock4" Source="/Resources/ic_help.png" Width="32"
+                                       Height="32" RenderTransformOrigin="0.5,0.5">
+                        <hc:ImageBlock.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </hc:ImageBlock.RenderTransform>
+                    </hc:ImageBlock>
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.MouseEnter">
+                            <BeginStoryboard Storyboard="{StaticResource RotateImg4}" />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </hc:SimplePanel>
+            
+        </hc:FlexPanel>-->
+    </Grid>
+</Window>

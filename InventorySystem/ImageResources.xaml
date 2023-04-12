@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:InventorySystem">
+    <!--#region Icon Images-->
+    <ImageBrush x:Key="ic_user" ImageSource="/Resources/ic_user.png"/>
+    <ImageBrush x:Key="ic_closedark" ImageSource="/Resources/ic_closedark.png"/>
+    <BitmapImage x:Key="ic_maximizebit" UriSource="/Resources/ic_maximize.png"/>
+    <BitmapImage x:Key="ic_restoredownbit" UriSource="/Resources/ic_restoredown.png"/>
+    <!--#endregion-->
+    
+    <!--#region Background Images-->
+    <ImageBrush x:Key="bg_login" ImageSource="/Resources/bg_login.png"/>
+    <ImageBrush x:Key="bg_splash" ImageSource="/Resources/bg_splash.png"/>
+    <!--#endregion-->
+</ResourceDictionary>

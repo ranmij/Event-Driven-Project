@@ -1,0 +1,132 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>InventorySystem</RootNamespace>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Forms\spashscreen.png" />
+    <None Remove="Resources\bg_login.png" />
+    <None Remove="Resources\ic_close.png" />
+    <None Remove="Resources\ic_closedark.png" />
+    <None Remove="Resources\ic_help.png" />
+    <None Remove="Resources\ic_icon.ico" />
+    <None Remove="Resources\ic_icon.png" />
+    <None Remove="Resources\ic_invoice.png" />
+    <None Remove="Resources\ic_items.png" />
+    <None Remove="Resources\ic_maximize.png" />
+    <None Remove="Resources\ic_minimize.png" />
+    <None Remove="Resources\ic_restoredown.png" />
+    <None Remove="Resources\ic_sales.png" />
+    <None Remove="Resources\ic_stocks.png" />
+    <None Remove="Resources\ic_task.ico" />
+    <None Remove="Resources\ic_user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Colors.xaml" />
+    <Page Remove="ImageResources.xaml" />
+    <Page Remove="StringResources.xaml" />
+    <Page Remove="Styles.xaml" />
+    <Page Remove="Themes.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\ic_items.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Colors.xaml" />
+    <Resource Include="ImageResources.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Import Include="System.Windows" />
+    <Import Include="System.Windows.Controls" />
+    <Import Include="System.Windows.Data" />
+    <Import Include="System.Windows.Documents" />
+    <Import Include="System.Windows.Input" />
+    <Import Include="System.Windows.Media" />
+    <Import Include="System.Windows.Media.Imaging" />
+    <Import Include="System.Windows.Navigation" />
+    <Import Include="System.Windows.Shapes" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="HandyControls" Version="3.4.5" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\bg_login.png" />
+    <Resource Include="Resources\bg_splash.png" />
+    <Resource Include="Resources\ic_closedark.png" />
+    <Resource Include="Resources\ic_help.png" />
+    <Resource Include="Resources\ic_icon.ico" />
+    <Resource Include="Resources\ic_close.png" />
+    <Resource Include="Resources\ic_icon.png" />
+    <Resource Include="Resources\ic_invoice.png" />
+    <Resource Include="Resources\ic_maximize.png" />
+    <Resource Include="Resources\ic_minimize.png" />
+    <Resource Include="Resources\ic_restoredown.png" />
+    <Resource Include="Resources\ic_sales.png" />
+    <Resource Include="Resources\ic_stocks.png" />
+    <Resource Include="Resources\ic_task.ico" />
+    <Resource Include="Resources\ic_user.png" />
+    <Resource Include="StringResources.xaml" />
+    <Resource Include="Styles.xaml" />
+    <Resource Include="Themes.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="DataSets\Authentication.Designer.vb">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Authentication.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="DataSets\UserDataSet.Designer.vb">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UserDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="My Project\Resources.Designer.vb">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="My Project\Settings.Designer.vb">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="My Project\Resources.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DataSets\Authentication.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Authentication.Designer.vb</LastGenOutput>
+    </None>
+    <None Update="DataSets\UserDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>UserDataSet.Designer.vb</LastGenOutput>
+    </None>
+    <None Update="My Project\Settings.settings">
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>
