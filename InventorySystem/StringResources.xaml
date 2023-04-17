@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=mscorlib">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
     <!--#region LOGIN LABELS -->
     <system:String x:Key="login_form_label" xml:space="preserve">Already have an&#x0d;&#x0a;Account?</system:String>
     <!--#endregion-->
@@ -22,5 +23,10 @@
     <!--#region STRING PATHS-->
     <system:String x:Key="ic_maximize_path">/Resources/ic_maximize.png</system:String>
     <system:String x:Key="ic_restoredown_path">/Resources/ic_restoredown.png</system:String>
+    <!--#endregion-->
+    
+    <!--#region DASHBOARD LABELS-->
+    <system:String x:Key="SalesHeading">Sales</system:String>
+    <system:String x:Key="StocksHeading">Stocks</system:String>
     <!--#endregion-->
 </ResourceDictionary>

@@ -69,8 +69,8 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""D:\SCHOOL FILES\InventorySys"& _ 
-            "tem\InventorySystem\sais.mdf"";Integrated Security=True")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\SCHOOL FILES\InventorySyst"& _ 
+            "em\InventorySystem\sais.mdf;Integrated Security=True")>  _
         Public ReadOnly Property saisConnectionString() As String
             Get
                 Return CType(Me("saisConnectionString"),String)

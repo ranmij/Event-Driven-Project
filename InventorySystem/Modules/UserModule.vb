@@ -1,5 +1,6 @@
 ﻿Option Strict On
 Imports BCrypt.Net.BCrypt
+Imports InventorySystem.InventorySystem.DataSets.UserDataSet
 Imports InventorySystem.InventorySystem.DataSets.UserDataSetTableAdapters
 Module UserModule
     Dim tableAdapter As New usersTableAdapter()
@@ -31,16 +32,22 @@ Module UserModule
 
     Public Function Login(username As String, password As String) As Boolean
         ' TODO Implement Sign In
-        With tableAdapter.GetDataByUsername(username).Item(0)
-            Dim passwordHashed As String = .password.ToString()
-            If Verify(password, passwordHashed) Then
-                My.Settings.UserID = CInt(.id)
-                My.Settings.Save()
-                Return True
-            Else
-                Return False
-            End If
-        End With
+        Dim result As usersDataTable = tableAdapter.GetDataByUsername(username)
+        If result.Count <> 0 Then
+            With result.Item(0)
+                Dim passwordHashed As String = .password.ToString()
+                If Verify(password, passwordHashed) Then
+                    My.Settings.UserID = CInt(.id)
+                    My.Settings.Save()
+                    Return True
+                Else
+                    Return False
+                End If
+            End With
+        Else
+            Return False
+        End If
+
     End Function
 
     Public Function SignIn(userData As UserModel) As Boolean

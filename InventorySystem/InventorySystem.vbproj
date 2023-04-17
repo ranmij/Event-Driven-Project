@@ -21,6 +21,7 @@
     <None Remove="Resources\ic_minimize.png" />
     <None Remove="Resources\ic_restoredown.png" />
     <None Remove="Resources\ic_sales.png" />
+    <None Remove="Resources\ic_settings.png" />
     <None Remove="Resources\ic_stocks.png" />
     <None Remove="Resources\ic_task.ico" />
     <None Remove="Resources\ic_user.png" />
@@ -74,6 +75,7 @@
     <Resource Include="Resources\ic_minimize.png" />
     <Resource Include="Resources\ic_restoredown.png" />
     <Resource Include="Resources\ic_sales.png" />
+    <Resource Include="Resources\ic_settings.png" />
     <Resource Include="Resources\ic_stocks.png" />
     <Resource Include="Resources\ic_task.ico" />
     <Resource Include="Resources\ic_user.png" />
@@ -87,6 +89,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Authentication.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="DataSets\ProductsDataSet.Designer.vb">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ProductsDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Update="DataSets\UserDataSet.Designer.vb">
       <DesignTime>True</DesignTime>
@@ -117,6 +124,10 @@
     <None Update="DataSets\Authentication.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>Authentication.Designer.vb</LastGenOutput>
+    </None>
+    <None Update="DataSets\ProductsDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ProductsDataSet.Designer.vb</LastGenOutput>
     </None>
     <None Update="DataSets\UserDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>

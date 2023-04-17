@@ -27,6 +27,9 @@
     <None Update="DataSets\Authentication.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Update="DataSets\ProductsDataSet.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Update="DataSets\UserDataSet.xsd">
       <SubType>Designer</SubType>
     </None>
