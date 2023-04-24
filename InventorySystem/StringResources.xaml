@@ -1,11 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
-    <!--#region LOGIN LABELS -->
+    <!--#region ENGLISH LOGIN LABELS -->
     <system:String x:Key="login_form_label" xml:space="preserve">Already have an&#x0d;&#x0a;Account?</system:String>
     <!--#endregion-->
     
-    <!--#region SIGN UP LABELS -->
+    <!--#region ENGLISH SIGN UP LABELS -->
     <system:String x:Key="en_firstname">First Name</system:String>
     <system:String x:Key="en_lastname">Last Name</system:String>
     <system:String x:Key="en_gender">Gender</system:String>
@@ -18,15 +18,27 @@
     <system:String x:Key="en_next">Next</system:String>
     <system:String x:Key="en_confirmpass">Confrim password</system:String>
     <system:String x:Key="en_signup">SIGN UP</system:String>
+    <system:String x:Key="en_otp">Enter code</system:String>
+    <system:String x:Key="en_confirm">Confirm</system:String>
+    <system:String x:Key="en_errorotp">Incorrect code.</system:String>
+    <system:String x:Key="en_back">Back</system:String>
+    <system:String x:Key="en_save">Save</system:String>
     <!--#endregion-->
     
+    <!--#region ENGLISH DASHBOARD LABELS-->
+    <system:String x:Key="en_salesheading">Sales</system:String>
+    <system:String x:Key="en_stocksheading">Stocks</system:String>
+    <system:String x:Key="en_posheading">Point of Sale</system:String>
+    <system:String x:Key="en_exportcsv">Export CSV</system:String>
+    <system:String x:Key="en_importcsv">Import CSV</system:String>
+    <system:String x:Key="en_addproduct">Add product</system:String>
+    <system:String x:Key="en_close">Close</system:String>
+    <system:String x:Key="en_edit">Edit</system:String>
+    <system:String x:Key="en_logout">LOG OUT</system:String>
+    <!--#endregion-->
+
     <!--#region STRING PATHS-->
     <system:String x:Key="ic_maximize_path">/Resources/ic_maximize.png</system:String>
     <system:String x:Key="ic_restoredown_path">/Resources/ic_restoredown.png</system:String>
-    <!--#endregion-->
-    
-    <!--#region DASHBOARD LABELS-->
-    <system:String x:Key="SalesHeading">Sales</system:String>
-    <system:String x:Key="StocksHeading">Stocks</system:String>
     <!--#endregion-->
 </ResourceDictionary>

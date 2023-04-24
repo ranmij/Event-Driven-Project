@@ -11,6 +11,6 @@
          VerticalAlignment="Center">
     <hc:SimplePanel>
         <hc:LoadingCircle HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#8F43EE"/>
-        <Button Name="closebtn"    Command="hc:ControlCommands.Close"  Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden"/>
+        <Button Name="closebtn" Command="hc:ControlCommands.Close"  Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden"/>
     </hc:SimplePanel>
 </Border>

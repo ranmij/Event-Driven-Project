@@ -1,4 +1,5 @@
-﻿Imports System.Windows.Threading
+﻿Imports System.Net
+Imports System.Windows.Threading
 Public Class SplashScreen
 
     Private timerDispatcher As New DispatcherTimer                                      ' A new instance of timer dispacher

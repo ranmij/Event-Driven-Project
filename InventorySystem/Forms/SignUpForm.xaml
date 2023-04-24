@@ -80,8 +80,17 @@
                                 Margin="0 15 0 5" hc:BorderElement.CornerRadius="0"
                                 hc:InfoElement.Placeholder="{StaticResource en_email}" FontSize="15" hc:InfoElement.RegexPattern="^[0-9]*(?:\.[0-9]+)?$"
                                 HorizontalAlignment="Center" BorderThickness="0 0 0 1"/>
-                    <Button x:Name="NextButton" Content="{StaticResource en_next}" Width="{Binding Width, ElementName=InputsPanel}" Height="40" Background="#8F43EE" Foreground="#FFF" BorderThickness="0" hc:BorderElement.CornerRadius="0" Margin="0 15 0 0"
-                    HorizontalAlignment="Center" Click="Click_Events"/>
+                    <Grid Width="{Binding Width, ElementName=InputsPanel}"
+                          Height="60"
+                          Margin="0 0 0 5">
+
+                        <Button x:Name="LoginBackButton" Content="{StaticResource en_back}" Background="#8F43EE" Foreground="#FFF" BorderThickness="0" hc:BorderElement.CornerRadius="0" Margin="0 15 0 0"
+                                Height="60" Width="140" HorizontalAlignment="left"
+                                VerticalAlignment="Center"/>
+                        <Button x:Name="NextButton" Content="{StaticResource en_next}" Background="#8F43EE" Foreground="#FFF" BorderThickness="0" hc:BorderElement.CornerRadius="0" Margin="0 15 0 0"
+                                Height="60" Width="140"
+                                HorizontalAlignment="Right"/>
+                    </Grid>
                 </StackPanel>
             </Grid>
         </Grid>
@@ -92,7 +101,7 @@
               Width="{Binding Width, ElementName=GridSignUpWrap}"
               HorizontalAlignment="Center"
               VerticalAlignment="Center"
-              Visibility="Hidden"
+              Visibility="Collapsed"
               Name="secondpane">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -145,15 +154,71 @@
                                 Margin="0 15 0 5" hc:BorderElement.CornerRadius="0"
                                 hc:InfoElement.Placeholder="{StaticResource en_confirmpass}" FontSize="15" hc:InfoElement.RegexPattern="^[0-9]*(?:\.[0-9]+)?$"
                                 HorizontalAlignment="Center" BorderThickness="0 0 0 1"/>
-                    <Button x:Name="SignUpButton" Content="{StaticResource en_signup}" Width="{Binding Width, ElementName=InputsPanel}" Height="40" Background="#8F43EE" Foreground="#FFF" BorderThickness="0" hc:BorderElement.CornerRadius="0" Margin="0 15 0 0"
-                    HorizontalAlignment="Center"/>
+                    <Grid Width="{Binding Width, ElementName=InputsPanel}"
+                          Height="60"
+                          Margin="0 0 0 5">
+                        <Button x:Name="SignUpBackButton" Content="{StaticResource en_back}" Background="#8F43EE" Foreground="#FFF" BorderThickness="0" hc:BorderElement.CornerRadius="0" Margin="0 15 0 0"
+                                Height="60" Width="140" HorizontalAlignment="left"
+                                VerticalAlignment="Center"/>
+                        <Button x:Name="SignUpButton" Content="{StaticResource en_signup}" Background="#8F43EE" Foreground="#FFF" BorderThickness="0" hc:BorderElement.CornerRadius="0" Margin="0 15 0 0"
+                                Height="60" Width="140"
+                                HorizontalAlignment="Right"/>
+                    </Grid>
                 </StackPanel>
             </Grid>
         </Grid>
         <!--#endregion-->
 
         <!--#region Third Pane Sign Up -->
-        
+        <Grid Height="{Binding Height, ElementName=GridSignUpWrap}"
+              Width="{Binding Width, ElementName=GridSignUpWrap}"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              Visibility="Collapsed"
+              Name="thirdpane">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Width="{Binding Width,ElementName=secondpane}" Grid.Row="0"
+              Height="150">
+                <hc:AnimationPath Data="{DynamicResource TextLogo}" 
+                          Duration="00:00:0" 
+                          Stretch="Uniform" StrokeThickness="1"
+                          Stroke="Black"
+                          Width="100"
+                          Height="32"
+                          FillBehavior="HoldEnd"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Bottom"
+                          RepeatBehavior="1x"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Right"
+                    Width="300"
+                    Height="Auto"
+                    Name="tcredentialpanel" Margin="0,0,60,0">
+                    <TextBlock Text="Null"
+                       Foreground="#f00"
+                       Padding="0 10 0 0"
+                       Name="AuthErrorLabel" Visibility="Hidden"
+                       HorizontalAlignment="Left"/>
+                    <TextBlock Text="Enter the OTP code sent to your number."
+                       Padding="0 10 0 0"
+                       Name="AuthLabel"
+                       HorizontalAlignment="Left"
+                       FontSize="14"/>
+                    <hc:TextBox x:Name="AuthCodeTextBox" Height="60" Width="{Binding Width, ElementName=InputsPanel}" hc:InfoElement.Necessary="True"
+                                Margin="0 15 0 5" hc:BorderElement.CornerRadius="0"
+                                hc:InfoElement.Placeholder="{StaticResource en_otp}" FontSize="20" hc:InfoElement.RegexPattern="[0-9]"
+                                HorizontalAlignment="Center" BorderThickness="0 0 0 1"/>
+                    <Button x:Name="ConfirmAuthButton" Content="{StaticResource en_confirm}" Width="{Binding Width, ElementName=InputsPanel}" Height="40" Background="#8F43EE" Foreground="#FFF" BorderThickness="0" hc:BorderElement.CornerRadius="0" Margin="0 15 0 0"
+                    HorizontalAlignment="Center"/>
+                    <Button x:Name="SignUp1BackButton" Content="{StaticResource en_back}" Width="{Binding Width, ElementName=InputsPanel}" Height="40" Background="#8F43EE" Foreground="#FFF" BorderThickness="0" hc:BorderElement.CornerRadius="0" Margin="0 15 0 0"
+                    HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
         <!--#endregion-->
     </Grid>
 </Window>

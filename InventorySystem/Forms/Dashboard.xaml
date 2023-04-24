@@ -4,13 +4,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:InventorySystem"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d"
         Title="Dashboard" Height="600" Width="900"
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/ic_icon.ico" WindowStyle="None" ResizeMode="CanResizeWithGrip"
-        Background="Transparent" Top="-19" AllowsTransparency="True" MinWidth="900" MinHeight="600">
+        Background="Transparent" AllowsTransparency="True" MinWidth="900" MinHeight="600">
+
     <Grid Name="GridPanel"
           Height="{Binding Height, ElementName=Dashboard}"
           Width="{Binding Width,ElementName=Dashboard}"
@@ -32,7 +32,7 @@
                                 VerticalAlignment="Center"
                                 Margin="8 0 0 0">
                         <hc:ImageBlock Source="/Resources/ic_icon.png" Width="24" Height="24"/>
-                        <TextBlock Name="FormTitle" Text="{StaticResource SalesHeading}" VerticalAlignment="Center" Padding="2 0 0 0"/>
+                        <TextBlock Name="FormTitle" Text="{StaticResource en_salesheading}" VerticalAlignment="Center" Padding="2 0 0 0"/>
                     </StackPanel>
                 </hc:Col>
                 <hc:Col Span="14" Height="40" Name="MiddleCol">
@@ -55,17 +55,19 @@
                         <hc:FlexPanel VerticalAlignment="Center"
                                     Width="80" JustifyContent="SpaceBetween">
                             <hc:RelativePanel VerticalAlignment="Center" Width="24" Height="24">
-                                <hc:Gravatar Name="AvatarIcon" Width="24" Height="24" hc:BorderElement.CornerRadius="100"
+                                <Button Name="AvatarButton" Padding="0" Background="Transparent" Style="{x:Null}" BorderBrush="Transparent" BorderThickness="0">
+                                    <hc:Gravatar Padding="0" BorderThickness="0" Width="24" Height="24" hc:BorderElement.CornerRadius="100"
                              VerticalAlignment="Center">
-                                    <Image Source="/Resources/ic_user.png" Height="12" Width="12"
+                                        <Image Source="/Resources/ic_user.png" Height="12" Width="12"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"/>
-                                </hc:Gravatar>
-                                <Button Width="8" Height="8" BorderThickness="0" Margin="16 16 0 0" Background="YellowGreen">
+                                    </hc:Gravatar>
                                 </Button>
+                                <Border Width="8" Height="8" CornerRadius="100" Margin="16 16 0 0" Background="YellowGreen">
+                                </Border>
                             </hc:RelativePanel>
-                            <Button Height="24" Width="24" HorizontalAlignment="Right" hc:BorderElement.CornerRadius="50" BorderThickness="0" Padding="0">
-                                <Image Source="/Resources/ic_settings.png" Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Button Name="SettingsButton" Height="24" Width="24" HorizontalAlignment="Right" BorderThickness="0" Padding="0">
+                                <Image Source="/Resources/ic_settings.png" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             </Button>
                         </hc:FlexPanel>
 
@@ -105,7 +107,7 @@
                 <Border Width="50"
                         Height="{Binding Height, ElementName=LeftPanel}"
                         BorderThickness="0 0 1 0" BorderBrush="#D3D3D3"/>
-                <StackPanel Orientation="Vertical" Height="200"
+                <StackPanel Name="PanelControls" Orientation="Vertical" Height="200"
                              VerticalAlignment="Top">
                     <!--#region SalesButton-->
                     <Button Template="{DynamicResource CustomTemplateButton}" Name="SalesButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
@@ -124,6 +126,10 @@
                         <Button.Triggers>
                             <EventTrigger RoutedEvent="Button.MouseEnter">
                                 <BeginStoryboard Storyboard="{StaticResource RotateImg}" />
+                                <BeginStoryboard Storyboard="{StaticResource SalesTransitionPanel}"/>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Button.MouseLeave">
+                                <BeginStoryboard Storyboard="{StaticResource HideSalesTransitionPanel}"/>
                             </EventTrigger>
                         </Button.Triggers>
                     </Button>
@@ -145,15 +151,19 @@
                         <Button.Triggers>
                             <EventTrigger RoutedEvent="Button.MouseEnter">
                                 <BeginStoryboard Storyboard="{StaticResource RotateImg1}" />
+                                <BeginStoryboard Storyboard="{StaticResource StocksTransitionPanel}"/>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Button.MouseLeave">
+                                <BeginStoryboard Storyboard="{StaticResource HideStocksTransitionPanel}"/>
                             </EventTrigger>
                         </Button.Triggers>
                     </Button>
                     <!--#endregion-->
-                    <!--#region ItemsButton-->
-                    <Button Template="{DynamicResource CustomTemplateButton}" Name="ItemsButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
+                    <!--#region POSButton-->
+                    <Button Template="{DynamicResource CustomTemplateButton}" Name="POSButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
                             BorderThickness="0">
-                        <hc:ImageBlock Name="imageBlock2" Source="/Resources/ic_items.png" Width="28"
-                                       Height="28" RenderTransformOrigin="0.5,0.5">
+                        <hc:ImageBlock Name="imageBlock2" Source="/Resources/ic_pos.png" Width="32"
+                                       Height="32" RenderTransformOrigin="0.5,0.5">
                             <hc:ImageBlock.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -166,14 +176,18 @@
                         <Button.Triggers>
                             <EventTrigger RoutedEvent="Button.MouseEnter">
                                 <BeginStoryboard Storyboard="{StaticResource RotateImg2}" />
+                                <BeginStoryboard Storyboard="{StaticResource PosTransitionPanel}"/>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Button.MouseLeave">
+                                <BeginStoryboard Storyboard="{StaticResource HidePosTransitionPanel}"/>
                             </EventTrigger>
                         </Button.Triggers>
                     </Button>
                     <!--#endregion-->
-                    <!--#region InvoicesButton-->
+                    <!--#region MessageButton-->
                     <Button Template="{DynamicResource CustomTemplateButton}" Name="InvoicesButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
                             BorderThickness="0">
-                        <hc:ImageBlock Name="imageBlock3" Source="/Resources/ic_invoice.png" Width="32"
+                        <hc:ImageBlock Name="imageBlock3" Source="/Resources/ic_chat.png" Width="32"
                                        Height="32" RenderTransformOrigin="0.5,0.5">
                             <hc:ImageBlock.RenderTransform>
                                 <TransformGroup>
@@ -187,6 +201,10 @@
                         <Button.Triggers>
                             <EventTrigger RoutedEvent="Button.MouseEnter">
                                 <BeginStoryboard Storyboard="{StaticResource RotateImg3}" />
+                                <BeginStoryboard Storyboard="{StaticResource MessageTransitionPanel}"/>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Button.MouseLeave">
+                                <BeginStoryboard Storyboard="{StaticResource HideMessageTransitionPanel}"/>
                             </EventTrigger>
                         </Button.Triggers>
                     </Button>
@@ -209,19 +227,23 @@
                     <Button.Triggers>
                         <EventTrigger RoutedEvent="Button.MouseEnter">
                             <BeginStoryboard Storyboard="{StaticResource RotateImg4}" />
+                            <BeginStoryboard Storyboard="{StaticResource HelpTransitionPanel}"/>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Button.MouseLeave">
+                            <BeginStoryboard Storyboard="{StaticResource HideHelpTransitionPanel}"/>
                         </EventTrigger>
                     </Button.Triggers>
                 </Button>
                 <!--#endregion-->
             </hc:SimplePanel>
             <!--#region SALES PANEL-->
-            <Grid Name="SalesPanel" Grid.Column="1" Visibility="Visible">
+            <Grid Name="SalesPanel" Grid.Column="1" Visibility="Collapsed" Panel.ZIndex="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid x:Name="SalesTopContainer" Height="180"
-                      Grid.Row="0" Visibility="Visible">
+                      Grid.Row="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
@@ -230,7 +252,7 @@
                                 Height="50"
                                 HorizontalAlignment="Stretch"
                                 Grid.Row="0">
-                        <TextBlock Text="{StaticResource SalesHeading}" VerticalAlignment="Center"
+                        <TextBlock Text="{StaticResource en_salesheading}" VerticalAlignment="Center"
                                    Margin="30 0 0 0"
                                    FontSize="32"
                                    FontWeight="ExtraLight"/>
@@ -301,7 +323,7 @@
                         </hc:Col>
                     </hc:Row>
                 </Grid>
-                <Grid Grid.Row="1" Name="SalesBottomWrapPanel" Visibility="Visible">
+                <Grid Grid.Row="1" Name="SalesBottomWrapPanel">
                     <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
                               ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
                               CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="SalesDataGridView"
@@ -318,12 +340,11 @@
             </Grid>
             <!--#endregion-->
             <!--#region STOCKS PANEL-->
-            <Grid Name="StocksPanel" Grid.Column="1" Visibility="Collapsed">
+            <Grid Name="StocksPanel" Grid.Column="1" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                
                 <Grid x:Name="StocksTopContainer" Height="90"
                       Grid.Row="0" >
                     <Grid.RowDefinitions>
@@ -333,7 +354,7 @@
                     <Grid Height="50"
                       Grid.Row="0">
                         <hc:FlexPanel Margin="30 0" JustifyContent="SpaceBetween">
-                            <TextBlock Text="{StaticResource StocksHeading}" VerticalAlignment="Bottom"
+                            <TextBlock Text="{StaticResource en_stocksheading}" VerticalAlignment="Bottom"
                                    FontSize="32"
                                    FontWeight="ExtraLight"/>
                             <hc:SearchBar hc:InfoElement.Placeholder="Search Item" Width="360" Height="28" VerticalAlignment="Bottom" Style="{StaticResource SearchBarExtend}"/>
@@ -347,9 +368,10 @@
                                     <TextBlock Name="StocksTotalItems" Text="1000" VerticalAlignment="Center" Padding="8 0"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="Add Item" hc:IconElement.Geometry="{StaticResource ic_add}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="85" Padding="0" BorderThickness="0" Background="#32CD32"/>
-                                    <Button Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="Edit Item" hc:IconElement.Geometry="{StaticResource ic_edit}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="85" Padding="0" BorderThickness="0" Background="#0CAFFF"/>
-                                    <Button Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="Delete Item" hc:IconElement.Geometry="{StaticResource ic_delete}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="85" Padding="0" BorderThickness="0" Background="#E3242B"/>
+                                    <Button Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_exportcsv}" hc:IconElement.Geometry="{StaticResource ic_csv}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="100" Padding="0" BorderThickness="0" Background="#32CD32"/>
+                                    <Button Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_importcsv}" hc:IconElement.Geometry="{StaticResource ic_csv}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="100" Padding="0" BorderThickness="0" Background="#32CD32"/>
+                                    <Button Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_addproduct}" hc:IconElement.Geometry="{StaticResource ic_add}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="100" Padding="0" BorderThickness="0" Background="#0CAFFF"/>
+                                    <!--<Button Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="Delete Item" hc:IconElement.Geometry="{StaticResource ic_delete}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="85" Padding="0" BorderThickness="0" Background="#E3242B"/>-->
                                 </StackPanel>
                             </hc:FlexPanel>
                         </hc:Col>
@@ -364,21 +386,19 @@
                               Margin="30 0"
                               CanUserResizeColumns="False"
                               AutoGenerateColumns="True"
-                              >
-                        <DataGrid.Columns>
-                        </DataGrid.Columns>
+                              HorizontalAlignment="Stretch">
                     </DataGrid>
                 </Grid>
             </Grid>
             <!--#endregion-->
-            <!--#region ITEMS PANEL-->
-            <Grid Name="ItemsPanel" Grid.Column="1" Visibility="Collapsed">
+            <!--#region POS PANEL-->
+            <Grid Name="POSPanel" Grid.Column="1" Visibility="Collapsed">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Grid x:Name="ItemsTopContainer" Height="90"
+                <Grid x:Name="ItemsTopContainer" Height="60"
                       Grid.Row="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -387,44 +407,148 @@
                     <Grid Height="50"
                       Grid.Row="0">
                         <hc:FlexPanel Margin="30 0" JustifyContent="SpaceBetween">
-                            <TextBlock Text="{StaticResource StocksHeading}" VerticalAlignment="Bottom"
+                            <TextBlock Text="{StaticResource en_posheading}" VerticalAlignment="Bottom"
                                    FontSize="32"
                                    FontWeight="ExtraLight"/>
-                            <hc:SearchBar hc:InfoElement.Placeholder="Search Item" Width="360" Height="28" VerticalAlignment="Bottom" Style="{StaticResource SearchBarExtend}"/>
+                            <hc:SearchBar hc:InfoElement.Placeholder="Search Product" Width="360" Height="28" VerticalAlignment="Bottom" Style="{StaticResource SearchBarExtend}"/>
                         </hc:FlexPanel>
                     </Grid>
-                    <hc:Row x:Name="ItemsTopRow" Grid.Row="1">
-                        <hc:Col Height="{Binding ElementName=ItemsTopRow, Path=ActualHeight}">
-                            <hc:FlexPanel Margin="30 0" JustifyContent="SpaceBetween">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="TOTAL ITEMS:" VerticalAlignment="Center"/>
-                                    <TextBlock Name="ItemsTotalItems" Text="1000" VerticalAlignment="Center" Padding="8 0"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="Add Item" hc:IconElement.Geometry="{StaticResource ic_add}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="85" Padding="0" BorderThickness="0" Background="#32CD32"/>
-                                    <Button Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="Edit Item" hc:IconElement.Geometry="{StaticResource ic_edit}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="85" Padding="0" BorderThickness="0" Background="#0CAFFF"/>
-                                    <Button Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="Delete Item" hc:IconElement.Geometry="{StaticResource ic_delete}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="85" Padding="0" BorderThickness="0" Background="#E3242B"/>
-                                </StackPanel>
-                            </hc:FlexPanel>
-                        </hc:Col>
-                    </hc:Row>
                 </Grid>
-                <Grid Grid.Row="1" Name="ItemsWrapPanel">
-                    <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
-                              ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
-                              CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="ItemsDataGridView"
-                              Style="{DynamicResource DataGridStyle1}"
-                              IsReadOnly="True"
-                              Margin="30 0"
-                              CanUserResizeColumns="False"
-                              AutoGenerateColumns="True"
-                              >
-                        <DataGrid.Columns>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
+                <DockPanel Grid.Row="1" Name="PosWrapPanel">
+                    <Grid Width="400" DockPanel.Dock="Left">
+                        <DockPanel>
+                            <StackPanel DockPanel.Dock="Top" Height="80">
+                                <StackPanel Orientation="Horizontal" Height="40">
+                                    <TextBlock Text="TOTAL PRICE: "
+                                               Margin="30 0 0 0" FontSize="14"
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Name="PriceTotal" Text="0" FontSize="14" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Height="40">
+                                    <hc:TextBox Width="200" Height="20" Margin="30 0 0 0" hc:InfoElement.Placeholder="Amount" hc:BorderElement.CornerRadius="0"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <Grid DockPanel.Dock="Bottom" VerticalAlignment="Stretch">
+                                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
+                                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                                          CellStyle="{DynamicResource DataGridCellStyle1}" Name="PosDataGridView"
+                                          Style="{DynamicResource DataGridStyle1}"
+                                          IsReadOnly="True"
+                                          Margin="30 20 30 20"
+                                          CanUserResizeColumns="False"
+                                          AutoGenerateColumns="False"
+                                          Visibility="Visible">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Product Name" Binding="{Binding PRODUCT_NAME}"/>
+                                        <DataGridTextColumn Header="Price" Binding="{Binding PRODUCT_PRICE}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </DockPanel>
+                    </Grid>
+                    <Grid Name="PosProductPanel" Width="auto" HorizontalAlignment="Stretch" Background="LightSlateGray" DockPanel.Dock="Right">
+                        <hc:ScrollViewer  Margin="4" hc:BorderThickness="1" hc:BorderBrush="gray">
+                            <WrapPanel Orientation="Horizontal" Name="PosProductContainer" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                
+                            </WrapPanel>
+                        </hc:ScrollViewer>
+                    </Grid>
+                </DockPanel>
             </Grid>
             <!--#endregion-->
         </Grid>
+        <!--#region  RELATIVE PANEL-->
+        <hc:RelativePanel Name="RelativePanel"  Grid.Row="1">
+            <hc:SimplePanel Height="{Binding ElementName=RelativePanel, Path=ActualHeight}" Width="150" Margin="50 0 0 0">
+                <StackPanel Height="200" VerticalAlignment="Top">
+                    <Grid x:Name="SalesTransitionText" Width="150" Height="50" RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFB2A4FF" Offset="0"/>
+                                <GradientStop Color="#FFDDD6F9"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <TextBlock Text="Sales" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+                    </Grid>
+                    <Grid x:Name="StocksTransitionText" Width="150" Height="50" RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFB2A4FF" Offset="0"/>
+                                <GradientStop Color="#FFDDD6F9"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <TextBlock Text="Stocks" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+                    </Grid>
+                    <Grid x:Name="PosTransitionText" Width="150" Height="50" RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFB2A4FF" Offset="0"/>
+                                <GradientStop Color="#FFDDD6F9"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <TextBlock Text="POS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+                    </Grid>
+                    <Grid x:Name="MessageTransitionText" Width="150" Height="50"  RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFB2A4FF" Offset="0"/>
+                                <GradientStop Color="#FFDDD6F9"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <TextBlock Text="Messages" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+                    </Grid>
+                </StackPanel>
+                <Grid x:Name="HelpTransitionText" Width="150" Height="50" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" VerticalAlignment="Bottom">
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFB2A4FF" Offset="0"/>
+                            <GradientStop Color="#FFDDD6F9"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <TextBlock Text="Help" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Grid.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Grid.RenderTransform>
+                </Grid>
+            </hc:SimplePanel>
+        </hc:RelativePanel>
+        <!--#endregion-->
     </Grid>
 </Window>
