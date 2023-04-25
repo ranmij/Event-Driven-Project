@@ -1,4 +1,7 @@
-﻿Imports HandyControl.Controls
+﻿' This is for me
+
+Option Strict On
+Imports HandyControl.Controls
 
 Public Class SignUpForm
 

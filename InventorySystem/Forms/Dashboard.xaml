@@ -55,7 +55,7 @@
                         <hc:FlexPanel VerticalAlignment="Center"
                                     Width="80" JustifyContent="SpaceBetween">
                             <hc:RelativePanel VerticalAlignment="Center" Width="24" Height="24">
-                                <Button Name="AvatarButton" Padding="0" Background="Transparent" Style="{x:Null}" BorderBrush="Transparent" BorderThickness="0">
+                                <Button Name="AvatarButton" Padding="0" Background="Transparent" Style="{StaticResource CustomButtonStyle}" BorderBrush="Transparent" BorderThickness="0">
                                     <hc:Gravatar Padding="0" BorderThickness="0" Width="24" Height="24" hc:BorderElement.CornerRadius="100"
                              VerticalAlignment="Center">
                                         <Image Source="/Resources/ic_user.png" Height="12" Width="12"
@@ -237,7 +237,7 @@
                 <!--#endregion-->
             </hc:SimplePanel>
             <!--#region SALES PANEL-->
-            <Grid Name="SalesPanel" Grid.Column="1" Visibility="Collapsed" Panel.ZIndex="5">
+            <Grid Name="SalesPanel" Grid.Column="1" Visibility="Visible" Panel.ZIndex="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -340,7 +340,7 @@
             </Grid>
             <!--#endregion-->
             <!--#region STOCKS PANEL-->
-            <Grid Name="StocksPanel" Grid.Column="1" Visibility="Visible">
+            <Grid Name="StocksPanel" Grid.Column="1" Visibility="Collapsed">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -448,7 +448,7 @@
                     </Grid>
                     <Grid Name="PosProductPanel" Width="auto" HorizontalAlignment="Stretch" Background="LightSlateGray" DockPanel.Dock="Right">
                         <hc:ScrollViewer  Margin="4" hc:BorderThickness="1" hc:BorderBrush="gray">
-                            <WrapPanel Orientation="Horizontal" Name="PosProductContainer" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <WrapPanel Orientation="Horizontal" Name="PosProductContainer" HorizontalAlignment="Center" VerticalAlignment="Top">
                                 
                             </WrapPanel>
                         </hc:ScrollViewer>

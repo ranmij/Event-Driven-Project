@@ -16,5 +16,5 @@ D:\SCHOOL FILES\InventorySystem\InventorySystem\Application.xaml
 2051325095420
 Dialogs\AuthErrorDialog.xaml;Dialogs\LoadingDialog.xaml;Dialogs\ProductCard.xaml;Dialogs\ProductDialog.xaml;Dialogs\ProfileDialog.xaml;Dialogs\SettingsDialog.xaml;Forms\Dashboard.xaml;Forms\LoginForm.xaml;Forms\SignUpForm.xaml;Forms\SplashScreen.xaml;
 
-True
+False
 

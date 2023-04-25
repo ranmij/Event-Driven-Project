@@ -1,4 +1,6 @@
-﻿Imports System.Windows.Automation.Peers
+﻿' This is for me
+
+Imports System.Windows.Automation.Peers
 Imports System.Windows.Automation.Provider
 Imports InventorySystem.InventorySystem.DataSets.ProductsDataSet
 Imports InventorySystem.InventorySystem.DataSets.ProductsDataSetTableAdapters
@@ -29,8 +31,8 @@ Public Class ProductDialog
         Me.DataContext = _productData
 
         ' Fix the width and height of the Dialog
-        Me.Width = parent.Width - 100
-        Me.Height = parent.Height - 100
+        Me.Width = parent.MinWidth - 100
+        Me.Height = parent.MinHeight - 100
     End Sub
 
     Private Sub ClickEvents(sender As Object, e As RoutedEventArgs) Handles SaveButton.Click, DeleteButton.Click
@@ -53,7 +55,7 @@ Public Class ProductDialog
                 If _productAdapter.DeleteQueryProduct(.PRODUCT_ID) <> 0 Then
                     HandyControl.Controls.MessageBox.Info("Product has been deleted successfully.", "Delete Success")
                     _productAdapter.FillByProducts(_productTable)
-                    _DATA_GRID.ItemsSource = Nothing                        ' rE
+                    _DATA_GRID.ItemsSource = Nothing                        ' Refresh the data in the stocks datagrid view
                     _DATA_GRID.ItemsSource = _productTable
                     ' Invoke the close after deleting
                     Dim peer As ButtonAutomationPeer = TryCast(UIElementAutomationPeer.CreatePeerForElement(Closebtn), ButtonAutomationPeer)

@@ -1,9 +1,11 @@
-﻿Imports HandyControl.Controls
+﻿' This is for me
+
+Imports HandyControl.Controls
 Imports System.Windows.Threading
 
 Public Class ProfileDialog
-    Private _parent As Window
-    Public Sub New(ByRef parent As Window, profile_name As String, profile_picture As String)
+    Private _parent As Dashboard
+    Public Sub New(parent As Dashboard, profile_name As String, profile_picture As String)
         InitializeComponent()
         Dim contextData As New UserData With {
             .USER_NAME = profile_name,

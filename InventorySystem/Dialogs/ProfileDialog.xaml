@@ -7,11 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800"
              xmlns:hc="https://handyorg.github.io/handycontrol"
-             Background="#FFF">
-    <hc:RelativePanel Name="RelativePanel">
+             Background="Transparent">
+    <hc:RelativePanel Name="RelativePanel" Background="#fff" >
+        
         <DockPanel Width="{Binding ElementName=RelativePanel, Path=ActualWidth}"
                    Height="{Binding ElementName=RelativePanel, Path=ActualHeight}">
-            <StackPanel Background="#0CAFFF" Height="150" DockPanel.Dock="Top"/>
+            <StackPanel Background="#0CAFFF" Height="150" DockPanel.Dock="Top">
+                <Button Name="CloseButton" Height="24" Width="24" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Command="hc:ControlCommands.Close" Margin="8"  Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            </StackPanel>
             <StackPanel  DockPanel.Dock="Bottom"/>
         </DockPanel>
         <Grid Width="{Binding ElementName=RelativePanel, Path=ActualWidth}"

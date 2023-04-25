@@ -1,7 +1,7 @@
-﻿Imports System.Text.RegularExpressions
+﻿' This is for me
+Option Strict On
+Imports System.Text.RegularExpressions
 Imports HandyControl.Controls
-Imports Independentsoft.Office.Spreadsheet.Revisions
-Imports InventorySystem.InventorySystem.DataSets
 Imports InventorySystem.InventorySystem.DataSets.ProductsDataSet
 Imports InventorySystem.InventorySystem.DataSets.ProductsDataSetTableAdapters
 Imports InventorySystem.InventorySystem.DataSets.UserDataSetTableAdapters
@@ -49,7 +49,7 @@ Module Utils
     ' Check if the username is valid
     Public Function IsValidUserName(username As String) As Object()
         Dim tableAdapter As New usersTableAdapter
-        Dim isNotExisting As Boolean = tableAdapter.ScalarQueryDuplicateUsername(username) = 0
+        Dim isNotExisting As Boolean = CBool(tableAdapter.ScalarQueryDuplicateUsername(username) = 0)
         Dim isValid As Boolean = Not Regex.IsMatch(username, "[^a-zA-Z0-9_]+")
         If isNotExisting Then
             If isValid Then
@@ -76,11 +76,13 @@ Module Utils
     Public Function IsNotEmpty(controls As Object()) As Boolean
         For Each control In controls
             If TryCast(control, PasswordBox) Is Nothing Then
-                If String.IsNullOrEmpty(control.Text) OrElse String.IsNullOrWhiteSpace(control.Text) Then
+                Dim controlB As TextBox = TryCast(control, TextBox)
+                If String.IsNullOrEmpty(controlB.Text) OrElse String.IsNullOrWhiteSpace(controlB.Text) Then
                     Return False
                 End If
             Else
-                If String.IsNullOrEmpty(control.Password) OrElse String.IsNullOrWhiteSpace(control.Password) Then
+                Dim controlB As PasswordBox = TryCast(control, PasswordBox)
+                If String.IsNullOrEmpty(controlB.Password) OrElse String.IsNullOrWhiteSpace(controlB.Password) Then
                     Return False
                 End If
             End If
@@ -109,7 +111,7 @@ Module Utils
             With productsDataTable.Item(i)
                 Dim imagePath As String = .image_path
                 Dim cardTitle As String = .product_name
-                Dim cardPrice As String = .unit_price
+                Dim cardPrice As String = CStr(.unit_price)
                 parentNode.Children.Add(New ProductCard(imagePath, cardTitle, cardPrice))
             End With
         Next

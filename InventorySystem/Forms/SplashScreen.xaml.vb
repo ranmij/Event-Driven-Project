@@ -1,4 +1,6 @@
-﻿Imports System.Net
+﻿' This is for me
+
+Option Strict On
 Imports System.Windows.Threading
 Public Class SplashScreen
 
@@ -7,13 +9,11 @@ Public Class SplashScreen
     Public Sub New()
         InitializeComponent()
         AddHandler timerDispatcher.Tick, AddressOf MySplashHandler                      ' Add a tick handler if the timer reaches the tick
-        timerDispatcher.Interval = New TimeSpan(0, 0, 4.5)                              ' In this case the tick is triggered at 4.5 seconds
+        timerDispatcher.Interval = New TimeSpan(0, 0, 4)                                ' In this case the tick is triggered at 4.5 seconds
         timerDispatcher.Start()                                                         ' Start the timer
-        'My.Settings.UserID = NO_USER
-        'My.Settings.Save()
     End Sub
 
-    Private Sub MySplashHandler()
+    Private Sub MySplashHandler(sender As Object, e As EventArgs)
         timerDispatcher.Stop()                                                          ' If the timer has ticked then let's stop
         ' Has the user already logged in?
         If My.Settings.UserID <> NO_USER Then

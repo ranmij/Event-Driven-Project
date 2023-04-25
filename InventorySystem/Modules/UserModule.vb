@@ -1,5 +1,6 @@
-﻿Option Strict On
-Imports System.Net
+﻿' This is for me
+
+Option Strict On
 Imports System.Net.Http
 Imports BCrypt.Net.BCrypt
 Imports InventorySystem.InventorySystem.DataSets.UserDataSet

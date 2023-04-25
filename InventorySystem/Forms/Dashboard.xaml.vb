@@ -1,4 +1,6 @@
-﻿Imports System.Data
+﻿' This is for me
+
+Imports System.Data
 Imports System.Windows.Controls.Primitives
 Imports HandyControl.Controls
 Imports InventorySystem.InventorySystem.DataSets.ProductsDataSet
@@ -12,19 +14,19 @@ Public Class Dashboard
 
     Private Sub Dashboard_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
         salesAdapter.FillBySales(salesTable)
-        stocksAdapter.FillByProducts(stocksTable)
-        StocksDataGridView.ItemsSource = stocksTable                     ' Fill the stocks datagrid view with products
         SalesDataGridView.ItemsSource = salesTable                       ' Fill the sales datagrid view with orders
-        FillProducts(PosProductContainer)                                ' Fill the products datagrid view
+    End Sub
 
+    Private Sub ProductHandler(parent As WrapPanel)
         ' Add a click handler for every product
-        For i = 0 To PosProductContainer.Children.Count - 1
-            PosProductContainer.Children.Item(i).AddHandler(ButtonBase.ClickEvent, New RoutedEventHandler(AddressOf AddRow))
+        For i = 0 To parent.Children.Count - 1
+            parent.Children.Item(i).AddHandler(ButtonBase.ClickEvent, New RoutedEventHandler(AddressOf AddRow))
         Next
     End Sub
 
     ' Triggered when we click the product cards
     Private Sub AddRow(sender As Object, e As EventArgs)
+        Debug.WriteLine("FUCKKKKKKKK?")
         Dim parent As Object = TryCast(sender, UserControl)
         PosDataGridView.Items.Add(New ProductDetails With {.PRODUCT_NAME = TryCast(parent.FindName("ProductName"), TextBlock).Text, .PRODUCT_PRICE = TryCast(parent.FindName("ProductPrice"), TextBlock).Text})
         PriceTotal.Text = Math.Round(Double.Parse(PriceTotal.Text) + Double.Parse(TryCast(parent.FindName("ProductPrice"), TextBlock).Text), 2)
@@ -45,10 +47,13 @@ Public Class Dashboard
             SalesPanel.Visibility = Visibility.Visible
         ElseIf sender.Equals(StocksButton) Then
             StocksPanel.Visibility = Visibility.Visible
+            stocksAdapter.FillByProducts(stocksTable)
+            StocksDataGridView.ItemsSource = stocksTable                     ' Fill the stocks datagrid view with products
         ElseIf sender.Equals(POSButton) Then
             POSPanel.Visibility = Visibility.Visible
             PosProductContainer.Children.Clear()
             FillProducts(PosProductContainer)                       ' Refresh the products list because the user might have changed the list from other panel
+            ProductHandler(PosProductContainer)
         End If
     End Sub
 
@@ -112,6 +117,6 @@ Public Class Dashboard
     End Sub
 
     Private Sub ProfileButton(sender As Object, e As EventArgs) Handles AvatarButton.Click
-        Dialog.Show(New ProfileDialog(Me, ))
+        Dialog.Show(New ProfileDialog(Me, "John Doe", "/Resources/intel.jpg"))
     End Sub
 End Class

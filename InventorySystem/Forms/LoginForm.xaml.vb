@@ -1,4 +1,6 @@
-﻿Imports System.Windows.Threading
+﻿' This is for me
+
+Imports System.Windows.Threading
 Imports HandyControl.Controls                               ' This is only use for the Dialog class
 
 Public Class LoginForm

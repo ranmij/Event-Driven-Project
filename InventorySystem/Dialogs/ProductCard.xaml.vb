@@ -1,4 +1,6 @@
-﻿Public Class ProductCard
+﻿' This is for me
+Option Strict On
+Public Class ProductCard
     Public Sub New(imagePath As String, cardTitle As String, cardDesc As String)
         InitializeComponent()
         Dim propertyObject As New PropertyContainer With {

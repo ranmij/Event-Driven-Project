@@ -1,4 +1,6 @@
-﻿
+﻿' This is for me
+
+Option Strict On
 Imports System.Windows.Automation.Peers
 Imports System.Windows.Automation.Provider
 Imports System.Windows.Threading
@@ -14,7 +16,7 @@ Public Class LoadingDialog
 
     End Sub
 
-    Private Sub MySplashHandler()
+    Private Sub MySplashHandler(sender As Object, e As EventArgs)
         timerDispatcher.Stop()                                                              ' If the dispatcher has triggered the tick we stop it
         ' We use this to close the dialog, idk how to use it so I look for a workaround to close it.
 

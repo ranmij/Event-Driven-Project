@@ -16,7 +16,7 @@
             </hc:Col>
             <hc:Col Span="12">
                 <hc:SimplePanel>
-                    <Button Name="Closebtn" Width="22" Height="22" Command="hc:ControlCommands.Close" Style="{StaticResource ButtonIcon}" Foreground="{DynamicResource PrimaryBrush}" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0"/>
+                    <Button Name="Closebtn" Height="24" Width="24" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Command="hc:ControlCommands.Close" Margin="8"  Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
                     <StackPanel Margin="15 60">
                         <DockPanel>
                             <TextBlock Text="Code: " FontSize="20" Padding="0 0 8 0" Width="80"/>

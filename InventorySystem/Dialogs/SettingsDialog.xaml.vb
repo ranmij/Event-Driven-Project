@@ -1,4 +1,6 @@
-﻿Public Class SettingsDialog
+﻿' This is for me
+
+Public Class SettingsDialog
     Public Sub New(parentControl As Window)
         InitializeComponent()
         IsEnableFirebase.IsChecked = My.Settings.firebaseEnable
