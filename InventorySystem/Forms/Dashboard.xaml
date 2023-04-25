@@ -456,6 +456,261 @@
                 </DockPanel>
             </Grid>
             <!--#endregion-->
+
+            <Grid Name="HelpPanel" Grid.Column="1" Visibility="Collapsed">
+                <!--<Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>-->
+                <Border Padding="10" Margin="20" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}">
+                    <hc:ScrollViewer CanMouseWheel="True" VerticalScrollBarVisibility="Auto">
+                        <WrapPanel Name="HelpContainer">
+                            <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                    <hc:Col Span="12" Height="150">
+                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
+                                                    Background="#32CD32">
+                                            <TextBlock Text="Annual Sales"
+                                               FontSize="25"
+                                               Padding="20 20 0 0"
+                                               Foreground="#FFF"/>
+                                            <TextBlock Text="$2000"
+                                               FontSize="20"
+                                               Padding="20 5 0 10"
+                                               Foreground="#FFF"/>
+                                        </StackPanel>
+                                    </hc:Col>
+                                    <hc:Col Span="12" Height="150" Name="RightHelpCol">
+                                        <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
+                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
+                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
+                                        </TextBlock>
+                                    </hc:Col>
+                                </hc:Row>
+                            </StackPanel>
+                            <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                    <hc:Col Span="12" Height="150">
+                                        <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
+                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
+                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
+                                        </TextBlock>
+                                    </hc:Col>
+                                    <hc:Col Span="12" Height="150">
+                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
+                                                    Background="#32CD32">
+                                            <TextBlock Text="Annual Sales"
+                                               FontSize="25"
+                                               Padding="20 20 0 0"
+                                               Foreground="#FFF"/>
+                                            <TextBlock Text="$2000"
+                                               FontSize="20"
+                                               Padding="20 5 0 10"
+                                               Foreground="#FFF"/>
+                                        </StackPanel>
+                                    </hc:Col>
+                                    
+                                </hc:Row>
+                            </StackPanel>
+                            <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                    <hc:Col Span="12" Height="150">
+                                        <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
+                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
+                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
+                                        </TextBlock>
+                                    </hc:Col>
+                                    <hc:Col Span="12" Height="150">
+                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
+                                                    Background="#32CD32">
+                                            <TextBlock Text="Annual Sales"
+                                               FontSize="25"
+                                               Padding="20 20 0 0"
+                                               Foreground="#FFF"/>
+                                            <TextBlock Text="$2000"
+                                               FontSize="20"
+                                               Padding="20 5 0 10"
+                                               Foreground="#FFF"/>
+                                        </StackPanel>
+                                    </hc:Col>
+
+                                </hc:Row>
+                            </StackPanel>
+                            <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                    <hc:Col Span="12" Height="150">
+                                        <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
+                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
+                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
+                                        </TextBlock>
+                                    </hc:Col>
+                                    <hc:Col Span="12" Height="150">
+                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
+                                                    Background="#32CD32">
+                                            <TextBlock Text="Annual Sales"
+                                               FontSize="25"
+                                               Padding="20 20 0 0"
+                                               Foreground="#FFF"/>
+                                            <TextBlock Text="$2000"
+                                               FontSize="20"
+                                               Padding="20 5 0 10"
+                                               Foreground="#FFF"/>
+                                        </StackPanel>
+                                    </hc:Col>
+
+                                </hc:Row>
+                            </StackPanel>
+                            <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                    <hc:Col Span="12" Height="150">
+                                        <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
+                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
+                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
+                                        </TextBlock>
+                                    </hc:Col>
+                                    <hc:Col Span="12" Height="150">
+                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
+                                                    Background="#32CD32">
+                                            <TextBlock Text="Annual Sales"
+                                               FontSize="25"
+                                               Padding="20 20 0 0"
+                                               Foreground="#FFF"/>
+                                            <TextBlock Text="$2000"
+                                               FontSize="20"
+                                               Padding="20 5 0 10"
+                                               Foreground="#FFF"/>
+                                        </StackPanel>
+                                    </hc:Col>
+
+                                </hc:Row>
+                            </StackPanel>
+                            <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                    <hc:Col Span="12" Height="150">
+                                        <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
+                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
+                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
+                                        </TextBlock>
+                                    </hc:Col>
+                                    <hc:Col Span="12" Height="150">
+                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
+                                                    Background="#32CD32">
+                                            <TextBlock Text="Annual Sales"
+                                               FontSize="25"
+                                               Padding="20 20 0 0"
+                                               Foreground="#FFF"/>
+                                            <TextBlock Text="$2000"
+                                               FontSize="20"
+                                               Padding="20 5 0 10"
+                                               Foreground="#FFF"/>
+                                        </StackPanel>
+                                    </hc:Col>
+
+                                </hc:Row>
+                            </StackPanel>
+                            <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                    <hc:Col Span="12" Height="150">
+                                        <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
+                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
+                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
+                                        </TextBlock>
+                                    </hc:Col>
+                                    <hc:Col Span="12" Height="150">
+                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
+                                                    Background="#32CD32">
+                                            <TextBlock Text="Annual Sales"
+                                               FontSize="25"
+                                               Padding="20 20 0 0"
+                                               Foreground="#FFF"/>
+                                            <TextBlock Text="$2000"
+                                               FontSize="20"
+                                               Padding="20 5 0 10"
+                                               Foreground="#FFF"/>
+                                        </StackPanel>
+                                    </hc:Col>
+
+                                </hc:Row>
+                            </StackPanel>
+                            <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                    <hc:Col Span="12" Height="150">
+                                        <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
+                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
+                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
+                                        </TextBlock>
+                                    </hc:Col>
+                                    <hc:Col Span="12" Height="150">
+                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
+                                                    Background="#32CD32">
+                                            <TextBlock Text="Annual Sales"
+                                               FontSize="25"
+                                               Padding="20 20 0 0"
+                                               Foreground="#FFF"/>
+                                            <TextBlock Text="$2000"
+                                               FontSize="20"
+                                               Padding="20 5 0 10"
+                                               Foreground="#FFF"/>
+                                        </StackPanel>
+                                    </hc:Col>
+
+                                </hc:Row>
+                            </StackPanel>
+                            <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
+                                    <hc:Col Span="12" Height="150">
+                                        <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
+                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
+                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
+                                        </TextBlock>
+                                    </hc:Col>
+                                    <hc:Col Span="12" Height="150">
+                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
+                                                    Background="#32CD32">
+                                            <TextBlock Text="Annual Sales"
+                                               FontSize="25"
+                                               Padding="20 20 0 0"
+                                               Foreground="#FFF"/>
+                                            <TextBlock Text="$2000"
+                                               FontSize="20"
+                                               Padding="20 5 0 10"
+                                               Foreground="#FFF"/>
+                                        </StackPanel>
+                                    </hc:Col>
+
+                                </hc:Row>
+                            </StackPanel>
+                        </WrapPanel>
+                    </hc:ScrollViewer>
+                </Border>
+            </Grid>
         </Grid>
         <!--#region  RELATIVE PANEL-->
         <hc:RelativePanel Name="RelativePanel"  Grid.Row="1">

@@ -26,14 +26,13 @@ Public Class Dashboard
 
     ' Triggered when we click the product cards
     Private Sub AddRow(sender As Object, e As EventArgs)
-        Debug.WriteLine("FUCKKKKKKKK?")
         Dim parent As Object = TryCast(sender, UserControl)
         PosDataGridView.Items.Add(New ProductDetails With {.PRODUCT_NAME = TryCast(parent.FindName("ProductName"), TextBlock).Text, .PRODUCT_PRICE = TryCast(parent.FindName("ProductPrice"), TextBlock).Text})
         PriceTotal.Text = Math.Round(Double.Parse(PriceTotal.Text) + Double.Parse(TryCast(parent.FindName("ProductPrice"), TextBlock).Text), 2)
     End Sub
 
     Private Sub ChangePanelEvents(sender As Object, e As EventArgs) Handles SalesButton.Click, StocksButton.Click,
-            POSButton.Click, InvoicesButton.Click
+            POSButton.Click, InvoicesButton.Click, HelpButton.Click
         Dim panels() As Grid = {SalesPanel, StocksPanel, POSPanel}
         ' Hide all the panels before setting the visibility of the requested panel
         For Each panel As Grid In panels
@@ -54,6 +53,8 @@ Public Class Dashboard
             PosProductContainer.Children.Clear()
             FillProducts(PosProductContainer)                       ' Refresh the products list because the user might have changed the list from other panel
             ProductHandler(PosProductContainer)
+        ElseIf sender.Equals(HelpButton) Then
+            HelpPanel.Visibility = Visibility.Visible
         End If
     End Sub
 
