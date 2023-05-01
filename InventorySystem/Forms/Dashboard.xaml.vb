@@ -1,21 +1,27 @@
 ﻿' This is for me
 
 Imports System.Data
+Imports System.Net.NetworkInformation
 Imports System.Windows.Controls.Primitives
 Imports HandyControl.Controls
 Imports InventorySystem.InventorySystem.DataSets.ProductsDataSet
 Imports InventorySystem.InventorySystem.DataSets.ProductsDataSetTableAdapters
 
 Public Class Dashboard
-    Private salesTable As New salesDataTable
-    Private salesAdapter As New salesTableAdapter
-    Private stocksTable As New productDataTable
-    Private stocksAdapter As New productTableAdapter
+    Private ReadOnly salesTable As New salesDataTable
+    Private ReadOnly salesAdapter As New salesTableAdapter
+    Private ReadOnly stocksTable As New productDataTable
+    Private ReadOnly stocksAdapter As New productTableAdapter
+    Private ReadOnly orderDataTable As New ordersDataTable
+    Private ReadOnly orderTableAdapter As New ordersTableAdapter
 
     Private Sub Dashboard_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
-        salesAdapter.FillBySales(salesTable)
-        SalesDataGridView.ItemsSource = salesTable                       ' Fill the sales datagrid view with orders
+        WeeklySalesLabel.Text = "₱ " & orderTableAdapter.ScalarQueryWeeklySales().ToString
+        MonthlySalesLabel.Text = "₱ " & orderTableAdapter.ScalarQueryMonthlySales().ToString
+        YearlySalesLabel.Text = "₱ " & orderTableAdapter.ScalarQueryYearlySales().ToString
+        FormTitle.Text = "Dashboard"
     End Sub
+
 
     Private Sub ProductHandler(parent As WrapPanel)
         ' Add a click handler for every product
@@ -31,9 +37,9 @@ Public Class Dashboard
         PriceTotal.Text = Math.Round(Double.Parse(PriceTotal.Text) + Double.Parse(TryCast(parent.FindName("ProductPrice"), TextBlock).Text), 2)
     End Sub
 
-    Private Sub ChangePanelEvents(sender As Object, e As EventArgs) Handles SalesButton.Click, StocksButton.Click,
-            POSButton.Click, InvoicesButton.Click, HelpButton.Click
-        Dim panels() As Grid = {SalesPanel, StocksPanel, POSPanel}
+    Private Async Sub ChangePanelEvents(sender As Object, e As EventArgs) Handles SalesButton.Click, StocksButton.Click,
+            POSButton.Click, DashboardButton.Click, HelpButton.Click
+        Dim panels() As Grid = {SalesPanel, StocksPanel, POSPanel, HelpPanel, DashboardPanel}
         ' Hide all the panels before setting the visibility of the requested panel
         For Each panel As Grid In panels
             If panel.IsVisible Then
@@ -42,19 +48,37 @@ Public Class Dashboard
         Next
 
         ' Determine which button triggered the click event so we can identify which panel should we open
-        If sender.Equals(SalesButton) Then
+        If sender.Equals(DashboardButton) Then
+            DashboardPanel.Visibility = Visibility.Visible
+            WeeklySalesLabel.Text = "₱ " & orderTableAdapter.ScalarQueryWeeklySales().ToString
+            MonthlySalesLabel.Text = "₱ " & orderTableAdapter.ScalarQueryMonthlySales().ToString
+            YearlySalesLabel.Text = "₱ " & orderTableAdapter.ScalarQueryYearlySales().ToString
+            FormTitle.Text = "Dashboard"
+        ElseIf sender.Equals(SalesButton) Then
             SalesPanel.Visibility = Visibility.Visible
+            SalesDataGridView.ItemsSource = orderTableAdapter.GetDataByOrders()
+            FormTitle.Text = "Sales".ToUpper
         ElseIf sender.Equals(StocksButton) Then
             StocksPanel.Visibility = Visibility.Visible
             stocksAdapter.FillByProducts(stocksTable)
-            StocksDataGridView.ItemsSource = stocksTable                     ' Fill the stocks datagrid view with products
+            StocksDataGridView.ItemsSource = stocksTable                                            ' Fill the stocks datagrid view with products
+            FormTitle.Text = "Stocks".ToUpper
         ElseIf sender.Equals(POSButton) Then
             POSPanel.Visibility = Visibility.Visible
             PosProductContainer.Children.Clear()
-            FillProducts(PosProductContainer)                       ' Refresh the products list because the user might have changed the list from other panel
-            ProductHandler(PosProductContainer)
+            ' Is firebase enabled?
+            If My.Settings.firebaseEnable AndAlso NetworkInterface.GetIsNetworkAvailable() Then
+                If Not isExecuting Then
+                    Await FirebaseFillProducts(PosProductContainer)                                 ' Refresh the products list from real time database
+                End If
+            Else
+                FillProducts(PosProductContainer)                                                   ' Refresh the products list from local database
+            End If
+            ProductHandler(PosProductContainer)                                                     ' To add click handler for every card.
+            FormTitle.Text = "POS"
         ElseIf sender.Equals(HelpButton) Then
             HelpPanel.Visibility = Visibility.Visible
+            FormTitle.Text = "Help".ToUpper
         End If
     End Sub
 
@@ -94,10 +118,8 @@ Public Class Dashboard
 
     Private Sub SalesDataGridView_AutoGeneratingColumn(sender As Object, e As DataGridAutoGeneratingColumnEventArgs) Handles SalesDataGridView.AutoGeneratingColumn, StocksDataGridView.AutoGeneratingColumn
         ' Check if which header should we hide
-        If e.Column.Header.ToString() = "id" OrElse e.Column.Header.ToString() = "order_id" OrElse e.Column.Header.ToString() = "unit_id" _
-                        OrElse e.Column.Header.ToString() = "image_path" OrElse e.Column.Header.ToString() = "category_id" OrElse e.Column.Header.ToString() = "discount_percent" _
-                        OrElse e.Column.Header.ToString() = "product_code" OrElse e.Column.Header.ToString() = "product_name" OrElse e.Column.Header.ToString() = "unit_in_stock" _
-                        OrElse e.Column.Header.ToString() = "unit_price" Then
+        Dim columnsToHide() As String = {"id", "order_id", "order_date", "payment_id", "ship_date", "user_id", "total_price", "item_count", "product_id", "unit_id", "image_path", "category_id", "discount_percent", "product_code", "category_id", "unit_in_stock", "unit_price"}
+        If columnsToHide.Contains(e.Column.Header.ToString()) Then
             e.Column.Visibility = Visibility.Collapsed
         End If
     End Sub
@@ -118,6 +140,27 @@ Public Class Dashboard
     End Sub
 
     Private Sub ProfileButton(sender As Object, e As EventArgs) Handles AvatarButton.Click
+        ' TODO Change this to actual data
         Dialog.Show(New ProfileDialog(Me, "John Doe", "/Resources/intel.jpg"))
+    End Sub
+
+    Private Sub StocksAddButton_Click(sender As Object, e As RoutedEventArgs) Handles StocksAddButton.Click
+        Dialog.Show(New NewProductDialog(Me))
+        'Dim productData As New FireBaseProductProp With {
+        '    .product_code = "1111",
+        '    .image_path = "/Resources/intel.jpg",
+        '    .product_name = "Intel Core i9-13900K",
+        '    .unit_in_stock = 30,
+        '    .unit_price = 321300
+        '}
+        'If My.Settings.firebaseEnable AndAlso NetworkInterface.GetIsNetworkAvailable() Then
+        '    If Await FirebaseAddProductAsync(productData) Then
+        '        HandyControl.Controls.MessageBox.Info("Product added successfully.")
+        '    Else
+        '        Dialog.Show(New ErrorDialog("Unable to add product please try again."))
+        '    End If
+        'Else
+
+        'End If
     End Sub
 End Class

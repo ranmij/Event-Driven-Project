@@ -10,9 +10,9 @@
   <ItemGroup>
     <None Remove="Forms\spashscreen.png" />
     <None Remove="Resources\bg_login.png" />
-    <None Remove="Resources\ic_chat.png" />
     <None Remove="Resources\ic_close.png" />
     <None Remove="Resources\ic_closedark.png" />
+    <None Remove="Resources\ic_dashboard.png" />
     <None Remove="Resources\ic_help.png" />
     <None Remove="Resources\ic_icon.ico" />
     <None Remove="Resources\ic_icon.png" />
@@ -39,10 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\ic_chat.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Colors.xaml" />
     <Resource Include="ImageResources.xaml" />
   </ItemGroup>
@@ -61,7 +57,7 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
-    <PackageReference Include="FireSharp" Version="2.0.4" />
+    <PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
     <PackageReference Include="HandyControls" Version="3.4.5" />
     <PackageReference Include="Independentsoft.Office.Spreadsheet" Version="2.0.720" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
@@ -71,6 +67,7 @@
     <Resource Include="Resources\bg_login.png" />
     <Resource Include="Resources\bg_splash.png" />
     <Resource Include="Resources\ic_closedark.png" />
+    <Resource Include="Resources\ic_dashboard.png" />
     <Resource Include="Resources\ic_help.png" />
     <Resource Include="Resources\ic_icon.ico" />
     <Resource Include="Resources\ic_close.png" />

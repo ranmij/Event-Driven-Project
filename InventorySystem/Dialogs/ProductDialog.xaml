@@ -11,7 +11,8 @@
         <hc:Row Height="{Binding ElementName=Container, Path=ActualHeight}">
             <hc:Col Span="12" Height="{Binding ElementName=Container, Path=ActualHeight}">
                 <hc:SimplePanel>
-                    <Image Name="ProductImage" Margin="0 60 0 0" Height="200" Width="200" Source="{Binding PRODUCT_IMAGE}" HorizontalAlignment="Center" VerticalAlignment="top"/>
+                    <Border BorderThickness="0 0 1 0" BorderBrush="#000"></Border>
+                    <Image Name="ProductImage" Margin="0 60 0 0" Height="200" Width="200" Source="{Binding PRODUCT_IMAGE}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                 </hc:SimplePanel>
             </hc:Col>
             <hc:Col Span="12">
@@ -19,19 +20,19 @@
                     <Button Name="Closebtn" Height="24" Width="24" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Command="hc:ControlCommands.Close" Margin="8"  Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
                     <StackPanel Margin="15 60">
                         <DockPanel>
-                            <TextBlock Text="Code: " FontSize="20" Padding="0 0 8 0" Width="80"/>
+                            <TextBlock Text="Code: " FontSize="18" Padding="0 0 8 0" Width="70"/>
                             <TextBox Name="CodeTextBox" Text="{Binding PRODUCT_CODE}" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
                         </DockPanel>
                         <DockPanel Margin="0 15 0 0">
-                            <TextBlock Text="Name: " FontSize="20" Padding="0 0 8 0" Width="80"/>
+                            <TextBlock Text="Name: " FontSize="18" Padding="0 0 8 0" Width="70"/>
                             <TextBox Name="NameTextBox" Text="{Binding PRODUCT_NAME}" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
                         </DockPanel>
                         <DockPanel Margin="0 15 0 0">
-                            <TextBlock Text="Price: " FontSize="20" Padding="0 0 8 0" Width="80"/>
+                            <TextBlock Text="Price: " FontSize="18" Padding="0 0 8 0" Width="70"/>
                             <TextBox Name="PriceTextBox" Text="{Binding PRODUCT_PRICE}" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
                         </DockPanel>
                         <DockPanel Margin="0 15 0 0">
-                            <TextBlock Text="Stocks: " FontSize="20" Padding="0 0 8 0" Width="80"/>
+                            <TextBlock Text="Stocks: " FontSize="18" Padding="0 0 8 0" Width="70"/>
                             <TextBox Name="StocksTextBox" Text="{Binding PRODUCT_STOCKS}" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
                         </DockPanel>
                     </StackPanel>
@@ -39,7 +40,7 @@
                           Margin="0 0 0 5" VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
                         <hc:FlexPanel JustifyContent="FlexEnd">
                             <Button Name="DeleteButton" Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="Delete" hc:IconElement.Geometry="{StaticResource ic_delete}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="100" Padding="0" BorderThickness="0" Background="#E3242B"/>
-                            <Button Name="SaveButton" Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_save}" hc:IconElement.Geometry="{StaticResource ic_save}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="100" Padding="0" BorderThickness="0" Background="#32CD32"/>
+                            <Button Name="SaveButton" Margin="0 0 15 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_save}" hc:IconElement.Geometry="{StaticResource ic_save}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="100" Padding="0" BorderThickness="0" Background="#32CD32"/>
                         </hc:FlexPanel>
                     </Grid>
                 </hc:SimplePanel>

@@ -1,5 +1,6 @@
 ﻿' This is for me
 Option Strict On
+Imports System.IO
 Imports System.Text.RegularExpressions
 Imports HandyControl.Controls
 Imports InventorySystem.InventorySystem.DataSets.ProductsDataSet
@@ -35,6 +36,10 @@ Module Utils
     Public Class UserData
         Public Property USER_PROFILE As String
         Public Property USER_NAME As String
+    End Class
+
+    Public Class ErrorMessage
+        Public Property ERROR_MESSAGE As String
     End Class
 
 
@@ -116,4 +121,24 @@ Module Utils
             End With
         Next
     End Sub
+
+    Public Function SaveImage(filePath As String) As String
+        ' Random name for the file
+        Dim randomFileName As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & "\Profiles\" & Path.GetRandomFileName() & If(filePath.EndsWith(".png"), ".png", ".jpg")
+
+        ' Copies the file to the designated directory
+        If Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & "\Profiles") Then
+            If File.Exists(filePath) AndAlso filePath IsNot Nothing Then
+                File.Copy(filePath, randomFileName)
+                Return randomFileName
+            End If
+        Else
+            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & "\Profiles")
+            If File.Exists(filePath) AndAlso Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & "\Profiles") AndAlso filePath IsNot Nothing Then
+                File.Copy(filePath, randomFileName)
+                Return randomFileName
+            End If
+        End If
+        Return Nothing
+    End Function
 End Module

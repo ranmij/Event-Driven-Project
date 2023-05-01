@@ -18,5 +18,14 @@
     <Setting Name="smsIP" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="firebasePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://cpsais-63c0a-default-rtdb.firebaseio.com/</Value>
+    </Setting>
+    <Setting Name="firebaseSecret" Type="System.String" Scope="User">
+      <Value Profile="(Default)">HVK2eso64AaT70enLNtA5fXoIl2lcZvR5Sx3NtnW</Value>
+    </Setting>
+    <Setting Name="firebaseUsername" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -7,10 +7,16 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Dialogs\AuthErrorDialog.xaml.vb">
+    <Compile Update="Dialogs\AsyncLoading.xaml.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Dialogs\ErrorDialog.xaml.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Dialogs\LoadingDialog.xaml.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Dialogs\NewProductDialog.xaml.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Dialogs\ProductCard.xaml.vb">
@@ -50,10 +56,16 @@
     <Resource Update="Colors.xaml">
       <SubType>Designer</SubType>
     </Resource>
-    <Page Update="Dialogs\AuthErrorDialog.xaml">
+    <Page Update="Dialogs\AsyncLoading.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Dialogs\ErrorDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Dialogs\LoadingDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Dialogs\NewProductDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Dialogs\ProductCard.xaml">

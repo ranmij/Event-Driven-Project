@@ -1,7 +1,9 @@
 ﻿
 FD:\SCHOOL FILES\InventorySystem\InventorySystem\Application.xaml;;
-FD:\SCHOOL FILES\InventorySystem\InventorySystem\Dialogs\AuthErrorDialog.xaml;;
+FD:\SCHOOL FILES\InventorySystem\InventorySystem\Dialogs\AsyncLoading.xaml;;
+FD:\SCHOOL FILES\InventorySystem\InventorySystem\Dialogs\ErrorDialog.xaml;;
 FD:\SCHOOL FILES\InventorySystem\InventorySystem\Dialogs\LoadingDialog.xaml;;
+FD:\SCHOOL FILES\InventorySystem\InventorySystem\Dialogs\NewProductDialog.xaml;;
 FD:\SCHOOL FILES\InventorySystem\InventorySystem\Dialogs\ProductCard.xaml;;
 FD:\SCHOOL FILES\InventorySystem\InventorySystem\Dialogs\ProductDialog.xaml;;
 FD:\SCHOOL FILES\InventorySystem\InventorySystem\Dialogs\ProfileDialog.xaml;;

@@ -23,6 +23,11 @@
     <system:String x:Key="en_errorotp">Incorrect code.</system:String>
     <system:String x:Key="en_back">Back</system:String>
     <system:String x:Key="en_save">Save</system:String>
+    <system:String x:Key="en_nointernet">No internet connection.</system:String>
+    <system:String x:Key="en_firebasekey">FIREBASE KEY</system:String>
+    <system:String x:Key="en_firebasepath">FIREBASE BASE PATH</system:String>
+    <system:String x:Key="en_smsip">IP ADDRESS</system:String>
+    <system:String x:Key="en_firebase">FIREBASE:</system:String>
     <!--#endregion-->
     
     <!--#region ENGLISH DASHBOARD LABELS-->
@@ -35,6 +40,10 @@
     <system:String x:Key="en_close">Close</system:String>
     <system:String x:Key="en_edit">Edit</system:String>
     <system:String x:Key="en_logout">LOG OUT</system:String>
+    <system:String x:Key="en_search">Search Product</system:String>
+    <system:String x:Key="en_annualsales">Annual Sales</system:String>
+    <system:String x:Key="en_monthlysales">Monthly Sales</system:String>
+    <system:String x:Key="en_weeklysales">Weekly Sales</system:String>
     <!--#endregion-->
 
     <!--#region STRING PATHS-->

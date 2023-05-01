@@ -40,7 +40,7 @@
                         <hc:Col Span="3" Height="{Binding Height, ElementName=MiddleCol}"/>
                         <hc:Col Span="18" Height="{Binding Height, ElementName=MiddleCol}">
                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                                <hc:SearchBar Height="24" Width="Auto" hc:InfoElement.Placeholder="Search" Style="{StaticResource SearchBarExtend}"/>
+                                <hc:SearchBar Height="24" Width="Auto" hc:InfoElement.Placeholder="{StaticResource en_search}" Style="{StaticResource SearchBarExtend}"/>
                             </StackPanel>
                         </hc:Col>
                         <hc:Col Span="3" Height="{Binding Height, ElementName=MiddleCol}"/>
@@ -57,7 +57,7 @@
                             <hc:RelativePanel VerticalAlignment="Center" Width="24" Height="24">
                                 <Button Name="AvatarButton" Padding="0" Background="Transparent" Style="{StaticResource CustomButtonStyle}" BorderBrush="Transparent" BorderThickness="0">
                                     <hc:Gravatar Padding="0" BorderThickness="0" Width="24" Height="24" hc:BorderElement.CornerRadius="100"
-                             VerticalAlignment="Center">
+                                        VerticalAlignment="Center">
                                         <Image Source="/Resources/ic_user.png" Height="12" Width="12"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"/>
@@ -66,7 +66,7 @@
                                 <Border Width="8" Height="8" CornerRadius="100" Margin="16 16 0 0" Background="YellowGreen">
                                 </Border>
                             </hc:RelativePanel>
-                            <Button Name="SettingsButton" Height="24" Width="24" HorizontalAlignment="Right" BorderThickness="0" Padding="0">
+                            <Button Name="SettingsButton" Height="24" Width="24" HorizontalAlignment="Right" BorderThickness="0" Padding="0" Style="{StaticResource CustomButtonStyle}">
                                 <Image Source="/Resources/ic_settings.png" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             </Button>
                         </hc:FlexPanel>
@@ -109,6 +109,31 @@
                         BorderThickness="0 0 1 0" BorderBrush="#D3D3D3"/>
                 <StackPanel Name="PanelControls" Orientation="Vertical" Height="200"
                              VerticalAlignment="Top">
+                    <!--#region DashboardButton-->
+                    <Button Template="{DynamicResource CustomTemplateButton}" Name="DashboardButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
+                            BorderThickness="0">
+                        <hc:ImageBlock Name="imageBlock3" Source="/Resources/ic_dashboard.png" Width="32"
+                                       Height="32" RenderTransformOrigin="0.5,0.5">
+                            <hc:ImageBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </hc:ImageBlock.RenderTransform>
+                        </hc:ImageBlock>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.MouseEnter">
+                                <BeginStoryboard Storyboard="{StaticResource RotateImg3}" />
+                                <BeginStoryboard Storyboard="{StaticResource DashboardTransitionPanel}"/>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Button.MouseLeave">
+                                <BeginStoryboard Storyboard="{StaticResource HideDashboardTransitionPanel}"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <!--#endregion-->
                     <!--#region SalesButton-->
                     <Button Template="{DynamicResource CustomTemplateButton}" Name="SalesButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
                             BorderThickness="0">
@@ -184,31 +209,6 @@
                         </Button.Triggers>
                     </Button>
                     <!--#endregion-->
-                    <!--#region MessageButton-->
-                    <Button Template="{DynamicResource CustomTemplateButton}" Name="InvoicesButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
-                            BorderThickness="0">
-                        <hc:ImageBlock Name="imageBlock3" Source="/Resources/ic_chat.png" Width="32"
-                                       Height="32" RenderTransformOrigin="0.5,0.5">
-                            <hc:ImageBlock.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform/>
-                                    <TranslateTransform/>
-                                </TransformGroup>
-                            </hc:ImageBlock.RenderTransform>
-                        </hc:ImageBlock>
-                        <Button.Triggers>
-                            <EventTrigger RoutedEvent="Button.MouseEnter">
-                                <BeginStoryboard Storyboard="{StaticResource RotateImg3}" />
-                                <BeginStoryboard Storyboard="{StaticResource MessageTransitionPanel}"/>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="Button.MouseLeave">
-                                <BeginStoryboard Storyboard="{StaticResource HideMessageTransitionPanel}"/>
-                            </EventTrigger>
-                        </Button.Triggers>
-                    </Button>
-                    <!--#endregion-->
                 </StackPanel>
                 <!--#region HelpButton-->
                 <Button Template="{DynamicResource CustomTemplateButton}" Name="HelpButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
@@ -236,8 +236,111 @@
                 </Button>
                 <!--#endregion-->
             </hc:SimplePanel>
+            
+            <Grid Name="DashboardPanel" Grid.Column="1" Visibility="Visible" Panel.ZIndex="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid x:Name="DashboardTopContainer" Height="150"
+                      Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!--<StackPanel Orientation="Horizontal"
+                                Height="50"
+                                HorizontalAlignment="Stretch"
+                                Grid.Row="0">
+                        <TextBlock Text="{StaticResource en_salesheading}" VerticalAlignment="Center"
+                                   Margin="30 0 0 0"
+                                   FontSize="32"
+                                   FontWeight="ExtraLight"/>
+                    </StackPanel>-->
+                    <hc:Row x:Name="DashboardTopRow" Grid.Row="1" VerticalAlignment="Center">
+                        <hc:Col Span="8" Name="DashboardDailyCol">
+                            <hc:SimplePanel x:Name="DashboardDailyColBox" Grid.Row="0" Grid.Column="0"
+                                                Margin="30 0 30 0"
+                                                Height="105"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Stretch">
+                                <Border x:Name="DashboardBorder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                            />
+                                <StackPanel Orientation="Vertical"
+                                            Background="#0CAFFF">
+                                    <TextBlock Text="{StaticResource en_weeklysales}"
+                                           FontSize="25"
+                                           Padding="20 20 0 0"
+                                           Foreground="#FFF"/>
+                                    <TextBlock x:Name="WeeklySalesLabel" Text="$2000"
+                                           FontSize="20"
+                                           Padding="20 5 0 10"
+                                           Foreground="#FFF"/>
+                                </StackPanel>
+                            </hc:SimplePanel>
+                        </hc:Col>
+                        <hc:Col Span="8" Name="DashboardMonthlyCol">
+                            <hc:SimplePanel x:Name="DashboardMonthlyColBox" Grid.Row="0" Grid.Column="0"
+                                                Margin="30 0 30 0"
+                                                Height="105"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Stretch">
+                                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                            />
+                                <StackPanel Orientation="Vertical"
+                                                Background="#FFDA03">
+                                    <TextBlock Text="{StaticResource en_monthlysales}"
+                                                   FontSize="25"
+                                                   Padding="20 20 0 0"
+                                                   Foreground="#FFF"/>
+                                    <TextBlock x:Name="MonthlySalesLabel"  Text="$2000"
+                                                   FontSize="20"
+                                                   Padding="20 5 0 10"
+                                                   Foreground="#FFF"/>
+                                </StackPanel>
+                            </hc:SimplePanel>
+                        </hc:Col>
+                        <hc:Col Span="8" Name="DashboardYearlyCol" Padding="20">
+                            <hc:SimplePanel Name="DashboardYearColBox" Grid.Row="0" Grid.Column="0"
+                                                Margin="30 0 30 0"
+                                                Height="105"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Stretch">
+                                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                           />
+                                <StackPanel Orientation="Vertical"
+                                                Background="#32CD32">
+                                    <TextBlock Text="{StaticResource en_annualsales}"
+                                           FontSize="25"
+                                           Padding="20 20 0 0"
+                                           Foreground="#FFF"/>
+                                    <TextBlock x:Name="YearlySalesLabel" Text="$2000"
+                                           FontSize="20"
+                                           Padding="20 5 0 10"
+                                           Foreground="#FFF"/>
+                                </StackPanel>
+                            </hc:SimplePanel>
+                        </hc:Col>
+                    </hc:Row>
+                </Grid>
+                <Grid Grid.Row="1" Name="DashboardBottomWrapPanel">
+                    <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
+                              ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                              CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="DashboardDataGridView"
+                              Style="{DynamicResource DataGridStyle1}"
+                              IsReadOnly="True"
+                              Margin="30 20 30 20"
+                              CanUserResizeColumns="False"
+                              AutoGenerateColumns="True"
+                              Visibility="Visible">
+                        <DataGrid.Columns>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+            <!--#endregion-->
             <!--#region SALES PANEL-->
-            <Grid Name="SalesPanel" Grid.Column="1" Visibility="Visible" Panel.ZIndex="5">
+            <Grid Name="SalesPanel" Grid.Column="1" Visibility="Collapsed" Panel.ZIndex="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -252,7 +355,7 @@
                                 Height="50"
                                 HorizontalAlignment="Stretch"
                                 Grid.Row="0">
-                        <TextBlock Text="{StaticResource en_salesheading}" VerticalAlignment="Center"
+                        <TextBlock x:Name="SalesHeadingPanel" Text="{StaticResource en_salesheading}" VerticalAlignment="Center"
                                    Margin="30 0 0 0"
                                    FontSize="32"
                                    FontWeight="ExtraLight"/>
@@ -354,7 +457,7 @@
                     <Grid Height="50"
                       Grid.Row="0">
                         <hc:FlexPanel Margin="30 0" JustifyContent="SpaceBetween">
-                            <TextBlock Text="{StaticResource en_stocksheading}" VerticalAlignment="Bottom"
+                            <TextBlock x:Name="StocksHeadingPanel" Text="{StaticResource en_stocksheading}" VerticalAlignment="Bottom"
                                    FontSize="32"
                                    FontWeight="ExtraLight"/>
                             <hc:SearchBar hc:InfoElement.Placeholder="Search Item" Width="360" Height="28" VerticalAlignment="Bottom" Style="{StaticResource SearchBarExtend}"/>
@@ -370,7 +473,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Button Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_exportcsv}" hc:IconElement.Geometry="{StaticResource ic_csv}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="100" Padding="0" BorderThickness="0" Background="#32CD32"/>
                                     <Button Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_importcsv}" hc:IconElement.Geometry="{StaticResource ic_csv}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="100" Padding="0" BorderThickness="0" Background="#32CD32"/>
-                                    <Button Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_addproduct}" hc:IconElement.Geometry="{StaticResource ic_add}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="100" Padding="0" BorderThickness="0" Background="#0CAFFF"/>
+                                    <Button x:Name="StocksAddButton" Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_addproduct}" hc:IconElement.Geometry="{StaticResource ic_add}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="100" Padding="0" BorderThickness="0" Background="#0CAFFF"/>
                                     <!--<Button Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="Delete Item" hc:IconElement.Geometry="{StaticResource ic_delete}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="85" Padding="0" BorderThickness="0" Background="#E3242B"/>-->
                                 </StackPanel>
                             </hc:FlexPanel>
@@ -407,7 +510,7 @@
                     <Grid Height="50"
                       Grid.Row="0">
                         <hc:FlexPanel Margin="30 0" JustifyContent="SpaceBetween">
-                            <TextBlock Text="{StaticResource en_posheading}" VerticalAlignment="Bottom"
+                            <TextBlock x:Name="POSHeadingPanel" Text="{StaticResource en_posheading}" VerticalAlignment="Bottom"
                                    FontSize="32"
                                    FontWeight="ExtraLight"/>
                             <hc:SearchBar hc:InfoElement.Placeholder="Search Product" Width="360" Height="28" VerticalAlignment="Bottom" Style="{StaticResource SearchBarExtend}"/>
@@ -446,7 +549,7 @@
                             </Grid>
                         </DockPanel>
                     </Grid>
-                    <Grid Name="PosProductPanel" Width="auto" HorizontalAlignment="Stretch" Background="LightSlateGray" DockPanel.Dock="Right">
+                    <Grid Name="PosProductPanel" Margin="0 0 30 10" Width="auto" HorizontalAlignment="Stretch" Background="LightSlateGray" DockPanel.Dock="Right">
                         <hc:ScrollViewer  Margin="4" hc:BorderThickness="1" hc:BorderBrush="gray">
                             <WrapPanel Orientation="Horizontal" Name="PosProductContainer" HorizontalAlignment="Center" VerticalAlignment="Top">
                                 
@@ -456,12 +559,8 @@
                 </DockPanel>
             </Grid>
             <!--#endregion-->
-
+            <!--#region HELP PANEL-->
             <Grid Name="HelpPanel" Grid.Column="1" Visibility="Collapsed">
-                <!--<Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>-->
                 <Border Padding="10" Margin="20" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}">
                     <hc:ScrollViewer CanMouseWheel="True" VerticalScrollBarVisibility="Auto">
                         <WrapPanel Name="HelpContainer">
@@ -469,7 +568,7 @@
                                 <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
                                     <hc:Col Span="12" Height="150">
                                         <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
-                                                    Background="#32CD32">
+                                                    Background="#32CD32" MaxWidth="350">
                                             <TextBlock Text="Annual Sales"
                                                FontSize="25"
                                                Padding="20 20 0 0"
@@ -494,6 +593,19 @@
                             <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
                                 <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
                                     <hc:Col Span="12" Height="150">
+                                        <StackPanel Margin="10" Orientation="Vertical"
+                                                Background="#FFDA03" MaxWidth="350">
+                                            <TextBlock Text="Monthly Sales"
+                                                   FontSize="25"
+                                                   Padding="20 20 0 0"
+                                                   Foreground="#FFF"/>
+                                            <TextBlock Text="$2000"
+                                                   FontSize="20"
+                                                   Padding="20 5 0 10"
+                                                   Foreground="#FFF"/>
+                                        </StackPanel>
+                                    </hc:Col>
+                                    <hc:Col Span="12" Height="150">
                                         <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -502,51 +614,23 @@
                                             Mus mauris vitae ultricies leo integer malesuada nunc vel.
                                         </TextBlock>
                                     </hc:Col>
-                                    <hc:Col Span="12" Height="150">
-                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
-                                                    Background="#32CD32">
-                                            <TextBlock Text="Annual Sales"
-                                               FontSize="25"
-                                               Padding="20 20 0 0"
-                                               Foreground="#FFF"/>
-                                            <TextBlock Text="$2000"
-                                               FontSize="20"
-                                               Padding="20 5 0 10"
-                                               Foreground="#FFF"/>
-                                        </StackPanel>
-                                    </hc:Col>
-                                    
                                 </hc:Row>
                             </StackPanel>
                             <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
                                 <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
                                     <hc:Col Span="12" Height="150">
-                                        <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
-                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
-                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
-                                        </TextBlock>
-                                    </hc:Col>
-                                    <hc:Col Span="12" Height="150">
-                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
-                                                    Background="#32CD32">
-                                            <TextBlock Text="Annual Sales"
-                                               FontSize="25"
-                                               Padding="20 20 0 0"
-                                               Foreground="#FFF"/>
+                                        <StackPanel Margin="10" Orientation="Vertical"
+                                            Background="#0CAFFF" MaxWidth="350">
+                                            <TextBlock Text="Weekly Sales"
+                                           FontSize="25"
+                                           Padding="20 20 0 0"
+                                           Foreground="#FFF"/>
                                             <TextBlock Text="$2000"
-                                               FontSize="20"
-                                               Padding="20 5 0 10"
-                                               Foreground="#FFF"/>
+                                           FontSize="20"
+                                           Padding="20 5 0 10"
+                                           Foreground="#FFF"/>
                                         </StackPanel>
                                     </hc:Col>
-
-                                </hc:Row>
-                            </StackPanel>
-                            <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
-                                <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
                                     <hc:Col Span="12" Height="150">
                                         <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -556,155 +640,6 @@
                                             Mus mauris vitae ultricies leo integer malesuada nunc vel.
                                         </TextBlock>
                                     </hc:Col>
-                                    <hc:Col Span="12" Height="150">
-                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
-                                                    Background="#32CD32">
-                                            <TextBlock Text="Annual Sales"
-                                               FontSize="25"
-                                               Padding="20 20 0 0"
-                                               Foreground="#FFF"/>
-                                            <TextBlock Text="$2000"
-                                               FontSize="20"
-                                               Padding="20 5 0 10"
-                                               Foreground="#FFF"/>
-                                        </StackPanel>
-                                    </hc:Col>
-
-                                </hc:Row>
-                            </StackPanel>
-                            <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
-                                <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
-                                    <hc:Col Span="12" Height="150">
-                                        <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
-                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
-                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
-                                        </TextBlock>
-                                    </hc:Col>
-                                    <hc:Col Span="12" Height="150">
-                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
-                                                    Background="#32CD32">
-                                            <TextBlock Text="Annual Sales"
-                                               FontSize="25"
-                                               Padding="20 20 0 0"
-                                               Foreground="#FFF"/>
-                                            <TextBlock Text="$2000"
-                                               FontSize="20"
-                                               Padding="20 5 0 10"
-                                               Foreground="#FFF"/>
-                                        </StackPanel>
-                                    </hc:Col>
-
-                                </hc:Row>
-                            </StackPanel>
-                            <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
-                                <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
-                                    <hc:Col Span="12" Height="150">
-                                        <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
-                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
-                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
-                                        </TextBlock>
-                                    </hc:Col>
-                                    <hc:Col Span="12" Height="150">
-                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
-                                                    Background="#32CD32">
-                                            <TextBlock Text="Annual Sales"
-                                               FontSize="25"
-                                               Padding="20 20 0 0"
-                                               Foreground="#FFF"/>
-                                            <TextBlock Text="$2000"
-                                               FontSize="20"
-                                               Padding="20 5 0 10"
-                                               Foreground="#FFF"/>
-                                        </StackPanel>
-                                    </hc:Col>
-
-                                </hc:Row>
-                            </StackPanel>
-                            <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
-                                <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
-                                    <hc:Col Span="12" Height="150">
-                                        <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
-                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
-                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
-                                        </TextBlock>
-                                    </hc:Col>
-                                    <hc:Col Span="12" Height="150">
-                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
-                                                    Background="#32CD32">
-                                            <TextBlock Text="Annual Sales"
-                                               FontSize="25"
-                                               Padding="20 20 0 0"
-                                               Foreground="#FFF"/>
-                                            <TextBlock Text="$2000"
-                                               FontSize="20"
-                                               Padding="20 5 0 10"
-                                               Foreground="#FFF"/>
-                                        </StackPanel>
-                                    </hc:Col>
-
-                                </hc:Row>
-                            </StackPanel>
-                            <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
-                                <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
-                                    <hc:Col Span="12" Height="150">
-                                        <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
-                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
-                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
-                                        </TextBlock>
-                                    </hc:Col>
-                                    <hc:Col Span="12" Height="150">
-                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
-                                                    Background="#32CD32">
-                                            <TextBlock Text="Annual Sales"
-                                               FontSize="25"
-                                               Padding="20 20 0 0"
-                                               Foreground="#FFF"/>
-                                            <TextBlock Text="$2000"
-                                               FontSize="20"
-                                               Padding="20 5 0 10"
-                                               Foreground="#FFF"/>
-                                        </StackPanel>
-                                    </hc:Col>
-
-                                </hc:Row>
-                            </StackPanel>
-                            <StackPanel Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
-                                <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
-                                    <hc:Col Span="12" Height="150">
-                                        <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
-                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
-                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
-                                        </TextBlock>
-                                    </hc:Col>
-                                    <hc:Col Span="12" Height="150">
-                                        <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
-                                                    Background="#32CD32">
-                                            <TextBlock Text="Annual Sales"
-                                               FontSize="25"
-                                               Padding="20 20 0 0"
-                                               Foreground="#FFF"/>
-                                            <TextBlock Text="$2000"
-                                               FontSize="20"
-                                               Padding="20 5 0 10"
-                                               Foreground="#FFF"/>
-                                        </StackPanel>
-                                    </hc:Col>
-
                                 </hc:Row>
                             </StackPanel>
                         </WrapPanel>
@@ -712,10 +647,29 @@
                 </Border>
             </Grid>
         </Grid>
+        <!--#endregion-->
+        
         <!--#region  RELATIVE PANEL-->
         <hc:RelativePanel Name="RelativePanel"  Grid.Row="1">
             <hc:SimplePanel Height="{Binding ElementName=RelativePanel, Path=ActualHeight}" Width="150" Margin="50 0 0 0">
                 <StackPanel Height="200" VerticalAlignment="Top">
+                    <Grid x:Name="DashboardTransitionText" Width="150" Height="50"  RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFB2A4FF" Offset="0"/>
+                                <GradientStop Color="#FFDDD6F9"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <TextBlock Text="Dashboard" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+                    </Grid>
                     <Grid x:Name="SalesTransitionText" Width="150" Height="50" RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
                         <Grid.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -767,23 +721,7 @@
                             </TransformGroup>
                         </Grid.RenderTransform>
                     </Grid>
-                    <Grid x:Name="MessageTransitionText" Width="150" Height="50"  RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
-                        <Grid.Background>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFB2A4FF" Offset="0"/>
-                                <GradientStop Color="#FFDDD6F9"/>
-                            </LinearGradientBrush>
-                        </Grid.Background>
-                        <TextBlock Text="Messages" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Grid.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </Grid.RenderTransform>
-                    </Grid>
+                    
                 </StackPanel>
                 <Grid x:Name="HelpTransitionText" Width="150" Height="50" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" VerticalAlignment="Bottom">
                     <Grid.Background>

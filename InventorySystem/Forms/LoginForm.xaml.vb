@@ -1,5 +1,6 @@
 ﻿' This is for me
 
+Imports System.Net.NetworkInformation
 Imports System.Windows.Threading
 Imports HandyControl.Controls                               ' This is only use for the Dialog class
 
@@ -9,22 +10,37 @@ Public Class LoginForm
     ''' <summary>
     '''  We use this process to perform the log in action
     ''' </summary>
-    Private Sub Verified()
+    Private Async Sub Verified()
         Dim controls() As Object = {UsernameTextBox, PasswordTextBox}
         ' Are the textboxes empty?
         If IsNotEmpty(controls) Then
             ' Is the user logged in?
-            If Login(UsernameTextBox.Text, PasswordTextBox.Password) Then
-                Dialog.Show(New LoadingDialog())
-                Dim timer As New DispatcherTimer()                                  ' We will let the user wait for 2.5 seconds, dunno just wanna do this
-                AddHandler timer.Tick, AddressOf CloseTick
-                timer.Interval = New TimeSpan(0, 0, 2.5)                            ' Time interval to trigger the tick, in this case it's 2.5 seconds
-                timer.Start()
+            If My.Settings.firebaseEnable AndAlso NetworkInterface.GetIsNetworkAvailable() Then
+                If Await FirebaseLogInAsync(UsernameTextBox.Text, PasswordTextBox.Password) Then
+                    Dialog.Show(New AsyncLoading())
+                    Dim timer As New DispatcherTimer()                                  ' We will let the user wait for 2.5 seconds, dunno just wanna do this
+                    AddHandler timer.Tick, AddressOf CloseTick
+                    timer.Interval = New TimeSpan(0, 0, 2.5)                            ' Time interval to trigger the tick, in this case it's 2.5 seconds
+                    timer.Start()
+                Else
+                    ' Display the incorect username or password error
+                    ' TODO A string literal!
+                    ErrorLabel.Visibility = Visibility.Visible
+                    ErrorLabel.Text = "Incorrect username or password."
+                End If
             Else
-                ' Display the incorect username or password error
-                ' TODO A string literal!
-                ErrorLabel.Visibility = Visibility.Visible
-                ErrorLabel.Text = "Incorrect username or password."
+                If Login(UsernameTextBox.Text, PasswordTextBox.Password) Then
+                    Dialog.Show(New AsyncLoading())
+                    Dim timer As New DispatcherTimer()                                  ' We will let the user wait for 2.5 seconds, dunno just wanna do this
+                    AddHandler timer.Tick, AddressOf CloseTick
+                    timer.Interval = New TimeSpan(0, 0, 2.5)                            ' Time interval to trigger the tick, in this case it's 2.5 seconds
+                    timer.Start()
+                Else
+                    ' Display the incorect username or password error
+                    ' TODO A string literal!
+                    ErrorLabel.Visibility = Visibility.Visible
+                    ErrorLabel.Text = "Incorrect username or password."
+                End If
             End If
         Else
             ' Display the empty field error
@@ -60,5 +76,11 @@ Public Class LoginForm
     ' To drag move the form
     Private Sub DragForm(sender As Object, e As MouseButtonEventArgs) Handles Me.MouseLeftButtonDown
         DragMove()
+    End Sub
+
+    Private Sub LoginForm_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
+        If Not NetworkInterface.GetIsNetworkAvailable Then
+            Dialog.Show(New ErrorDialog("No internet connection."))
+        End If
     End Sub
 End Class

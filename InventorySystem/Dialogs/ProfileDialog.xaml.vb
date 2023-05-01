@@ -5,7 +5,7 @@ Imports System.Windows.Threading
 
 Public Class ProfileDialog
     Private _parent As Dashboard
-    Public Sub New(parent As Dashboard, profile_name As String, profile_picture As String)
+    Public Sub New(ByRef parent As Dashboard, profile_name As String, profile_picture As String)
         InitializeComponent()
         Dim contextData As New UserData With {
             .USER_NAME = profile_name,
@@ -20,7 +20,7 @@ Public Class ProfileDialog
     Private Sub LogOutButton_Click(sender As Object, e As RoutedEventArgs) Handles LogOutButton.Click
         My.Settings.UserID = -1
         My.Settings.Save()
-        Dialog.Show(New LoadingDialog())
+        Dialog.Show(New AsyncLoading())
         Dim timer As New DispatcherTimer()                                  ' We will let the user wait for 2.5 seconds, dunno just wanna do this
         AddHandler timer.Tick, AddressOf CloseTick
         timer.Interval = New TimeSpan(0, 0, 2.5)                            ' Time interval to trigger the tick, in this case it's 2.5 seconds

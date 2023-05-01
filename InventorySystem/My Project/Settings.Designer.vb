@@ -100,6 +100,42 @@ Namespace My
                 Me("smsIP") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("https://cpsais-63c0a-default-rtdb.firebaseio.com/")>  _
+        Public Property firebasePath() As String
+            Get
+                Return CType(Me("firebasePath"),String)
+            End Get
+            Set
+                Me("firebasePath") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("HVK2eso64AaT70enLNtA5fXoIl2lcZvR5Sx3NtnW")>  _
+        Public Property firebaseSecret() As String
+            Get
+                Return CType(Me("firebaseSecret"),String)
+            End Get
+            Set
+                Me("firebaseSecret") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property firebaseUsername() As String
+            Get
+                Return CType(Me("firebaseUsername"),String)
+            End Get
+            Set
+                Me("firebaseUsername") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

@@ -9,7 +9,7 @@ Module UserModule
     ReadOnly tableAdapter As New usersTableAdapter
     ReadOnly authDataTable As New authDataTable
     ReadOnly authDataAdapter As New authTableAdapter
-    Public Class UserModel
+    Public Class LocalUserProp
         Public user_id As Integer
         Public first_name As String
         Public last_name As String
@@ -21,7 +21,6 @@ Module UserModule
     End Class
 
     Public Function IsAuthVerified(phone As String, auth_code As String) As Boolean
-
         authDataAdapter.FillByAuth(authDataTable, phone)
         If authDataTable.Rows.Count > 0 Then
             With authDataTable.Item(0)
@@ -78,7 +77,7 @@ Module UserModule
 
     End Function
 
-    Public Function SignIn(userData As UserModel) As Boolean
+    Public Function SignIn(userData As LocalUserProp) As Boolean
         With userData
             Dim hashedPassword As String = HashPassword(.password)
 

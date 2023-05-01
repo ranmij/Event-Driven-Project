@@ -12,18 +12,24 @@
         <hc:Row Height="{Binding ElementName=Container, Path=ActualHeight}">
             <hc:Col Span="12" Height="{Binding ElementName=Container, Path=ActualHeight}">
                 <hc:SimplePanel>
+                    <Border BorderBrush="#000" BorderThickness="0 0 1 0"></Border>
                     <StackPanel Margin="15 60">
-                        <hc:TextBox Name="IPText" Height="60" VerticalAlignment="Top" hc:InfoElement.Placeholder="IP FOR SMS" FontSize="18"/>
-                        <StackPanel Orientation="Horizontal" Margin="0 15 0 0" >
-                            <TextBlock Text="Firebase:" FontSize="20" Margin="0 0 10 0" VerticalAlignment="Center"/>
+                        <TextBlock Padding="3" Text="{StaticResource en_smsip}" Foreground="#000" FontWeight="Bold"/>
+                        <hc:TextBox Name="IPText" Height="32" VerticalAlignment="Top" hc:InfoElement.Placeholder="Server IP Address" FontSize="12"/>
+                        <TextBlock Margin="0 15 0 0" Padding="3" Text="{StaticResource en_firebasepath}" Foreground="#000" FontWeight="Bold"/>
+                        <hc:TextBox Name="BasePathText" Height="32" VerticalAlignment="Top" hc:InfoElement.Placeholder="URL Base Path" FontSize="12"/>
+                        <TextBlock Margin="0 15 0 0" Padding="3" Text="{StaticResource en_firebasekey}" Foreground="#000" FontWeight="Bold"/>
+                        <hc:TextBox Name="FirebaseKeyText" Height="32" VerticalAlignment="Top" hc:InfoElement.Placeholder="Firebase Secret" FontSize="12"/>
+                        <hc:FlexPanel JustifyContent="SpaceBetween" Margin="0 15 0 0" >
+                            <TextBlock Text="{StaticResource en_firebase}" FontSize="16" Margin="0 0 10 0" VerticalAlignment="Center"/>
                             <ToggleButton Name="IsEnableFirebase" Style="{StaticResource ToggleButtonSwitch}" Margin="0" />
-                        </StackPanel>
+                        </hc:FlexPanel>
                     </StackPanel>
                 </hc:SimplePanel>
             </hc:Col>
             <hc:Col Span="12">
                 <hc:SimplePanel>
-                    <Button Width="22" Height="22" Command="hc:ControlCommands.Close" Style="{StaticResource ButtonIcon}" Foreground="{DynamicResource PrimaryBrush}" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0"/>
+                    <Button Width="22" Height="22" Command="hc:ControlCommands.Close" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0"/>
                     <Grid Margin="15 60">
 
                     </Grid>
@@ -31,7 +37,7 @@
                           Height="60"
                           Margin="0 0 0 5" VerticalAlignment="Bottom">
                         <Button x:Name="SaveSettingsButton" Content="{StaticResource en_save}" Background="#8F43EE" Foreground="#FFF" BorderThickness="0" hc:BorderElement.CornerRadius="0" Margin="30 5"
-                                Height="60" Width="140"
+                                Height="32" Width="100"
                                 HorizontalAlignment="Right"/>
                     </Grid>
                 </hc:SimplePanel>

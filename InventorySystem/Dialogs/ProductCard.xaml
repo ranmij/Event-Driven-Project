@@ -39,7 +39,7 @@
         </ControlTemplate>
     </UserControl.Resources>
     <Button  Template="{DynamicResource ProductCardTemplate}" Name="ProductCardButton" Style="{x:Null}" Padding="0" Margin="0" Background="Transparent" BorderThickness="0">
-        <hc:Card MaxWidth="300" BorderThickness="0" Effect="{DynamicResource EffectShadow2}" Margin="20 8">
+        <hc:Card MaxWidth="300" BorderThickness="0" Effect="{DynamicResource EffectShadow2}" Margin="10 8">
             <!--Card Content section-->
             <Border CornerRadius="4,4,0,0" Width="160" Height="160">
                 <hc:ImageBlock Source="{Binding  IMAGE_PATH}" Height="80" Width="120"/>
