@@ -39,9 +39,9 @@
                     <hc:Row Width="{Binding Width, ElementName=MiddleCol}" Height="{Binding Height, ElementName=MiddleCol}">
                         <hc:Col Span="3" Height="{Binding Height, ElementName=MiddleCol}"/>
                         <hc:Col Span="18" Height="{Binding Height, ElementName=MiddleCol}">
-                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                            <!--<StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
                                 <hc:SearchBar Height="24" Width="Auto" hc:InfoElement.Placeholder="{StaticResource en_search}" Style="{StaticResource SearchBarExtend}"/>
-                            </StackPanel>
+                            </StackPanel>-->
                         </hc:Col>
                         <hc:Col Span="3" Height="{Binding Height, ElementName=MiddleCol}"/>
                     </hc:Row>
@@ -236,35 +236,26 @@
                 </Button>
                 <!--#endregion-->
             </hc:SimplePanel>
-            
-            <Grid Name="DashboardPanel" Grid.Column="1" Visibility="Visible" Panel.ZIndex="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid x:Name="DashboardTopContainer" Height="150"
-                      Grid.Row="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <!--<StackPanel Orientation="Horizontal"
-                                Height="50"
-                                HorizontalAlignment="Stretch"
-                                Grid.Row="0">
-                        <TextBlock Text="{StaticResource en_salesheading}" VerticalAlignment="Center"
-                                   Margin="30 0 0 0"
-                                   FontSize="32"
-                                   FontWeight="ExtraLight"/>
-                    </StackPanel>-->
-                    <hc:Row x:Name="DashboardTopRow" Grid.Row="1" VerticalAlignment="Center">
+
+            <!--#region  DASHBOARD PANEL-->
+            <StackPanel Name="DashboardPanel" Grid.Column="1" Visibility="Collapsed" Panel.ZIndex="5">
+                <hc:FlexPanel Height="64" Grid.Row="0" JustifyContent="FlexEnd" AlignContent="Center">
+                    <StackPanel Margin="30 0">
+                        <TextBlock x:Name="DateTextBlock" Margin="8 0 0 0" Padding="0 5 5 0" FontSize="14"/>
+                        <Viewbox Height="32" Style="{x:Null}">
+                            <hc:FlipClock x:Name="clockDisplay" Margin="32" DisplayTime=""/>
+                        </Viewbox>
+                    </StackPanel>
+                </hc:FlexPanel>
+                <DockPanel x:Name="DashboardTopContainer" Grid.Row="1" Height="240" LastChildFill="True">
+                    <hc:Row x:Name="DashboardTopRow" DockPanel.Dock="Top" Height="105" VerticalAlignment="Center">
                         <hc:Col Span="8" Name="DashboardDailyCol">
-                            <hc:SimplePanel x:Name="DashboardDailyColBox" Grid.Row="0" Grid.Column="0"
+                            <hc:SimplePanel x:Name="DashboardDailyColBox"
                                                 Margin="30 0 30 0"
                                                 Height="105"
-                                                VerticalAlignment="Center"
+                                                VerticalAlignment="Top"
                                                 HorizontalAlignment="Stretch">
-                                <Border x:Name="DashboardBorder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                             />
                                 <StackPanel Orientation="Vertical"
                                             Background="#0CAFFF">
@@ -283,12 +274,12 @@
                             <hc:SimplePanel x:Name="DashboardMonthlyColBox" Grid.Row="0" Grid.Column="0"
                                                 Margin="30 0 30 0"
                                                 Height="105"
-                                                VerticalAlignment="Center"
+                                                VerticalAlignment="Top"
                                                 HorizontalAlignment="Stretch">
                                 <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                             />
                                 <StackPanel Orientation="Vertical"
-                                                Background="#FFDA03">
+                                                Background="#0CAFFF">
                                     <TextBlock Text="{StaticResource en_monthlysales}"
                                                    FontSize="25"
                                                    Padding="20 20 0 0"
@@ -304,12 +295,12 @@
                             <hc:SimplePanel Name="DashboardYearColBox" Grid.Row="0" Grid.Column="0"
                                                 Margin="30 0 30 0"
                                                 Height="105"
-                                                VerticalAlignment="Center"
+                                                VerticalAlignment="Top"
                                                 HorizontalAlignment="Stretch">
                                 <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                            />
                                 <StackPanel Orientation="Vertical"
-                                                Background="#32CD32">
+                                                Background="#0CAFFF">
                                     <TextBlock Text="{StaticResource en_annualsales}"
                                            FontSize="25"
                                            Padding="20 20 0 0"
@@ -322,22 +313,54 @@
                             </hc:SimplePanel>
                         </hc:Col>
                     </hc:Row>
-                </Grid>
+                    <hc:Row x:Name="DashboardTopRow1" Height="105">
+                        <hc:Col Span="8" Name="DashboardProductCol" Height="105">
+                            <hc:SimplePanel x:Name="DashboardProductColBox1"
+                                                Margin="30 0"
+                                                Height="105"
+                                                VerticalAlignment="Top"
+                                                HorizontalAlignment="Stretch">
+                                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                            />
+                                <StackPanel Orientation="Vertical"
+                                            Background="#0CAFFF">
+                                    <TextBlock Text="{StaticResource en_products}"
+                                           FontSize="25"
+                                           Padding="20 20 0 0"
+                                           Foreground="#FFF"/>
+                                    <TextBlock x:Name="ProductCountLabel" Text="100"
+                                           FontSize="20"
+                                           Padding="20 5 0 10"
+                                           Foreground="#FFF"/>
+                                </StackPanel>
+                            </hc:SimplePanel>
+                        </hc:Col>
+                        <hc:Col Span="8" Name="DashboardMonthlyCol1">
+                            <hc:SimplePanel x:Name="DashboardTransactionColBox" Grid.Row="0" Grid.Column="0"
+                                                Margin="30 0 30 0"
+                                                Height="105"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Stretch">
+                                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                            />
+                                <StackPanel Orientation="Vertical"
+                                                Background="#0CAFFF">
+                                    <TextBlock Text="{StaticResource en_transactions}"
+                                                   FontSize="25"
+                                                   Padding="20 20 0 0"
+                                                   Foreground="#FFF"/>
+                                    <TextBlock x:Name="TransactionCountLabel"  Text="200"
+                                                   FontSize="20"
+                                                   Padding="20 5 0 10"
+                                                   Foreground="#FFF"/>
+                                </StackPanel>
+                            </hc:SimplePanel>
+                        </hc:Col>
+                    </hc:Row>
+                </DockPanel>
                 <Grid Grid.Row="1" Name="DashboardBottomWrapPanel">
-                    <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
-                              ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
-                              CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="DashboardDataGridView"
-                              Style="{DynamicResource DataGridStyle1}"
-                              IsReadOnly="True"
-                              Margin="30 20 30 20"
-                              CanUserResizeColumns="False"
-                              AutoGenerateColumns="True"
-                              Visibility="Visible">
-                        <DataGrid.Columns>
-                        </DataGrid.Columns>
-                    </DataGrid>
                 </Grid>
-            </Grid>
+            </StackPanel>
             <!--#endregion-->
             <!--#region SALES PANEL-->
             <Grid Name="SalesPanel" Grid.Column="1" Visibility="Collapsed" Panel.ZIndex="5">
@@ -345,13 +368,14 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid x:Name="SalesTopContainer" Height="180"
+                <!--<Grid x:Name="SalesTopContainer" Height="180"
                       Grid.Row="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal"
+                    -->
+                <!--<StackPanel Orientation="Horizontal"
                                 Height="50"
                                 HorizontalAlignment="Stretch"
                                 Grid.Row="0">
@@ -359,8 +383,8 @@
                                    Margin="30 0 0 0"
                                    FontSize="32"
                                    FontWeight="ExtraLight"/>
-                    </StackPanel>
-                    <hc:Row x:Name="SalesTopRow" Grid.Row="1">
+                    </StackPanel>-->
+                <!--<hc:Row x:Name="SalesTopRow" Grid.Row="1">
                         <hc:Col Span="8" Name="DailyCol">
                             <hc:SimplePanel x:Name="DailyColBox" Grid.Row="0" Grid.Column="0"
                                                 Margin="30 0 30 0"
@@ -424,8 +448,9 @@
                                 </StackPanel>
                             </hc:SimplePanel>
                         </hc:Col>
-                    </hc:Row>
-                </Grid>
+                    </hc:Row>-->
+                <!--
+                </Grid>-->
                 <Grid Grid.Row="1" Name="SalesBottomWrapPanel">
                     <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
                               ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
@@ -443,55 +468,113 @@
             </Grid>
             <!--#endregion-->
             <!--#region STOCKS PANEL-->
-            <Grid Name="StocksPanel" Grid.Column="1" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid x:Name="StocksTopContainer" Height="90"
-                      Grid.Row="0" >
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Height="50"
-                      Grid.Row="0">
-                        <hc:FlexPanel Margin="30 0" JustifyContent="SpaceBetween">
-                            <TextBlock x:Name="StocksHeadingPanel" Text="{StaticResource en_stocksheading}" VerticalAlignment="Bottom"
-                                   FontSize="32"
-                                   FontWeight="ExtraLight"/>
-                            <hc:SearchBar hc:InfoElement.Placeholder="Search Item" Width="360" Height="28" VerticalAlignment="Bottom" Style="{StaticResource SearchBarExtend}"/>
-                        </hc:FlexPanel>
-                    </Grid>
-                    <hc:Row x:Name="StocksTopRow" Grid.Row="1">
-                        <hc:Col Height="{Binding ElementName=StocksTopRow, Path=ActualHeight}">
-                            <hc:FlexPanel Margin="30 0" JustifyContent="SpaceBetween">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="TOTAL ITEMS:" VerticalAlignment="Center"/>
-                                    <TextBlock Name="StocksTotalItems" Text="1000" VerticalAlignment="Center" Padding="8 0"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_exportcsv}" hc:IconElement.Geometry="{StaticResource ic_csv}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="100" Padding="0" BorderThickness="0" Background="#32CD32"/>
-                                    <Button Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_importcsv}" hc:IconElement.Geometry="{StaticResource ic_csv}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="100" Padding="0" BorderThickness="0" Background="#32CD32"/>
-                                    <Button x:Name="StocksAddButton" Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_addproduct}" hc:IconElement.Geometry="{StaticResource ic_add}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="100" Padding="0" BorderThickness="0" Background="#0CAFFF"/>
-                                    <!--<Button Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="Delete Item" hc:IconElement.Geometry="{StaticResource ic_delete}" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="85" Padding="0" BorderThickness="0" Background="#E3242B"/>-->
-                                </StackPanel>
-                            </hc:FlexPanel>
-                        </hc:Col>
-                    </hc:Row>
-                </Grid>
-                <Grid Grid.Row="1" Name="BottomWrapPanel">
-                    <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
-                              ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
-                              CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="StocksDataGridView"
-                              Style="{DynamicResource DataGridStyle1}"
-                              IsReadOnly="True"
-                              Margin="30 0"
-                              CanUserResizeColumns="False"
-                              AutoGenerateColumns="True"
-                              HorizontalAlignment="Stretch">
-                    </DataGrid>
-                </Grid>
+            <Grid Name="StocksPanel" Grid.Column="1" Visibility="Visible">
+                <hc:TabControl IsAnimationEnabled="True" IsTabFillEnabled="True" TabItemHeight="40">
+                    <hc:TabItem Header="Stocks" IsSelected="True">
+                        <!--<hc:SimplePanel Background="{DynamicResource RegionBrush}"/>-->
+                        <Grid Grid.Row="1" Name="BottomWrapPanel">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid x:Name="StocksTopContainer" Height="70" Grid.Row="0" Grid.ColumnSpan="2" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid Height="40" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="321*"/>
+                                        <ColumnDefinition Width="527*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <hc:FlexPanel Margin="20,0,20,0" JustifyContent="FlexEnd" Grid.ColumnSpan="2">
+                                        <hc:SearchBar x:Name="SearchItemTextBox" hc:InfoElement.Placeholder="Search Item" Width="360" Height="28" VerticalAlignment="Center" Style="{StaticResource SearchBarPlus}" HorizontalAlignment="Left"/>
+                                    </hc:FlexPanel>
+                                </Grid>
+                                <hc:Row x:Name="StocksTopRow" Grid.Row="1">
+                                    <hc:Col Height="{Binding ElementName=StocksTopRow, Path=ActualHeight}">
+                                        <hc:FlexPanel Margin="20 0" JustifyContent="SpaceBetween">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="TOTAL ITEMS:" VerticalAlignment="Center"/>
+                                                <TextBlock Name="StocksTotalItems" Text="1000" VerticalAlignment="Center" Padding="8 0"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Margin="0 0 10 0" Foreground="#fff" FontSize="9"
+                                                        hc:BorderElement.CornerRadius="0"
+                                                        Content="{StaticResource en_exportcsv}"
+                                                        hc:IconElement.Geometry="{StaticResource ic_csv}"
+                                                        hc:IconElement.Height="12"
+                                                        hc:IconElement.Width="12"
+                                                        Height="20"
+                                                        Width="80"
+                                                        Padding="0"
+                                                        BorderThickness="0"
+                                                        Background="#32CD32"/>
+                                                <Button Margin="0 0 10 0" Foreground="#fff" FontSize="9" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_importcsv}" hc:IconElement.Geometry="{StaticResource ic_csv}" hc:IconElement.Height="10" hc:IconElement.Width="10" Height="20" Width="80" Padding="0" BorderThickness="0" Background="#32CD32"/>
+                                                <Button x:Name="StocksAddButton" Foreground="#fff" FontSize="9" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_addproduct}" hc:IconElement.Geometry="{StaticResource ic_add}" hc:IconElement.Height="9" hc:IconElement.Width="9" Height="20" Width="80" Padding="0" BorderThickness="0" Background="#0CAFFF"/>
+                                            </StackPanel>
+                                        </hc:FlexPanel>
+                                    </hc:Col>
+                                </hc:Row>
+                            </Grid>
+                            <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
+                                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                                      CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="StocksDataGridView"
+                                      Style="{DynamicResource DataGridStyle1}"
+                                      IsReadOnly="True"
+                                      Margin="20 0 20 20"
+                                      CanUserResizeColumns="False"
+                                      AutoGenerateColumns="True"/>
+                        </Grid>
+                    </hc:TabItem>
+                    <hc:TabItem Header="Categories &amp; Units">
+                        <Grid x:Name="CategoryTabPanel">
+                            <UniformGrid Rows="1" Columns="2">
+                                <Grid>
+                                    <StackPanel Margin="20 10">
+                                        <StackPanel>
+                                            <TextBlock Padding="0 5" Text="Category:" FontSize="18"/>
+                                            <TextBox x:Name="CategoryTextBox" Padding="5" Height="35"/>
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <TextBlock Padding="0 5" Text="Unit:" FontSize="18"/>
+                                            <TextBox x:Name="UnitTextBox" Padding="5" Height="35"/>
+                                        </StackPanel>
+                                        <Button  Margin="0 10" x:Name="AddCategoryUnitButton" Foreground="#fff" FontSize="12" hc:BorderElement.CornerRadius="0" Content="ADD" Height="30" HorizontalAlignment="Stretch" BorderThickness="0" Background="#0CAFFF"/>
+                                    </StackPanel>
+
+                                </Grid>
+                                <Grid>
+                                    <UniformGrid Rows="2" Columns="1">
+                                        <Grid>
+                                            <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
+                                                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                                                      CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="CategoryDataGridView"
+                                                      Style="{DynamicResource DataGridStyle1}"
+                                                      IsReadOnly="True"
+                                                      CanUserResizeColumns="False"
+                                                      AutoGenerateColumns="True"
+                                                      Margin="0 10 20 10"/>
+                                        </Grid>
+                                        <Grid>
+                                            <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
+                                                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                                                      CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="UnitDataGridView"
+                                                      Style="{DynamicResource DataGridStyle1}"
+                                                      IsReadOnly="True"
+                                                      CanUserResizeColumns="False"
+                                                      AutoGenerateColumns="True"
+                                                      Margin="0 0 20 10"/>
+                                        </Grid>
+                                    </UniformGrid>
+                                </Grid>
+                            </UniformGrid>
+                        </Grid>
+                    </hc:TabItem>
+                    <hc:TabItem Header="Suppliers">
+                        <hc:SimplePanel/>
+                    </hc:TabItem>
+                </hc:TabControl>
             </Grid>
             <!--#endregion-->
             <!--#region POS PANEL-->
@@ -552,7 +635,7 @@
                     <Grid Name="PosProductPanel" Margin="0 0 30 10" Width="auto" HorizontalAlignment="Stretch" Background="LightSlateGray" DockPanel.Dock="Right">
                         <hc:ScrollViewer  Margin="4" hc:BorderThickness="1" hc:BorderBrush="gray">
                             <WrapPanel Orientation="Horizontal" Name="PosProductContainer" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                
+
                             </WrapPanel>
                         </hc:ScrollViewer>
                     </Grid>
@@ -648,7 +731,7 @@
             </Grid>
         </Grid>
         <!--#endregion-->
-        
+
         <!--#region  RELATIVE PANEL-->
         <hc:RelativePanel Name="RelativePanel"  Grid.Row="1">
             <hc:SimplePanel Height="{Binding ElementName=RelativePanel, Path=ActualHeight}" Width="150" Margin="50 0 0 0">
@@ -721,7 +804,7 @@
                             </TransformGroup>
                         </Grid.RenderTransform>
                     </Grid>
-                    
+
                 </StackPanel>
                 <Grid x:Name="HelpTransitionText" Width="150" Height="50" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" VerticalAlignment="Bottom">
                     <Grid.Background>

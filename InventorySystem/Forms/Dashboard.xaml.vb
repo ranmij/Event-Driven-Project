@@ -4,6 +4,7 @@ Imports System.Data
 Imports System.Net.NetworkInformation
 Imports System.Windows.Controls.Primitives
 Imports HandyControl.Controls
+Imports HandyControl.Data
 Imports InventorySystem.InventorySystem.DataSets.ProductsDataSet
 Imports InventorySystem.InventorySystem.DataSets.ProductsDataSetTableAdapters
 
@@ -14,8 +15,14 @@ Public Class Dashboard
     Private ReadOnly stocksAdapter As New productTableAdapter
     Private ReadOnly orderDataTable As New ordersDataTable
     Private ReadOnly orderTableAdapter As New ordersTableAdapter
+    Private ReadOnly categoryDataTable As New categoryDataTable
+    Private ReadOnly categoryTableAdapter As New categoryTableAdapter
+    Private ReadOnly unitDataTable As New unitDataTable
+    Private ReadOnly unitTableAdapter As New unitTableAdapter
+    Private ReadOnly productTableAdapter As New productTableAdapter
 
     Private Sub Dashboard_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
+        DateTextBlock.Text = Date.Now.ToLongDateString
         WeeklySalesLabel.Text = "₱ " & orderTableAdapter.ScalarQueryWeeklySales().ToString
         MonthlySalesLabel.Text = "₱ " & orderTableAdapter.ScalarQueryMonthlySales().ToString
         YearlySalesLabel.Text = "₱ " & orderTableAdapter.ScalarQueryYearlySales().ToString
@@ -37,11 +44,11 @@ Public Class Dashboard
         PriceTotal.Text = Math.Round(Double.Parse(PriceTotal.Text) + Double.Parse(TryCast(parent.FindName("ProductPrice"), TextBlock).Text), 2)
     End Sub
 
-    Private Async Sub ChangePanelEvents(sender As Object, e As EventArgs) Handles SalesButton.Click, StocksButton.Click,
+    Private Sub ChangePanelEvents(sender As Object, e As EventArgs) Handles SalesButton.Click, StocksButton.Click,
             POSButton.Click, DashboardButton.Click, HelpButton.Click
-        Dim panels() As Grid = {SalesPanel, StocksPanel, POSPanel, HelpPanel, DashboardPanel}
+        Dim panels() As Object = {SalesPanel, StocksPanel, POSPanel, HelpPanel, DashboardPanel}
         ' Hide all the panels before setting the visibility of the requested panel
-        For Each panel As Grid In panels
+        For Each panel As Object In panels
             If panel.IsVisible Then
                 panel.Visibility = Visibility.Collapsed
             End If
@@ -61,19 +68,21 @@ Public Class Dashboard
         ElseIf sender.Equals(StocksButton) Then
             StocksPanel.Visibility = Visibility.Visible
             stocksAdapter.FillByProducts(stocksTable)
-            StocksDataGridView.ItemsSource = stocksTable                                            ' Fill the stocks datagrid view with products
+            categoryTableAdapter.Fill(categoryDataTable)
+            unitTableAdapter.Fill(unitDataTable)
             FormTitle.Text = "Stocks".ToUpper
+            ' First Tab
+            StocksDataGridView.ItemsSource = stocksTable                                            ' Fill the stocks datagrid view with products
+            StocksTotalItems.Text = productTableAdapter.ScalarQueryProducts()
+            ' Second Tab
+            CategoryDataGridView.ItemsSource = categoryDataTable
+            UnitDataGridView.ItemsSource = unitDataTable
+
+            'Third Tab
         ElseIf sender.Equals(POSButton) Then
             POSPanel.Visibility = Visibility.Visible
             PosProductContainer.Children.Clear()
-            ' Is firebase enabled?
-            If My.Settings.firebaseEnable AndAlso NetworkInterface.GetIsNetworkAvailable() Then
-                If Not isExecuting Then
-                    Await FirebaseFillProducts(PosProductContainer)                                 ' Refresh the products list from real time database
-                End If
-            Else
-                FillProducts(PosProductContainer)                                                   ' Refresh the products list from local database
-            End If
+            FillProducts(PosProductContainer)                                                   ' Refresh the products list from local database
             ProductHandler(PosProductContainer)                                                     ' To add click handler for every card.
             FormTitle.Text = "POS"
         ElseIf sender.Equals(HelpButton) Then
@@ -104,7 +113,6 @@ Public Class Dashboard
                 Me.Top = 0
                 Me.Width = rectArea.Width
                 Me.Height = rectArea.Height
-
                 RestoreDIcon.Source = TryCast(FindResource("ic_restoredownbit"), ImageSource)   ' Change the icon of the restore down
             End If
         ElseIf sender.Equals(MinimizeButton) Then
@@ -116,9 +124,10 @@ Public Class Dashboard
         DragMove()
     End Sub
 
-    Private Sub SalesDataGridView_AutoGeneratingColumn(sender As Object, e As DataGridAutoGeneratingColumnEventArgs) Handles SalesDataGridView.AutoGeneratingColumn, StocksDataGridView.AutoGeneratingColumn
+    Private Sub SalesDataGridView_AutoGeneratingColumn(sender As Object, e As DataGridAutoGeneratingColumnEventArgs) Handles SalesDataGridView.AutoGeneratingColumn, StocksDataGridView.AutoGeneratingColumn,
+            CategoryDataGridView.AutoGeneratingColumn, UnitDataGridView.AutoGeneratingColumn
         ' Check if which header should we hide
-        Dim columnsToHide() As String = {"id", "order_id", "order_date", "payment_id", "ship_date", "user_id", "total_price", "item_count", "product_id", "unit_id", "image_path", "category_id", "discount_percent", "product_code", "category_id", "unit_in_stock", "unit_price"}
+        Dim columnsToHide() As String = {"id", "order_id", "order_date", "payment_id", "product_name", "ship_date", "user_id", "total_price", "item_count", "product_id", "unit_id", "image_path", "category_id", "discount_percent", "product_code", "category_id", "unit_in_stock", "unit_price"}
         If columnsToHide.Contains(e.Column.Header.ToString()) Then
             e.Column.Visibility = Visibility.Collapsed
         End If
@@ -139,6 +148,8 @@ Public Class Dashboard
         End With
     End Sub
 
+
+
     Private Sub ProfileButton(sender As Object, e As EventArgs) Handles AvatarButton.Click
         ' TODO Change this to actual data
         Dialog.Show(New ProfileDialog(Me, "John Doe", "/Resources/intel.jpg"))
@@ -146,21 +157,40 @@ Public Class Dashboard
 
     Private Sub StocksAddButton_Click(sender As Object, e As RoutedEventArgs) Handles StocksAddButton.Click
         Dialog.Show(New NewProductDialog(Me))
-        'Dim productData As New FireBaseProductProp With {
-        '    .product_code = "1111",
-        '    .image_path = "/Resources/intel.jpg",
-        '    .product_name = "Intel Core i9-13900K",
-        '    .unit_in_stock = 30,
-        '    .unit_price = 321300
-        '}
-        'If My.Settings.firebaseEnable AndAlso NetworkInterface.GetIsNetworkAvailable() Then
-        '    If Await FirebaseAddProductAsync(productData) Then
-        '        HandyControl.Controls.MessageBox.Info("Product added successfully.")
-        '    Else
-        '        Dialog.Show(New ErrorDialog("Unable to add product please try again."))
-        '    End If
-        'Else
+    End Sub
 
-        'End If
+    Private Sub SalesDataGridView_MouseLeftButtonUp(sender As Object, e As MouseButtonEventArgs) Handles SalesDataGridView.MouseLeftButtonUp
+
+    End Sub
+
+    Private Sub AddCategoryButton_Click(sender As Object, e As RoutedEventArgs) Handles AddCategoryUnitButton.Click
+        If Not String.IsNullOrEmpty(CategoryTextBox.Text) And Not String.IsNullOrEmpty(UnitTextBox.Text) Then
+            If categoryTableAdapter.InsertQueryCategory(CategoryTextBox.Text) <> 0 AndAlso
+            unitTableAdapter.InsertQueryUnit(UnitTextBox.Text) <> 0 Then
+                HandyControl.Controls.MessageBox.Info("Category and unit has been added successfully.", "Success!")
+            Else
+                HandyControl.Controls.MessageBox.Warning("Operation failed.", "Failed")
+            End If
+        ElseIf Not String.IsNullOrEmpty(CategoryTextBox.Text) Then
+            If categoryTableAdapter.InsertQueryCategory(CategoryTextBox.Text) <> 0 Then
+                HandyControl.Controls.MessageBox.Info("Category has been added successfully.", "Success!")
+            Else
+                HandyControl.Controls.MessageBox.Warning("Operation failed.", "Failed")
+            End If
+        Else
+            If unitTableAdapter.InsertQueryUnit(UnitTextBox.Text) <> 0 Then
+                HandyControl.Controls.MessageBox.Info("Unit has been added successfully.", "Success!")
+            Else
+                HandyControl.Controls.MessageBox.Warning("Operation failed.", "Failed")
+            End If
+        End If
+        categoryTableAdapter.Fill(categoryDataTable)
+        unitTableAdapter.Fill(unitDataTable)
+        CategoryDataGridView.ItemsSource = categoryDataTable
+        UnitDataGridView.ItemsSource = unitDataTable
+    End Sub
+
+    Private Sub SearchItemTextBox_SearchStarted(sender As Object, e As FunctionEventArgs(Of String)) Handles SearchItemTextBox.SearchStarted
+        MsgBox("searching")
     End Sub
 End Class

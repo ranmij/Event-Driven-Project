@@ -16,14 +16,14 @@
                     <StackPanel Margin="15 60">
                         <TextBlock Padding="3" Text="{StaticResource en_smsip}" Foreground="#000" FontWeight="Bold"/>
                         <hc:TextBox Name="IPText" Height="32" VerticalAlignment="Top" hc:InfoElement.Placeholder="Server IP Address" FontSize="12"/>
-                        <TextBlock Margin="0 15 0 0" Padding="3" Text="{StaticResource en_firebasepath}" Foreground="#000" FontWeight="Bold"/>
+                        <!--<TextBlock Margin="0 15 0 0" Padding="3" Text="{StaticResource en_firebasepath}" Foreground="#000" FontWeight="Bold"/>
                         <hc:TextBox Name="BasePathText" Height="32" VerticalAlignment="Top" hc:InfoElement.Placeholder="URL Base Path" FontSize="12"/>
                         <TextBlock Margin="0 15 0 0" Padding="3" Text="{StaticResource en_firebasekey}" Foreground="#000" FontWeight="Bold"/>
                         <hc:TextBox Name="FirebaseKeyText" Height="32" VerticalAlignment="Top" hc:InfoElement.Placeholder="Firebase Secret" FontSize="12"/>
                         <hc:FlexPanel JustifyContent="SpaceBetween" Margin="0 15 0 0" >
                             <TextBlock Text="{StaticResource en_firebase}" FontSize="16" Margin="0 0 10 0" VerticalAlignment="Center"/>
                             <ToggleButton Name="IsEnableFirebase" Style="{StaticResource ToggleButtonSwitch}" Margin="0" />
-                        </hc:FlexPanel>
+                        </hc:FlexPanel>-->
                     </StackPanel>
                 </hc:SimplePanel>
             </hc:Col>
@@ -43,14 +43,5 @@
                 </hc:SimplePanel>
             </hc:Col>
         </hc:Row>
-        <!--<Border
-            CornerRadius="10"
-            Width="300"
-            Height="200"
-            Background="{DynamicResource RegionBrush}">
-            <hc:SimplePanel>
-                <TextBlock Style="{StaticResource TextBlockLargeBold}" Text="{StaticResource en_errorotp}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </hc:SimplePanel>
-        </Border>-->
     </hc:SimplePanel>
 </UserControl>

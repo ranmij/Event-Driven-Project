@@ -45,71 +45,43 @@ Public Class NewProductDialog
         End If
     End Sub
 
-    Private Async Sub SaveButton_Click(sender As Object, e As RoutedEventArgs) Handles SaveButton.Click
-        Dim productObject As New FireBaseProductProp With {
-            .product_code = ProductCodeTextBox.Text.Trim(),
-            .product_name = ProductNameTextBox.Text.Trim(),
-            .unit_price = ProductPriceTextBox.Text.Trim(),
-            .unit_in_stock = ProductStocksTextBox.Text.Trim(),
-            .category = ProductCategoryComboBox.Text.Trim(),
-            .unit = ProductUnitComboBox.Text.Trim(),
-            .image_path = filePath
-        }
-        If My.Settings.firebaseEnable AndAlso NetworkInterface.GetIsNetworkAvailable Then
-            ' Add the product in real time databse
-            If Await FirebaseAddProductAsync(productObject) Then
-                HandyControl.Controls.MessageBox.Info("Product has been added successfully.", "Success")
-            Else
-                HandyControl.Controls.MessageBox.Info("Failed to add the product.", "Failed")
-            End If
+    Private Sub SaveButton_Click(sender As Object, e As RoutedEventArgs) Handles SaveButton.Click
+        Dim category_id As Integer = ProductCategoryComboBox.SelectedIndex + 1
+        Dim unit_id As Integer = ProductUnitComboBox.SelectedIndex + 1
+        If productTableAdapter.InsertQueryProduct(unit_id, category_id, ProductCodeTextBox.TextWrapping, ProductNameTextBox.Text, ProductStocksTextBox.Text, ProductPriceTextBox.Text, 0, filePath) <> 0 Then
+            HandyControl.Controls.MessageBox.Info("Product has been added successfully.", "Success")
         Else
-            Dim category_id As Integer = ProductCategoryComboBox.SelectedIndex + 1
-            Dim unit_id As Integer = ProductUnitComboBox.SelectedIndex + 1
-            If productTableAdapter.InsertQueryProduct(unit_id, category_id, ProductCodeTextBox.TextWrapping, ProductNameTextBox.Text, ProductStocksTextBox.Text, ProductPriceTextBox.Text, 0, filePath) <> 0 Then
-                HandyControl.Controls.MessageBox.Info("Product has been added successfully.", "Success")
-            Else
-                HandyControl.Controls.MessageBox.Info("Failed to add the product.", "Failed")
-            End If
+            HandyControl.Controls.MessageBox.Info("Failed to add the product.", "Failed")
         End If
 
-            filePath = Nothing
+        filePath = Nothing
     End Sub
 
+    ' Load all the categories and units in the combo box
     Private Sub NewProductDialog_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
-        If My.Settings.firebaseEnable AndAlso NetworkInterface.GetIsNetworkAvailable Then
-            Dim controls() As Object = {ProductCategoryComboBox, ProductUnitComboBox}
+        categoryTableAdapter.Fill(categoryDataTable)
+        unitTableAdapter.Fill(unitDataTable)
 
-            ' We pass this async methods as a parameter so that the dialog can access them
-            ' Right now I don't know if this is the best practice for it but this works for now
-            Dim asyncMethods() As Func(Of Task(Of List(Of String))) = {AddressOf FirebaseGetCategory, AddressOf FirebaseGetUnit}
+        Dim categoriesProperty As New List(Of String)
+        Dim unitProperty As New List(Of String)
 
-            ' Show the async dialog and pass the controls and async methods as parameters
-            Dialog.Show(New AsyncLoading(asyncMethods, controls))
-        Else
-            categoryTableAdapter.Fill(categoryDataTable)
-            unitTableAdapter.Fill(unitDataTable)
+        For i = 0 To categoryDataTable.Count - 1
+            With categoryDataTable.Item(i)
+                categoriesProperty.Add(.Item(1).ToString.ToUpper)
+            End With
+        Next
 
-            Dim categoriesProperty As New List(Of String)
-            Dim unitProperty As New List(Of String)
+        For i = 0 To unitDataTable.Count - 1
+            With unitDataTable.Item(i)
+                unitProperty.Add(.Item(1).ToString.ToUpper)
+            End With
+        Next
 
-            For i = 0 To categoryDataTable.Count - 1
-                With categoryDataTable.Item(i)
-                    categoriesProperty.Add(.Item(1).ToString.ToUpper)
-                End With
-            Next
+        ProductCategoryComboBox.ItemsSource = categoriesProperty
+        ProductUnitComboBox.ItemsSource = unitProperty
 
-            For i = 0 To unitDataTable.Count - 1
-                With unitDataTable.Item(i)
-                    unitProperty.Add(.Item(1).ToString.ToUpper)
-                End With
-            Next
-
-            ProductCategoryComboBox.ItemsSource = categoriesProperty
-            ProductUnitComboBox.ItemsSource = unitProperty
-
-            ProductCategoryComboBox.SelectedIndex = 0
-            ProductUnitComboBox.SelectedIndex = 0
-        End If
+        ProductCategoryComboBox.SelectedIndex = 0
+        ProductUnitComboBox.SelectedIndex = 0
     End Sub
 
 End Class

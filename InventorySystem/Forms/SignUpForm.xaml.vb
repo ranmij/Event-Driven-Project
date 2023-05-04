@@ -6,7 +6,7 @@ Imports HandyControl.Controls
 
 Public Class SignUpForm
 
-    Private Async Sub Click_Events(sender As Object, e As RoutedEventArgs) Handles SignUpButton.Click, NextButton.Click, ConfirmAuthButton.Click
+    Private Sub Click_Events(sender As Object, e As RoutedEventArgs) Handles SignUpButton.Click, NextButton.Click, ConfirmAuthButton.Click
         If sender.Equals(NextButton) Then
             Dim controls() As Object = {FirstnameTextBox, LastnameTextBox, EmailTextBox, PhoneTextBox, GenderComboBox}
             ' Are the textboxes empty?
@@ -58,11 +58,7 @@ Public Class SignUpForm
 
                         secondpane.Visibility = Visibility.Collapsed
                         thirdpane.Visibility = Visibility.Visible
-                        If My.Settings.firebaseEnable AndAlso NetworkInterface.GetIsNetworkAvailable() Then
-                            FirebaseGenerateAuth(PhoneTextBox.Text)
-                        Else
-                            GenerateAuth(PhoneTextBox.Text)
-                        End If
+                        GenerateAuth(PhoneTextBox.Text)
                     Else
                         ' Display the password error
                         ' TODO A string literal!
@@ -80,66 +76,33 @@ Public Class SignUpForm
                 ErrorLabel2.Text = "Please fill the empty fields."
             End If
         ElseIf sender.Equals(ConfirmAuthButton) Then
-            If My.Settings.firebaseEnable AndAlso NetworkInterface.GetIsNetworkAvailable Then
-                If Await FirebaseIsAuthVerified(PhoneTextBox.Text, AuthCodeTextBox.Text) Then
-                    'Peform the sign in operation
-                    Dim hasSignedIn As Boolean = Await FirebaseSignUpAsync(New FireBaseUserProp With {
-                                    .id = "2",
-                                    .first_name = FirstnameTextBox.Text,
-                                    .last_name = LastnameTextBox.Text,
-                                    .gender = GenderComboBox.Text,
-                                    .phone = PhoneTextBox.Text,
-                                    .email = EmailTextBox.Text,
-                                    .username = UsernameTextBox.Text,
-                                    .password = PasswordTextBox.Text,
-                                    .date_created = Date.Now.ToShortDateString()
-                            })
-                    ' has the user signed in?
-                    If hasSignedIn Then
-                        ' Clear the errors and close this form and go back to the log in form
-                        ErrorLabel2.Visibility = Visibility.Hidden
-                        Dim login As New LoginForm()
-                        login.Show()
-                        FirebaseDeleteAuth(PhoneTextBox.Text)
-                        Me.Close()
-                    Else
-                        ' Display the unknown error
-                        ' TODO A string literal!
-                        AuthErrorLabel.Visibility = Visibility.Visible
-                        AuthErrorLabel.Text = "An error occured please try again."
-                    End If
+            If IsAuthVerified(PhoneTextBox.Text, AuthCodeTextBox.Text) Then
+                'Peform the sign in operation
+                Dim hasSignedIn As Boolean = SignIn(New LocalUserProp With {
+                                .first_name = FirstnameTextBox.Text,
+                                .last_name = LastnameTextBox.Text,
+                                .gender = GenderComboBox.Text.Chars(0),
+                                .phone = PhoneTextBox.Text,
+                                .email = EmailTextBox.Text,
+                                .username = UsernameTextBox.Text,
+                                .password = PasswordTextBox.Text
+                        })
+                ' has the user signed in?
+                If hasSignedIn Then
+                    ' Clear the errors and close this form and go back to the log in form
+                    ErrorLabel2.Visibility = Visibility.Hidden
+                    Dim login As New LoginForm()
+                    login.Show()
+                    DeleteAuth(PhoneTextBox.Text)
+                    Me.Close()
                 Else
-                    Dialog.Show(New ErrorDialog("Invalid Code"))
+                    ' Display the unknown error
+                    ' TODO A string literal!
+                    AuthErrorLabel.Visibility = Visibility.Visible
+                    AuthErrorLabel.Text = "An error occured please try again."
                 End If
             Else
-                If IsAuthVerified(PhoneTextBox.Text, AuthCodeTextBox.Text) Then
-                    'Peform the sign in operation
-                    Dim hasSignedIn As Boolean = SignIn(New LocalUserProp With {
-                                    .first_name = FirstnameTextBox.Text,
-                                    .last_name = LastnameTextBox.Text,
-                                    .gender = GenderComboBox.Text.Chars(0),
-                                    .phone = PhoneTextBox.Text,
-                                    .email = EmailTextBox.Text,
-                                    .username = UsernameTextBox.Text,
-                                    .password = PasswordTextBox.Text
-                            })
-                    ' has the user signed in?
-                    If hasSignedIn Then
-                        ' Clear the errors and close this form and go back to the log in form
-                        ErrorLabel2.Visibility = Visibility.Hidden
-                        Dim login As New LoginForm()
-                        login.Show()
-                        DeleteAuth(PhoneTextBox.Text)
-                        Me.Close()
-                    Else
-                        ' Display the unknown error
-                        ' TODO A string literal!
-                        AuthErrorLabel.Visibility = Visibility.Visible
-                        AuthErrorLabel.Text = "An error occured please try again."
-                    End If
-                Else
-                    Dialog.Show(New ErrorDialog("Invalid Code"))
-                End If
+                Dialog.Show(New ErrorDialog("Invalid Code"))
             End If
         End If
     End Sub

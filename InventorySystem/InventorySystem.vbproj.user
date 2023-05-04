@@ -10,10 +10,10 @@
     <Compile Update="Dialogs\AsyncLoading.xaml.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Dialogs\ErrorDialog.xaml.vb">
+    <Compile Update="Dialogs\CategoryUnitDialog.xaml.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Dialogs\LoadingDialog.xaml.vb">
+    <Compile Update="Dialogs\ErrorDialog.xaml.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Dialogs\NewProductDialog.xaml.vb">
@@ -59,10 +59,10 @@
     <Page Update="Dialogs\AsyncLoading.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Dialogs\ErrorDialog.xaml">
+    <Page Update="Dialogs\CategoryUnitDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Dialogs\LoadingDialog.xaml">
+    <Page Update="Dialogs\ErrorDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Dialogs\NewProductDialog.xaml">

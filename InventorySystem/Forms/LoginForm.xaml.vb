@@ -7,40 +7,22 @@ Imports HandyControl.Controls                               ' This is only use f
 Public Class LoginForm
     Private signForm As SignUpForm
 
-    ''' <summary>
-    '''  We use this process to perform the log in action
-    ''' </summary>
-    Private Async Sub Verified()
+    Private Sub Verified()
         Dim controls() As Object = {UsernameTextBox, PasswordTextBox}
         ' Are the textboxes empty?
         If IsNotEmpty(controls) Then
             ' Is the user logged in?
-            If My.Settings.firebaseEnable AndAlso NetworkInterface.GetIsNetworkAvailable() Then
-                If Await FirebaseLogInAsync(UsernameTextBox.Text, PasswordTextBox.Password) Then
-                    Dialog.Show(New AsyncLoading())
-                    Dim timer As New DispatcherTimer()                                  ' We will let the user wait for 2.5 seconds, dunno just wanna do this
-                    AddHandler timer.Tick, AddressOf CloseTick
-                    timer.Interval = New TimeSpan(0, 0, 2.5)                            ' Time interval to trigger the tick, in this case it's 2.5 seconds
-                    timer.Start()
-                Else
-                    ' Display the incorect username or password error
-                    ' TODO A string literal!
-                    ErrorLabel.Visibility = Visibility.Visible
-                    ErrorLabel.Text = "Incorrect username or password."
-                End If
+            If Login(UsernameTextBox.Text, PasswordTextBox.Password) Then
+                Dialog.Show(New AsyncLoading())
+                Dim timer As New DispatcherTimer()                                  ' We will let the user wait for 2.5 seconds, dunno just wanna do this
+                AddHandler timer.Tick, AddressOf CloseTick
+                timer.Interval = New TimeSpan(0, 0, 2.5)                            ' Time interval to trigger the tick, in this case it's 2.5 seconds
+                timer.Start()
             Else
-                If Login(UsernameTextBox.Text, PasswordTextBox.Password) Then
-                    Dialog.Show(New AsyncLoading())
-                    Dim timer As New DispatcherTimer()                                  ' We will let the user wait for 2.5 seconds, dunno just wanna do this
-                    AddHandler timer.Tick, AddressOf CloseTick
-                    timer.Interval = New TimeSpan(0, 0, 2.5)                            ' Time interval to trigger the tick, in this case it's 2.5 seconds
-                    timer.Start()
-                Else
-                    ' Display the incorect username or password error
-                    ' TODO A string literal!
-                    ErrorLabel.Visibility = Visibility.Visible
-                    ErrorLabel.Text = "Incorrect username or password."
-                End If
+                ' Display the incorect username or password error
+                ' TODO A string literal!
+                ErrorLabel.Visibility = Visibility.Visible
+                ErrorLabel.Text = "Incorrect username or password."
             End If
         Else
             ' Display the empty field error

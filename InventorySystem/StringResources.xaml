@@ -44,6 +44,8 @@
     <system:String x:Key="en_annualsales">Annual Sales</system:String>
     <system:String x:Key="en_monthlysales">Monthly Sales</system:String>
     <system:String x:Key="en_weeklysales">Weekly Sales</system:String>
+    <system:String x:Key="en_products">Products</system:String>
+    <system:String x:Key="en_transactions">Transactions</system:String>
     <!--#endregion-->
 
     <!--#region STRING PATHS-->

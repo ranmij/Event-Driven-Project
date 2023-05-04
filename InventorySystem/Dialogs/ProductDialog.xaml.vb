@@ -36,53 +36,35 @@ Public Class ProductDialog
         Me.Height = parent.MinHeight - 100
     End Sub
 
-    Private Async Sub ClickEvents(sender As Object, e As RoutedEventArgs) Handles SaveButton.Click, DeleteButton.Click
+    Private Sub ClickEvents(sender As Object, e As RoutedEventArgs) Handles SaveButton.Click, DeleteButton.Click
         ' Did user clicked the save button?
         If sender.Equals(SaveButton) Then
-            ' Is the firebase feature enable and is internet available?
-            If My.Settings.firebaseEnable AndAlso NetworkInterface.GetIsNetworkAvailable() Then
-                Dim productData As New FireBaseProductProp With {
-                    .product_code = _productData.PRODUCT_CODE,
-                    .product_name = _productData.PRODUCT_NAME,
-                    .unit_in_stock = _productData.PRODUCT_STOCKS,
-                    .unit_price = _productData.PRODUCT_PRICE,
-                    .image_path = "/Resources/intel.jpg"
-                }
-                ' Add means overiting the product data
-                If Await FirebaseAddProductAsync(productData) Then
+
+            With _productData
+                ' Check if the update operation succeed
+                If _productAdapter.UpdateQueryProduct(.PRODUCT_CODE, .PRODUCT_NAME, .PRODUCT_STOCKS, .PRODUCT_PRICE, .PRODUCT_ID) <> 0 Then
                     HandyControl.Controls.MessageBox.Info("Product has been updated successfully.", "Update Success")
-                    _DATA_GRID.ItemsSource = Nothing
-                    _DATA_GRID.ItemsSource = Await FirebaseProductCollectionAsync()
+                    _productAdapter.FillByProducts(_productTable)
+                    _DATA_GRID.ItemsSource = Nothing                        ' Refresh the data of datagrid
+                    _DATA_GRID.ItemsSource = _productTable                  ' Fill the data of the datagrid
                 Else
                     ' Display the error if the update operation did not succeed
                     HandyControl.Controls.MessageBox.Info("Failed to update the product.", "Update failed")
                 End If
-            Else
-                With _productData
-                    ' Check if the update operation succeed
-                    If _productAdapter.UpdateQueryProduct(.PRODUCT_CODE, .PRODUCT_NAME, .PRODUCT_STOCKS, .PRODUCT_PRICE, .PRODUCT_ID) <> 0 Then
-                        HandyControl.Controls.MessageBox.Info("Product has been updated successfully.", "Update Success")
-                        _productAdapter.FillByProducts(_productTable)
-                        _DATA_GRID.ItemsSource = Nothing                        ' Refresh the data of datagrid
-                        _DATA_GRID.ItemsSource = _productTable                  ' Fill the data of the datagrid
-                    Else
-                        ' Display the error if the update operation did not succeed
-                        HandyControl.Controls.MessageBox.Info("Failed to update the product.", "Update failed")
-                    End If
-                End With
-            End If
+            End With
         ElseIf sender.Equals(DeleteButton) Then ' Is the delete button clicked?
-            ' Is the firebase feature enable and is internet available?
-            If My.Settings.firebaseEnable AndAlso NetworkInterface.GetIsNetworkAvailable() Then
-                If Await FirebaseDeleteProductAsync(_productData.PRODUCT_NAME) Then
+            With _productData
+                ' Check if the delete operation succeed
+                If _productAdapter.DeleteQueryProduct(.PRODUCT_ID) <> 0 Then
                     HandyControl.Controls.MessageBox.Info("Product has been deleted successfully.", "Delete Success")
-                    _DATA_GRID.ItemsSource = Nothing
-                    _DATA_GRID.ItemsSource = Await FirebaseProductCollectionAsync()
+                    _productAdapter.FillByProducts(_productTable)
+                    _DATA_GRID.ItemsSource = Nothing                        ' Refresh the data in the stocks datagrid view
+                    _DATA_GRID.ItemsSource = _productTable
                     ' Invoke the close after deleting
                     Dim peer As ButtonAutomationPeer = TryCast(UIElementAutomationPeer.CreatePeerForElement(Closebtn), ButtonAutomationPeer)
                     ' If the peer variable has found the button
                     If peer IsNot Nothing Then
-                        ' We invoke the click  to close the dialog
+                        ' We invoke the click so that it the dialog will close
                         Dim provider As IInvokeProvider = TryCast(peer.GetPattern(PatternInterface.Invoke), IInvokeProvider)
                         If provider IsNot Nothing Then
                             provider.Invoke()
@@ -92,31 +74,7 @@ Public Class ProductDialog
                     ' Display the error if the delete operation did not succeed
                     HandyControl.Controls.MessageBox.Info("Failed to delete the product.", "Delete failed")
                 End If
-
-            Else ' We will delete using the local database
-                With _productData
-                    ' Check if the delete operation succeed
-                    If _productAdapter.DeleteQueryProduct(.PRODUCT_ID) <> 0 Then
-                        HandyControl.Controls.MessageBox.Info("Product has been deleted successfully.", "Delete Success")
-                        _productAdapter.FillByProducts(_productTable)
-                        _DATA_GRID.ItemsSource = Nothing                        ' Refresh the data in the stocks datagrid view
-                        _DATA_GRID.ItemsSource = _productTable
-                        ' Invoke the close after deleting
-                        Dim peer As ButtonAutomationPeer = TryCast(UIElementAutomationPeer.CreatePeerForElement(Closebtn), ButtonAutomationPeer)
-                        ' If the peer variable has found the button
-                        If peer IsNot Nothing Then
-                            ' We invoke the click so that it the dialog will close
-                            Dim provider As IInvokeProvider = TryCast(peer.GetPattern(PatternInterface.Invoke), IInvokeProvider)
-                            If provider IsNot Nothing Then
-                                provider.Invoke()
-                            End If
-                        End If
-                    Else
-                        ' Display the error if the delete operation did not succeed
-                        HandyControl.Controls.MessageBox.Info("Failed to delete the product.", "Delete failed")
-                    End If
-                End With
-            End If
+            End With
         End If
     End Sub
 End Class
