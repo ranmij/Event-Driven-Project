@@ -10,11 +10,11 @@ none
 false
 
 D:\SCHOOL FILES\InventorySystem\InventorySystem\Application.xaml
-12244548805
+13722953194
 
-211480494529
+23418632735
 203146018878
-Dialogs\AsyncLoading.xaml;Dialogs\CategoryUnitDialog.xaml;Dialogs\ErrorDialog.xaml;Dialogs\NewProductDialog.xaml;Dialogs\ProductCard.xaml;Dialogs\ProductDialog.xaml;Dialogs\ProfileDialog.xaml;Dialogs\SettingsDialog.xaml;Forms\Dashboard.xaml;Forms\LoginForm.xaml;Forms\SignUpForm.xaml;Forms\SplashScreen.xaml;
+Dialogs\AddSupplierDialog.xaml;Dialogs\AsyncLoading.xaml;Dialogs\CategoryUnitDialog.xaml;Dialogs\ErrorDialog.xaml;Dialogs\NewProductDialog.xaml;Dialogs\ProductCard.xaml;Dialogs\ProductDialog.xaml;Dialogs\ProfileDialog.xaml;Dialogs\SettingsDialog.xaml;Forms\Dashboard.xaml;Forms\LoginForm.xaml;Forms\SignUpForm.xaml;Forms\SplashScreen.xaml;
 
 False
 

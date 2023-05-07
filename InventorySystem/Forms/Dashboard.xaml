@@ -238,7 +238,7 @@
             </hc:SimplePanel>
 
             <!--#region  DASHBOARD PANEL-->
-            <StackPanel Name="DashboardPanel" Grid.Column="1" Visibility="Collapsed" Panel.ZIndex="5">
+            <StackPanel Name="DashboardPanel" Grid.Column="1" Visibility="Visible" Panel.ZIndex="5">
                 <hc:FlexPanel Height="64" Grid.Row="0" JustifyContent="FlexEnd" AlignContent="Center">
                     <StackPanel Margin="30 0">
                         <TextBlock x:Name="DateTextBlock" Margin="8 0 0 0" Padding="0 5 5 0" FontSize="14"/>
@@ -368,91 +368,28 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <!--<Grid x:Name="SalesTopContainer" Height="180"
-                      Grid.Row="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    -->
-                <!--<StackPanel Orientation="Horizontal"
-                                Height="50"
-                                HorizontalAlignment="Stretch"
-                                Grid.Row="0">
-                        <TextBlock x:Name="SalesHeadingPanel" Text="{StaticResource en_salesheading}" VerticalAlignment="Center"
-                                   Margin="30 0 0 0"
-                                   FontSize="32"
-                                   FontWeight="ExtraLight"/>
-                    </StackPanel>-->
-                <!--<hc:Row x:Name="SalesTopRow" Grid.Row="1">
-                        <hc:Col Span="8" Name="DailyCol">
-                            <hc:SimplePanel x:Name="DailyColBox" Grid.Row="0" Grid.Column="0"
-                                                Margin="30 0 30 0"
-                                                Height="105"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Stretch">
-                                <Border x:Name="SalesBorder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                            />
-                                <StackPanel Orientation="Vertical"
-                                            Background="#0CAFFF">
-                                    <TextBlock Text="Weekly Sales"
-                                           FontSize="25"
-                                           Padding="20 20 0 0"
-                                           Foreground="#FFF"/>
-                                    <TextBlock Text="$2000"
-                                           FontSize="20"
-                                           Padding="20 5 0 10"
-                                           Foreground="#FFF"/>
-                                </StackPanel>
-                            </hc:SimplePanel>
-                        </hc:Col>
-                        <hc:Col Span="8" Name="SalesMonthlyCol">
-                            <hc:SimplePanel x:Name="MonthlyColBox" Grid.Row="0" Grid.Column="0"
-                                                Margin="30 0 30 0"
-                                                Height="105"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Stretch">
-                                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                            />
-                                <StackPanel Orientation="Vertical"
-                                                Background="#FFDA03">
-                                    <TextBlock Text="Monthly Sales"
-                                                   FontSize="25"
-                                                   Padding="20 20 0 0"
-                                                   Foreground="#FFF"/>
-                                    <TextBlock Text="$2000"
-                                                   FontSize="20"
-                                                   Padding="20 5 0 10"
-                                                   Foreground="#FFF"/>
-                                </StackPanel>
-                            </hc:SimplePanel>
-                        </hc:Col>
-                        <hc:Col Span="8" Name="SalesYearlyCol" Padding="20">
-                            <hc:SimplePanel Name="SalesYearColBox" Grid.Row="0" Grid.Column="0"
-                                                Margin="30 0 30 0"
-                                                Height="105"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Stretch">
-                                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                           />
-                                <StackPanel Orientation="Vertical"
-                                                Background="#32CD32">
-                                    <TextBlock Text="Annual Sales"
-                                           FontSize="25"
-                                           Padding="20 20 0 0"
-                                           Foreground="#FFF"/>
-                                    <TextBlock Text="$2000"
-                                           FontSize="20"
-                                           Padding="20 5 0 10"
-                                           Foreground="#FFF"/>
-                                </StackPanel>
-                            </hc:SimplePanel>
-                        </hc:Col>
-                    </hc:Row>-->
-                <!--
-                </Grid>-->
                 <Grid Grid.Row="1" Name="SalesBottomWrapPanel">
-                    <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
+                    <StackPanel>
+                        <Grid Height="50"
+                      Grid.Row="0">
+
+                            <hc:FlexPanel Margin="30 0" JustifyContent="SpaceBetween">
+                                <Button x:Name="RefreshButton" Margin="0 0 10 0" Foreground="#fff" FontSize="9"
+                                                        hc:BorderElement.CornerRadius="0"
+                                                        Content="Refresh"
+                                                        hc:IconElement.Geometry="{StaticResource ic_refresh}"
+                                                        hc:IconElement.Height="12"
+                                                        hc:IconElement.Width="12"
+                                                        Height="28"
+                                                        Width="100"
+                                                        Padding="0"
+                                                        BorderThickness="0"
+                                                        Background="#0CAFFF"
+                                                        VerticalAlignment="Bottom"/>
+                                <hc:SearchBar x:Name="SalesSearch" hc:InfoElement.Placeholder="Search" Width="360" Height="28" VerticalAlignment="Bottom" Style="{StaticResource SearchBarExtend}"/>
+                            </hc:FlexPanel>
+                        </Grid>
+                        <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
                               ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
                               CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="SalesDataGridView"
                               Style="{DynamicResource DataGridStyle1}"
@@ -461,18 +398,23 @@
                               CanUserResizeColumns="False"
                               AutoGenerateColumns="True"
                               Visibility="Visible">
-                        <DataGrid.Columns>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                            <DataGrid.Columns>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+
                 </Grid>
             </Grid>
             <!--#endregion-->
             <!--#region STOCKS PANEL-->
-            <Grid Name="StocksPanel" Grid.Column="1" Visibility="Visible">
+            <Grid Name="StocksPanel" Grid.Column="1" Visibility="Collapsed"   >
                 <hc:TabControl IsAnimationEnabled="True" IsTabFillEnabled="True" TabItemHeight="40">
                     <hc:TabItem Header="Stocks" IsSelected="True">
-                        <!--<hc:SimplePanel Background="{DynamicResource RegionBrush}"/>-->
                         <Grid Grid.Row="1" Name="BottomWrapPanel">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="725*"/>
+                                <ColumnDefinition Width="123*"/>
+                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
@@ -483,11 +425,8 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Grid Height="40" Grid.Row="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="321*"/>
-                                        <ColumnDefinition Width="527*"/>
-                                    </Grid.ColumnDefinitions>
                                     <hc:FlexPanel Margin="20,0,20,0" JustifyContent="FlexEnd" Grid.ColumnSpan="2">
+                                        
                                         <hc:SearchBar x:Name="SearchItemTextBox" hc:InfoElement.Placeholder="Search Item" Width="360" Height="28" VerticalAlignment="Center" Style="{StaticResource SearchBarPlus}" HorizontalAlignment="Left"/>
                                     </hc:FlexPanel>
                                 </Grid>
@@ -499,18 +438,18 @@
                                                 <TextBlock Name="StocksTotalItems" Text="1000" VerticalAlignment="Center" Padding="8 0"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal">
-                                                <Button Margin="0 0 10 0" Foreground="#fff" FontSize="9"
+                                                <Button x:Name="RefreshProductsButton" Margin="0 0 10 0" Foreground="#fff" FontSize="9"
                                                         hc:BorderElement.CornerRadius="0"
-                                                        Content="{StaticResource en_exportcsv}"
-                                                        hc:IconElement.Geometry="{StaticResource ic_csv}"
+                                                        Content="Refresh"
+                                                        hc:IconElement.Geometry="{StaticResource ic_refresh}"
                                                         hc:IconElement.Height="12"
                                                         hc:IconElement.Width="12"
                                                         Height="20"
                                                         Width="80"
                                                         Padding="0"
                                                         BorderThickness="0"
-                                                        Background="#32CD32"/>
-                                                <Button Margin="0 0 10 0" Foreground="#fff" FontSize="9" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_importcsv}" hc:IconElement.Geometry="{StaticResource ic_csv}" hc:IconElement.Height="10" hc:IconElement.Width="10" Height="20" Width="80" Padding="0" BorderThickness="0" Background="#32CD32"/>
+                                                        Background="#0CAFFF"
+                                                        VerticalAlignment="Center"/>
                                                 <Button x:Name="StocksAddButton" Foreground="#fff" FontSize="9" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_addproduct}" hc:IconElement.Geometry="{StaticResource ic_add}" hc:IconElement.Height="9" hc:IconElement.Width="9" Height="20" Width="80" Padding="0" BorderThickness="0" Background="#0CAFFF"/>
                                             </StackPanel>
                                         </hc:FlexPanel>
@@ -524,7 +463,7 @@
                                       IsReadOnly="True"
                                       Margin="20 0 20 20"
                                       CanUserResizeColumns="False"
-                                      AutoGenerateColumns="True"/>
+                                      AutoGenerateColumns="True" Grid.ColumnSpan="2" Grid.Row="1"/>
                         </Grid>
                     </hc:TabItem>
                     <hc:TabItem Header="Categories &amp; Units">
@@ -572,7 +511,41 @@
                         </Grid>
                     </hc:TabItem>
                     <hc:TabItem Header="Suppliers">
-                        <hc:SimplePanel/>
+                        <StackPanel>
+                            <UniformGrid Rows="2" Columns="0" Height="80" Grid.Row="0">
+                                <hc:FlexPanel Grid.Row="0" Margin="20,0,20,0" JustifyContent="FlexEnd" Grid.ColumnSpan="2">
+                                    
+                                    <hc:SearchBar x:Name="SearchSupplierTextBox" hc:InfoElement.Placeholder="Search Item" Width="360" Height="28" VerticalAlignment="Center" Style="{StaticResource SearchBarPlus}" HorizontalAlignment="Left"/>
+                                </hc:FlexPanel>
+                                <hc:SimpleStackPanel Grid.Row="1">
+                                    <hc:FlexPanel Margin="20 0" JustifyContent="SpaceBetween">
+                                        <Button x:Name="RefreshSuppliersButton" Margin="0 0 10 0" Foreground="#fff" FontSize="9"
+                                                        hc:BorderElement.CornerRadius="0"
+                                                        Content="Refresh"
+                                                        hc:IconElement.Geometry="{StaticResource ic_refresh}"
+                                                        hc:IconElement.Height="12"
+                                                        hc:IconElement.Width="12"
+                                                        Height="28"
+                                                        Width="100"
+                                                        Padding="0"
+                                                        BorderThickness="0"
+                                                        Background="#0CAFFF"
+                                                        VerticalAlignment="Center"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button VerticalAlignment="Center" x:Name="SupplierAddButton" Foreground="#fff" FontSize="9" hc:BorderElement.CornerRadius="0" Content="Add Supplier" hc:IconElement.Geometry="{StaticResource ic_add}" hc:IconElement.Height="9" hc:IconElement.Width="9" Height="28" Width="100" Padding="0" BorderThickness="0" Background="#0CAFFF"/>
+                                        </StackPanel>
+                                    </hc:FlexPanel>
+                                </hc:SimpleStackPanel>
+                            </UniformGrid>
+                            <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
+                                                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                                                      CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="SupplierDataGridView"
+                                                      Style="{DynamicResource DataGridStyle1}"
+                                                      IsReadOnly="True"
+                                                      CanUserResizeColumns="False"
+                                                      AutoGenerateColumns="True"
+                                                      Margin="20 0 20 20"/>
+                        </StackPanel>
                     </hc:TabItem>
                 </hc:TabControl>
             </Grid>
@@ -596,7 +569,7 @@
                             <TextBlock x:Name="POSHeadingPanel" Text="{StaticResource en_posheading}" VerticalAlignment="Bottom"
                                    FontSize="32"
                                    FontWeight="ExtraLight"/>
-                            <hc:SearchBar hc:InfoElement.Placeholder="Search Product" Width="360" Height="28" VerticalAlignment="Bottom" Style="{StaticResource SearchBarExtend}"/>
+                            <hc:SearchBar Name="SearchProductPOS" Visibility="Collapsed" hc:InfoElement.Placeholder="Search Product" Width="360" Height="28" VerticalAlignment="Bottom" Style="{StaticResource SearchBarExtend}"/>
                         </hc:FlexPanel>
                     </Grid>
                 </Grid>
@@ -610,9 +583,10 @@
                                                VerticalAlignment="Center"/>
                                     <TextBlock Name="PriceTotal" Text="0" FontSize="14" VerticalAlignment="Center"/>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Height="40">
-                                    <hc:TextBox Width="200" Height="20" Margin="30 0 0 0" hc:InfoElement.Placeholder="Amount" hc:BorderElement.CornerRadius="0"/>
-                                </StackPanel>
+                                <hc:FlexPanel JustifyContent="SpaceBetween" Height="40">
+                                    <hc:TextBox Width="200" Height="24" Margin="30 0 0 0" hc:InfoElement.Placeholder="Amount" hc:BorderElement.CornerRadius="0"/>
+                                    <Button HorizontalAlignment="Right" Name="BuyButton" Margin="0 0 15 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="Buy" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="100" Padding="0" BorderThickness="0" Background="#0CAFFF"/>
+                                </hc:FlexPanel>
                             </StackPanel>
                             <Grid DockPanel.Dock="Bottom" VerticalAlignment="Stretch">
                                 <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
@@ -620,7 +594,7 @@
                                           CellStyle="{DynamicResource DataGridCellStyle1}" Name="PosDataGridView"
                                           Style="{DynamicResource DataGridStyle1}"
                                           IsReadOnly="True"
-                                          Margin="30 20 30 20"
+                                          Margin="30 20 15 20"
                                           CanUserResizeColumns="False"
                                           AutoGenerateColumns="False"
                                           Visibility="Visible">

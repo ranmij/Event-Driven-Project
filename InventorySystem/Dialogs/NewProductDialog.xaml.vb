@@ -46,8 +46,8 @@ Public Class NewProductDialog
     End Sub
 
     Private Sub SaveButton_Click(sender As Object, e As RoutedEventArgs) Handles SaveButton.Click
-        Dim category_id As Integer = ProductCategoryComboBox.SelectedIndex + 1
-        Dim unit_id As Integer = ProductUnitComboBox.SelectedIndex + 1
+        Dim category_id As Integer = ProductCategoryComboBox.SelectedValue
+        Dim unit_id As Integer = ProductUnitComboBox.SelectedValue
         If productTableAdapter.InsertQueryProduct(unit_id, category_id, ProductCodeTextBox.TextWrapping, ProductNameTextBox.Text, ProductStocksTextBox.Text, ProductPriceTextBox.Text, 0, filePath) <> 0 Then
             HandyControl.Controls.MessageBox.Info("Product has been added successfully.", "Success")
         Else
@@ -62,26 +62,15 @@ Public Class NewProductDialog
         categoryTableAdapter.Fill(categoryDataTable)
         unitTableAdapter.Fill(unitDataTable)
 
-        Dim categoriesProperty As New List(Of String)
-        Dim unitProperty As New List(Of String)
+        ProductCategoryComboBox.ItemsSource = categoryDataTable
+        ProductCategoryComboBox.DisplayMemberPath = "category"
+        ProductCategoryComboBox.SelectedValuePath = "id"
 
-        For i = 0 To categoryDataTable.Count - 1
-            With categoryDataTable.Item(i)
-                categoriesProperty.Add(.Item(1).ToString.ToUpper)
-            End With
-        Next
-
-        For i = 0 To unitDataTable.Count - 1
-            With unitDataTable.Item(i)
-                unitProperty.Add(.Item(1).ToString.ToUpper)
-            End With
-        Next
-
-        ProductCategoryComboBox.ItemsSource = categoriesProperty
-        ProductUnitComboBox.ItemsSource = unitProperty
+        ProductUnitComboBox.ItemsSource = unitDataTable
+        ProductUnitComboBox.DisplayMemberPath = "unit_name"
+        ProductUnitComboBox.SelectedValuePath = "id"
 
         ProductCategoryComboBox.SelectedIndex = 0
-        ProductUnitComboBox.SelectedIndex = 0
     End Sub
 
 End Class

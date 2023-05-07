@@ -1,6 +1,7 @@
 D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\InventorySystem.vbproj.AssemblyReference.cache
 D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\Forms\Dashboard.baml
 D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\Dialogs\AsyncLoading.g.vb
+D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\Dialogs\CategoryUnitDialog.g.vb
 D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\Dialogs\ErrorDialog.g.vb
 D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\Dialogs\NewProductDialog.g.vb
 D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\Dialogs\ProductCard.g.vb
@@ -36,6 +37,7 @@ D:\SCHOOL FILES\InventorySystem\InventorySystem\bin\Debug\net6.0-windows\runtime
 D:\SCHOOL FILES\InventorySystem\InventorySystem\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\Application.baml
 D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\Dialogs\AsyncLoading.baml
+D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\Dialogs\CategoryUnitDialog.baml
 D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\Dialogs\ErrorDialog.baml
 D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\Dialogs\NewProductDialog.baml
 D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\Dialogs\ProductCard.baml
@@ -58,5 +60,5 @@ D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\refint\
 D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\InventorySystem.pdb
 D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\InventorySystem.genruntimeconfig.cache
 D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\ref\InventorySystem.dll
-D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\Dialogs\CategoryUnitDialog.g.vb
-D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\Dialogs\CategoryUnitDialog.baml
+D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\Dialogs\AddSupplierDialog.g.vb
+D:\SCHOOL FILES\InventorySystem\InventorySystem\obj\Debug\net6.0-windows\Dialogs\AddSupplierDialog.baml

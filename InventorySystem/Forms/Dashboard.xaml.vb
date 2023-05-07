@@ -9,24 +9,21 @@ Imports InventorySystem.InventorySystem.DataSets.ProductsDataSet
 Imports InventorySystem.InventorySystem.DataSets.ProductsDataSetTableAdapters
 
 Public Class Dashboard
-    Private ReadOnly salesTable As New salesDataTable
-    Private ReadOnly salesAdapter As New salesTableAdapter
-    Private ReadOnly stocksTable As New productDataTable
-    Private ReadOnly stocksAdapter As New productTableAdapter
-    Private ReadOnly orderDataTable As New ordersDataTable
-    Private ReadOnly orderTableAdapter As New ordersTableAdapter
-    Private ReadOnly categoryDataTable As New categoryDataTable
-    Private ReadOnly categoryTableAdapter As New categoryTableAdapter
-    Private ReadOnly unitDataTable As New unitDataTable
-    Private ReadOnly unitTableAdapter As New unitTableAdapter
-    Private ReadOnly productTableAdapter As New productTableAdapter
+    Private ReadOnly _orderAdapter As New ordersTableAdapter
+    Private ReadOnly _categoryAdapter As New categoryTableAdapter
+    Private ReadOnly _unitAdapter As New unitTableAdapter
+    Private ReadOnly _productAdapter As New productTableAdapter
+    Private ReadOnly _supplierAdapter As New supplierTableAdapter
+
 
     Private Sub Dashboard_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
         DateTextBlock.Text = Date.Now.ToLongDateString
-        WeeklySalesLabel.Text = "₱ " & orderTableAdapter.ScalarQueryWeeklySales().ToString
-        MonthlySalesLabel.Text = "₱ " & orderTableAdapter.ScalarQueryMonthlySales().ToString
-        YearlySalesLabel.Text = "₱ " & orderTableAdapter.ScalarQueryYearlySales().ToString
-        FormTitle.Text = "Dashboard"
+        WeeklySalesLabel.Text = "₱ " & _orderAdapter.ScalarQueryWeeklySales().ToString
+        MonthlySalesLabel.Text = "₱ " & _orderAdapter.ScalarQueryMonthlySales().ToString
+        YearlySalesLabel.Text = "₱ " & _orderAdapter.ScalarQueryYearlySales().ToString
+        TransactionCountLabel.Text = _orderAdapter.ScalarQueryOrders()
+        ProductCountLabel.Text = _productAdapter.ScalarQueryProducts()
+        FormTitle.Text = "Dashboard".ToUpper
     End Sub
 
 
@@ -57,28 +54,25 @@ Public Class Dashboard
         ' Determine which button triggered the click event so we can identify which panel should we open
         If sender.Equals(DashboardButton) Then
             DashboardPanel.Visibility = Visibility.Visible
-            WeeklySalesLabel.Text = "₱ " & orderTableAdapter.ScalarQueryWeeklySales().ToString
-            MonthlySalesLabel.Text = "₱ " & orderTableAdapter.ScalarQueryMonthlySales().ToString
-            YearlySalesLabel.Text = "₱ " & orderTableAdapter.ScalarQueryYearlySales().ToString
-            FormTitle.Text = "Dashboard"
+            WeeklySalesLabel.Text = "₱ " & _orderAdapter.ScalarQueryWeeklySales().ToString
+            MonthlySalesLabel.Text = "₱ " & _orderAdapter.ScalarQueryMonthlySales().ToString
+            YearlySalesLabel.Text = "₱ " & _orderAdapter.ScalarQueryYearlySales().ToString
+            FormTitle.Text = "Dashboard".ToUpper
         ElseIf sender.Equals(SalesButton) Then
             SalesPanel.Visibility = Visibility.Visible
-            SalesDataGridView.ItemsSource = orderTableAdapter.GetDataByOrders()
+            SalesDataGridView.ItemsSource = _orderAdapter.GetDataByOrders()
             FormTitle.Text = "Sales".ToUpper
         ElseIf sender.Equals(StocksButton) Then
             StocksPanel.Visibility = Visibility.Visible
-            stocksAdapter.FillByProducts(stocksTable)
-            categoryTableAdapter.Fill(categoryDataTable)
-            unitTableAdapter.Fill(unitDataTable)
             FormTitle.Text = "Stocks".ToUpper
             ' First Tab
-            StocksDataGridView.ItemsSource = stocksTable                                            ' Fill the stocks datagrid view with products
-            StocksTotalItems.Text = productTableAdapter.ScalarQueryProducts()
+            StocksDataGridView.ItemsSource = _productAdapter.GetDataByProducts()                ' Fill the stocks datagrid view with products
+            StocksTotalItems.Text = _productAdapter.ScalarQueryProducts()
             ' Second Tab
-            CategoryDataGridView.ItemsSource = categoryDataTable
-            UnitDataGridView.ItemsSource = unitDataTable
-
+            CategoryDataGridView.ItemsSource = _categoryAdapter.GetDataByDataGrid()
+            UnitDataGridView.ItemsSource = _unitAdapter.GetDataByDataGrid()
             'Third Tab
+            SupplierDataGridView.ItemsSource = _supplierAdapter.GetDataBySupplier()
         ElseIf sender.Equals(POSButton) Then
             POSPanel.Visibility = Visibility.Visible
             PosProductContainer.Children.Clear()
@@ -125,9 +119,10 @@ Public Class Dashboard
     End Sub
 
     Private Sub SalesDataGridView_AutoGeneratingColumn(sender As Object, e As DataGridAutoGeneratingColumnEventArgs) Handles SalesDataGridView.AutoGeneratingColumn, StocksDataGridView.AutoGeneratingColumn,
-            CategoryDataGridView.AutoGeneratingColumn, UnitDataGridView.AutoGeneratingColumn
+            CategoryDataGridView.AutoGeneratingColumn, UnitDataGridView.AutoGeneratingColumn, SupplierDataGridView.AutoGeneratingColumn, CategoryDataGridView.AutoGeneratingColumn,
+            UnitDataGridView.AutoGeneratingColumn
         ' Check if which header should we hide
-        Dim columnsToHide() As String = {"id", "order_id", "order_date", "payment_id", "product_name", "ship_date", "user_id", "total_price", "item_count", "product_id", "unit_id", "image_path", "category_id", "discount_percent", "product_code", "category_id", "unit_in_stock", "unit_price"}
+        Dim columnsToHide() As String = {"id", "order_id", "order_date", "payment_id", "product_name", "ship_date", "user_id", "total_price", "item_count", "product_id", "unit_id", "image_path", "category_id", "discount_percent", "product_code", "category_id", "unit_in_stock", "unit_price", "category", "unit_name"}
         If columnsToHide.Contains(e.Column.Header.ToString()) Then
             e.Column.Visibility = Visibility.Collapsed
         End If
@@ -163,34 +158,82 @@ Public Class Dashboard
 
     End Sub
 
+    Private Sub SupplierDataGridView_MouseLeftButtonUp(sender As Object, e As MouseButtonEventArgs) Handles SupplierDataGridView.MouseLeftButtonUp
+        With SupplierDataGridView.SelectedItem
+            Dim data() As String = { .Item(0), .Item(1), .Item(2), .Item(3), .Item(4), .Item(5)}
+            Dialog.Show(New AddSupplierDialog(Me, SupplierDataGridView, data))
+        End With
+    End Sub
+
+    ' For adding category and unit
     Private Sub AddCategoryButton_Click(sender As Object, e As RoutedEventArgs) Handles AddCategoryUnitButton.Click
         If Not String.IsNullOrEmpty(CategoryTextBox.Text) And Not String.IsNullOrEmpty(UnitTextBox.Text) Then
-            If categoryTableAdapter.InsertQueryCategory(CategoryTextBox.Text) <> 0 AndAlso
-            unitTableAdapter.InsertQueryUnit(UnitTextBox.Text) <> 0 Then
+            If _categoryAdapter.InsertQueryCategory(CategoryTextBox.Text) <> 0 AndAlso
+            _unitAdapter.InsertQueryUnit(UnitTextBox.Text) <> 0 Then
                 HandyControl.Controls.MessageBox.Info("Category and unit has been added successfully.", "Success!")
             Else
                 HandyControl.Controls.MessageBox.Warning("Operation failed.", "Failed")
             End If
         ElseIf Not String.IsNullOrEmpty(CategoryTextBox.Text) Then
-            If categoryTableAdapter.InsertQueryCategory(CategoryTextBox.Text) <> 0 Then
+            If _categoryAdapter.InsertQueryCategory(CategoryTextBox.Text) <> 0 Then
                 HandyControl.Controls.MessageBox.Info("Category has been added successfully.", "Success!")
             Else
                 HandyControl.Controls.MessageBox.Warning("Operation failed.", "Failed")
             End If
         Else
-            If unitTableAdapter.InsertQueryUnit(UnitTextBox.Text) <> 0 Then
+            If _unitAdapter.InsertQueryUnit(UnitTextBox.Text) <> 0 Then
                 HandyControl.Controls.MessageBox.Info("Unit has been added successfully.", "Success!")
             Else
                 HandyControl.Controls.MessageBox.Warning("Operation failed.", "Failed")
             End If
         End If
-        categoryTableAdapter.Fill(categoryDataTable)
-        unitTableAdapter.Fill(unitDataTable)
-        CategoryDataGridView.ItemsSource = categoryDataTable
-        UnitDataGridView.ItemsSource = unitDataTable
+        CategoryDataGridView.ItemsSource = _categoryAdapter.GetDataByDataGrid()
+        UnitDataGridView.ItemsSource = _unitAdapter.GetDataByDataGrid()
     End Sub
 
+    ' FOR SEARCHING PRODUCT
     Private Sub SearchItemTextBox_SearchStarted(sender As Object, e As FunctionEventArgs(Of String)) Handles SearchItemTextBox.SearchStarted
-        MsgBox("searching")
+        Dim query = SearchItemTextBox.Text.Insert(0, "%")
+        StocksDataGridView.ItemsSource = _productAdapter.GetDataBySearch(SearchItemTextBox.Text)
     End Sub
+
+
+    ' FOR SEARCHING SALES
+    Private Sub SalesSearch_SearchStarted(sender As Object, e As FunctionEventArgs(Of String)) Handles SalesSearch.SearchStarted
+        Dim query = SalesSearch.Text.Insert(0, "%")
+        SalesDataGridView.ItemsSource = _orderAdapter.GetDataBySearch(query.Insert(Len(query), "%"))
+
+    End Sub
+
+    ' FOR SEARCHING SUPPLIER
+    Private Sub SearchSupplier_SearchStarted(sender As Object, e As FunctionEventArgs(Of String)) Handles SearchSupplierTextBox.SearchStarted
+        Dim query = SearchSupplierTextBox.Text.Insert(0, "%")
+        SalesDataGridView.ItemsSource = _supplierAdapter.GetDataBySearch(query.Insert(Len(query), "%"))
+
+    End Sub
+
+    Private Sub SearchProductPOS_SearchStarted(sender As Object, e As FunctionEventArgs(Of String)) Handles SearchProductPOS.SearchStarted
+        PosProductContainer.Children.Clear()
+        FillProductsBySearch(PosProductContainer, SearchProductPOS.Text)                                                   ' Refresh the products list from local database
+        ProductHandler(PosProductContainer)
+    End Sub
+
+
+    ' FOR REFRESHING DATAGRID
+    Private Sub RefreshButton_Click(sender As Object, e As RoutedEventArgs) Handles RefreshButton.Click
+        SalesDataGridView.ItemsSource = _orderAdapter.GetDataByOrders()
+    End Sub
+
+    Private Sub SupplierAddButton_Click(sender As Object, e As RoutedEventArgs) Handles SupplierAddButton.Click
+        Dialog.Show(New AddSupplierDialog(Me, SupplierDataGridView))
+    End Sub
+
+    Private Sub RefreshSuppliersButton_Click(sender As Object, e As RoutedEventArgs) Handles RefreshSuppliersButton.Click
+        SupplierDataGridView.ItemsSource = _supplierAdapter.GetDataBySupplier()
+    End Sub
+
+    Private Sub RefreshProductsButton_Click(sender As Object, e As RoutedEventArgs) Handles RefreshProductsButton.Click
+        StocksDataGridView.ItemsSource = _productAdapter.GetDataByProducts()
+    End Sub
+
 End Class

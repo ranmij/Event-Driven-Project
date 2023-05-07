@@ -42,6 +42,14 @@ Module Utils
         Public Property ERROR_MESSAGE As String
     End Class
 
+    Public Class SupplierProperty
+        Public Property ID As Integer
+        Public Property SUPPLIER_NAME As String
+        Public Property SUPPLIER_ADDRESS As String
+        Public Property SUPPLIER_CONTACT As String
+        Public Property SUPPLIER_EMAIL As String
+        Public Property SUPPLIER_CATEGORY As Int16
+    End Class
 
     ' Check wether the phone number already exists
     Public Function IsNotDuplicatePhone(phone As String) As Boolean
@@ -80,12 +88,17 @@ Module Utils
     ' Check if the controls are empty
     Public Function IsNotEmpty(controls As Object()) As Boolean
         For Each control In controls
-            If TryCast(control, PasswordBox) Is Nothing Then
+            If TryCast(control, TextBox) IsNot Nothing Then
                 Dim controlB As TextBox = TryCast(control, TextBox)
                 If String.IsNullOrEmpty(controlB.Text) OrElse String.IsNullOrWhiteSpace(controlB.Text) Then
                     Return False
                 End If
-            Else
+            ElseIf TryCast(control, ComboBox) IsNot Nothing Then
+                Dim controlB As ComboBox = TryCast(control, ComboBox)
+                If String.IsNullOrEmpty(controlB.Text) OrElse String.IsNullOrWhiteSpace(controlB.Text) Then
+                    Return False
+                End If
+            ElseIf TryCast(control, PasswordBox) IsNot Nothing Then
                 Dim controlB As PasswordBox = TryCast(control, PasswordBox)
                 If String.IsNullOrEmpty(controlB.Password) OrElse String.IsNullOrWhiteSpace(controlB.Password) Then
                     Return False
@@ -113,6 +126,21 @@ Module Utils
         Dim productsTableAdapter As New productTableAdapter
         productsTableAdapter.Fill(productsDataTable)
         For i = 0 To productsDataTable.Rows.Count - 1
+            With productsDataTable.Item(i)
+                Dim imagePath As String = .image_path
+                Dim cardTitle As String = .product_name
+                Dim cardPrice As String = CStr(.unit_price)
+                parentNode.Children.Add(New ProductCard(imagePath, cardTitle, cardPrice))
+            End With
+        Next
+    End Sub
+
+    ' To fill the products in the scroll view by search
+    Public Sub FillProductsBySearch(ByRef parentNode As WrapPanel, query As String)
+        Dim productsTableAdapter As New productTableAdapter
+        Dim productsDataTable As productDataTable = productsTableAdapter.GetDataByQuery(query)
+        MsgBox(productsDataTable.Count)
+        For i = 0 To productsDataTable.Count - 1
             With productsDataTable.Item(i)
                 Dim imagePath As String = .image_path
                 Dim cardTitle As String = .product_name

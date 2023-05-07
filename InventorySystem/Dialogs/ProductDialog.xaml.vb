@@ -1,6 +1,5 @@
 ﻿' This is for me
 
-Imports System.Net.NetworkInformation
 Imports System.Windows.Automation.Peers
 Imports System.Windows.Automation.Provider
 Imports InventorySystem.InventorySystem.DataSets.ProductsDataSet
@@ -9,8 +8,8 @@ Imports InventorySystem.InventorySystem.DataSets.ProductsDataSetTableAdapters
 Public Class ProductDialog
     Private _DATA_GRID As DataGrid = Nothing
     Private _productAdapter As New productTableAdapter
-    Private _productTable As New productDataTable
     Private _productData As ProductData
+    Private _parent As Window
 
     ' I know that this constructor has too many parameters, but I have to use this for now, very unhealthy.
     Public Sub New(parent As Window, ByRef datagridview As DataGrid, product_id As String, product_code As String, product_name As String, product_stock As String, product_price As String, image_path As String)
@@ -34,19 +33,19 @@ Public Class ProductDialog
         ' Fix the width and height of the Dialog
         Me.Width = parent.MinWidth - 100
         Me.Height = parent.MinHeight - 100
+        _parent = parent
     End Sub
 
     Private Sub ClickEvents(sender As Object, e As RoutedEventArgs) Handles SaveButton.Click, DeleteButton.Click
         ' Did user clicked the save button?
         If sender.Equals(SaveButton) Then
-
             With _productData
                 ' Check if the update operation succeed
                 If _productAdapter.UpdateQueryProduct(.PRODUCT_CODE, .PRODUCT_NAME, .PRODUCT_STOCKS, .PRODUCT_PRICE, .PRODUCT_ID) <> 0 Then
                     HandyControl.Controls.MessageBox.Info("Product has been updated successfully.", "Update Success")
-                    _productAdapter.FillByProducts(_productTable)
-                    _DATA_GRID.ItemsSource = Nothing                        ' Refresh the data of datagrid
-                    _DATA_GRID.ItemsSource = _productTable                  ' Fill the data of the datagrid
+                    '_productAdapter.FillByProducts(_productTable)
+                    _DATA_GRID.ItemsSource = Nothing                                            ' Refresh the data of datagrid
+                    _DATA_GRID.ItemsSource = _productAdapter.GetDataByProducts()                 ' Fill the data of the datagrid
                 Else
                     ' Display the error if the update operation did not succeed
                     HandyControl.Controls.MessageBox.Info("Failed to update the product.", "Update failed")
@@ -57,9 +56,9 @@ Public Class ProductDialog
                 ' Check if the delete operation succeed
                 If _productAdapter.DeleteQueryProduct(.PRODUCT_ID) <> 0 Then
                     HandyControl.Controls.MessageBox.Info("Product has been deleted successfully.", "Delete Success")
-                    _productAdapter.FillByProducts(_productTable)
+                    '_productAdapter.FillByProducts(_productTable)
                     _DATA_GRID.ItemsSource = Nothing                        ' Refresh the data in the stocks datagrid view
-                    _DATA_GRID.ItemsSource = _productTable
+                    _DATA_GRID.ItemsSource = _productAdapter.GetDataByProducts()
                     ' Invoke the close after deleting
                     Dim peer As ButtonAutomationPeer = TryCast(UIElementAutomationPeer.CreatePeerForElement(Closebtn), ButtonAutomationPeer)
                     ' If the peer variable has found the button
@@ -76,5 +75,6 @@ Public Class ProductDialog
                 End If
             End With
         End If
+        TryCast(_parent.FindName("StocksTotalItems"), TextBlock).Text = _productAdapter.ScalarQueryProducts()
     End Sub
 End Class

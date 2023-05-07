@@ -1,6 +1,7 @@
 ﻿
 FD:\SCHOOL FILES\InventorySystem\InventorySystem\Application.xaml;;
 FD:\SCHOOL FILES\InventorySystem\InventorySystem\Dialogs\AsyncLoading.xaml;;
+FD:\SCHOOL FILES\InventorySystem\InventorySystem\Dialogs\CategoryUnitDialog.xaml;;
 FD:\SCHOOL FILES\InventorySystem\InventorySystem\Dialogs\ErrorDialog.xaml;;
 FD:\SCHOOL FILES\InventorySystem\InventorySystem\Dialogs\NewProductDialog.xaml;;
 FD:\SCHOOL FILES\InventorySystem\InventorySystem\Dialogs\ProductCard.xaml;;
@@ -10,5 +11,5 @@ FD:\SCHOOL FILES\InventorySystem\InventorySystem\Dialogs\SettingsDialog.xaml;;
 FD:\SCHOOL FILES\InventorySystem\InventorySystem\Forms\LoginForm.xaml;;
 FD:\SCHOOL FILES\InventorySystem\InventorySystem\Forms\SignUpForm.xaml;;
 FD:\SCHOOL FILES\InventorySystem\InventorySystem\Forms\SplashScreen.xaml;;
-FD:\SCHOOL FILES\InventorySystem\InventorySystem\Dialogs\CategoryUnitDialog.xaml;;
+FD:\SCHOOL FILES\InventorySystem\InventorySystem\Dialogs\AddSupplierDialog.xaml;;
 

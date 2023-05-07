@@ -13,6 +13,9 @@
                 Width="{Binding ElementName=RelativePanel, Path=ActualWidth}"
                 CornerRadius="5"
                 Background="#fff" />
+        <StackPanel Panel.ZIndex="10" Height="40" Width="{Binding ElementName=RelativePanel, Path=ActualWidth}">
+            <Button Name="Closebtn" Height="24" Width="24" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Command="hc:ControlCommands.Close" Margin="0,10,10,0"  Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        </StackPanel>
         <DockPanel Width="{Binding ElementName=RelativePanel, Path=ActualWidth}"
                    Height="{Binding ElementName=RelativePanel, Path=ActualHeight}">
             <StackPanel x:Name="StackTopPanel" Height="150" DockPanel.Dock="Top">
