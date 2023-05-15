@@ -5,11 +5,13 @@ Imports System.Windows.Automation.Provider
 Public Class POSEditDialog
     Private _collection As List(Of ProductDetails)
     Private _index As Integer
-    Public Sub New(ByRef productProp As ProductDetails, ByRef collection As List(Of ProductDetails), index As Integer)
+    Private _price As TextBox
+    Public Sub New(ByRef productProp As ProductDetails, ByRef collection As List(Of ProductDetails), index As Integer, ByRef price As TextBox)
 
         InitializeComponent()
         DataContext = productProp
         _collection = collection
+        _price = price
         _index = index
         Height = 400
         Width = 400
@@ -22,6 +24,10 @@ Public Class POSEditDialog
             Dim stocks As Integer = Integer.Parse(dataTable.Rows(0).Item(5))
             If stocks - Integer.Parse(ProductQuantityTextBox.Text) >= 0 Then
                 _collection.Item(_index).PRODUCT_QUANTITY = ProductQuantityTextBox.Text
+                _price.Text = 0
+                For Each item In _collection
+                    _price.Text = Math.Round(Double.Parse(item.PRODUCT_QUANTITY) * Double.Parse(item.PRODUCT_PRICE), 2)
+                Next
                 Dim peer As ButtonAutomationPeer = TryCast(UIElementAutomationPeer.CreatePeerForElement(Closebtn), ButtonAutomationPeer)
                 ' If the peer variable has found the button
                 If peer IsNot Nothing Then

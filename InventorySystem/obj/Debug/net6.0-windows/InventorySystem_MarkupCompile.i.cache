@@ -16,5 +16,5 @@ D:\SCHOOL FILES\InventorySystem\InventorySystem\Application.xaml
 197669462578
 Dialogs\AddSupplierDialog.xaml;Dialogs\AsyncLoading.xaml;Dialogs\CategoryUnitDialog.xaml;Dialogs\DashboardDialog.xaml;Dialogs\ErrorDialog.xaml;Dialogs\NewProductDialog.xaml;Dialogs\POSEditDialog.xaml;Dialogs\ProductCard.xaml;Dialogs\ProductDialog.xaml;Dialogs\ProfileDialog.xaml;Dialogs\PurchaseDetailsDialog.xaml;Dialogs\SettingsDialog.xaml;Forms\Dashboard.xaml;Forms\ForgotPasswordForm.xaml;Forms\LoginForm.xaml;Forms\SignUpForm.xaml;Forms\SplashScreen.xaml;
 
-True
+False
 

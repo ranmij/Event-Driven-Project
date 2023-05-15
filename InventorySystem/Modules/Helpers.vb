@@ -190,13 +190,12 @@ Module Helpers
         Return _datatable.DefaultView
     End Function
 
-    'Public Sub FillDataGridBySupplier(dataGrid As DataGrid)
-    '    _sqlcommand = New SqlCommand("SELECT s.id, supplier_name [Supplier Name], supplier_address [Address], contact Contact, email Email, c.category Category FROM supplier s JOIN category c ON s.category_id = c.id", _connection)
-    '    _sqladapter = New SqlDataAdapter(_sqlcommand)
-    '    _datatable = New DataTable
-    '    _sqladapter.Fill(_datatable)
-    '    dataGrid.ItemsSource = _datatable.DefaultView
-    'End Sub
+    Public Function DeleteOrderByProduct(product_id As Integer) As Boolean
+        OpenConnection()
+        _sqlcommand = New SqlCommand("DELETE FROM orders WHERE product_id = @product_id", _connection)
+        _sqlcommand.Parameters.AddWithValue("@product_id", product_id)
+        Return True
+    End Function
 
     ''' <summary>
     ''' Use to fetch data from products to fill a WrapPanel
@@ -336,9 +335,13 @@ Module Helpers
         _datatable = New DataTable
         _sqladapter.Fill(_datatable)
 
-        For i = 0 To _datatable.Rows.Count - 1
-            Growl.InfoGlobal(_datatable.Rows(i).Item(0) & " is running out of stock.")
-        Next
+        If _datatable.Rows.Count > 5 Then
+            Growl.InfoGlobal("Some products are running out of stock.")
+        Else
+            For i = 0 To _datatable.Rows.Count - 1
+                Growl.InfoGlobal(_datatable.Rows(i).Item(0) & " is running out of stock.")
+            Next
+        End If
     End Sub
 
     Public Function GetProductByName(productName As String) As DataTable

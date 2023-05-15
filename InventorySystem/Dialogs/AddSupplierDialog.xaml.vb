@@ -60,7 +60,25 @@ Public Class AddSupplierDialog
             Next
         Else
             If IsValidPhone(SupplierContactTextBox.Text) Then
+                For Each control In controls
+                    If String.IsNullOrEmpty(control.Text) Then
+                        If TryCast(control, TextBox) IsNot Nothing Then
+                            TryCast(control, TextBox).BorderBrush = Brushes.Gray
+                        Else
+                            TryCast(control, ComboBox).BorderBrush = Brushes.Gray
+                        End If
+                    End If
+                Next
                 If IsValidEmail(SupplierEmailTextBox.Text) Then
+                    For Each control In controls
+                        If String.IsNullOrEmpty(control.Text) Then
+                            If TryCast(control, TextBox) IsNot Nothing Then
+                                TryCast(control, TextBox).BorderBrush = Brushes.Gray
+                            Else
+                                TryCast(control, ComboBox).BorderBrush = Brushes.Gray
+                            End If
+                        End If
+                    Next
                     If _supplierAdapter.ScalarQuerySuplier(SupplierNameTextBox.Text, SupplierAddressTextBox.Text, SupplierContactTextBox.Text) = 0 Then
                         If _supplierAdapter.InsertQuerySupplier(SupplierNameTextBox.Text, SupplierAddressTextBox.Text, SupplierContactTextBox.Text, SupplierEmailTextBox.Text, SupplierCategoryComboBox.SelectedValue) <> 0 Then
                             HandyControl.Controls.MessageBox.Info("Supplier has been added successfully.", "Success!")
@@ -82,9 +100,11 @@ Public Class AddSupplierDialog
                         HandyControl.Controls.MessageBox.Info("This supplier exists.", "Invalid Supplier Info")
                     End If
                 Else
+
                     SupplierEmailTextBox.BorderBrush = Brushes.Red
                 End If
             Else
+
                 SupplierContactTextBox.BorderBrush = Brushes.Red
             End If
         End If

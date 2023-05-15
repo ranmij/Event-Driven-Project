@@ -80,22 +80,26 @@ Public Class ProductDialog
         ElseIf sender.Equals(DeleteButton) Then ' Is the delete button clicked?
             With _productData
                 ' Check if the delete operation succeed
-                If _productAdapter.DeleteQueryProduct(.PRODUCT_ID) <> 0 Then
-                    HandyControl.Controls.MessageBox.Info("Product has been deleted successfully.", "Delete Success")
-                    _DATA_GRID.ItemsSource = Nothing                        ' Refresh the data in the stocks datagrid view
-                    _DATA_GRID.ItemsSource = GetDataGridByProduct().DefaultView
-                    ' Invoke the close after deleting
-                    Dim peer As ButtonAutomationPeer = TryCast(UIElementAutomationPeer.CreatePeerForElement(Closebtn), ButtonAutomationPeer)
-                    ' If the peer variable has found the button
-                    If peer IsNot Nothing Then
-                        ' We invoke the click so that it the dialog will close
-                        Dim provider As IInvokeProvider = TryCast(peer.GetPattern(PatternInterface.Invoke), IInvokeProvider)
-                        If provider IsNot Nothing Then
-                            provider.Invoke()
+                If DeleteOrderByProduct(.PRODUCT_ID) Then
+                    If _productAdapter.DeleteQueryProduct(.PRODUCT_ID) <> 0 Then
+                        HandyControl.Controls.MessageBox.Info("Product has been deleted successfully.", "Delete Success")
+                        _DATA_GRID.ItemsSource = Nothing                        ' Refresh the data in the stocks datagrid view
+                        _DATA_GRID.ItemsSource = GetDataGridByProduct().DefaultView
+                        ' Invoke the close after deleting
+                        Dim peer As ButtonAutomationPeer = TryCast(UIElementAutomationPeer.CreatePeerForElement(Closebtn), ButtonAutomationPeer)
+                        ' If the peer variable has found the button
+                        If peer IsNot Nothing Then
+                            ' We invoke the click so that it the dialog will close
+                            Dim provider As IInvokeProvider = TryCast(peer.GetPattern(PatternInterface.Invoke), IInvokeProvider)
+                            If provider IsNot Nothing Then
+                                provider.Invoke()
+                            End If
                         End If
+                    Else
+                        ' Display the error if the delete operation did not succeed
+                        HandyControl.Controls.MessageBox.Info("Failed to delete the product.", "Delete failed")
                     End If
                 Else
-                    ' Display the error if the delete operation did not succeed
                     HandyControl.Controls.MessageBox.Info("Failed to delete the product.", "Delete failed")
                 End If
             End With

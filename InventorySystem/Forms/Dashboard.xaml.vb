@@ -78,9 +78,7 @@ Public Class Dashboard
             End If
         End If
         PosDataGridView.ItemsSource = _poslist
-
-        ' TODO FIX THIS
-        'PriceTotal.Text = Math.Round(Double.Parse(PriceTotal.Text) + Double.Parse(TryCast(parent.FindName("ProductPrice"), TextBlock).Text), 2)
+        TotalPrice.Text = Math.Round(Double.Parse(If(String.IsNullOrEmpty(TotalPrice.Text), 0, TotalPrice.Text)) + Double.Parse(TryCast(parent.FindName("ProductPrice"), TextBlock).Text), 2)
     End Sub
     Public Sub EditRowPOS(sender As Object, e As RoutedEventArgs)
         Dim vis = TryCast(sender, Visual)
@@ -91,13 +89,14 @@ Public Class Dashboard
                 If TypeOf row Is ProductDetails Then
                     row = DirectCast(row, ProductDetails)
                     Dim index As Integer = _poslist.IndexOf(row)
-                    Dialog.Show(New POSEditDialog(row, _poslist, index))
+                    Dialog.Show(New POSEditDialog(row, _poslist, index, TotalPrice))
                 End If
                 Exit While
             End If
 
             vis = TryCast(VisualTreeHelper.GetParent(vis), Visual)
         End While
+
     End Sub
 
     ' Click event for Delete Action in POS DataGridView
@@ -302,6 +301,10 @@ Public Class Dashboard
     Private Sub RefreshProductsButton_Click(sender As Object, e As RoutedEventArgs) Handles RefreshProductsButton.Click
         StocksDataGridView.ItemsSource = GetDataGridByProduct().DefaultView
     End Sub
+
+    Private Sub RefreshLogsButton_DragOver(sender As Object, e As DragEventArgs) Handles RefreshLogsButton.DragOver
+        LogsDataGridView.ItemsSource = GetLogs().DefaultView
+    End Sub
 #End Region
 
 #Region "Unit And Category"
@@ -361,4 +364,6 @@ Public Class Dashboard
     Private Sub StackPanel_MouseLeftButtonDown_3(sender As Object, e As MouseButtonEventArgs)
         Dialog.Show(New DashboardDialog(Me, "Transactions Report", _orderAdapter.GetDataByOrders()))
     End Sub
+
+
 End Class
