@@ -59,40 +59,56 @@ Public Class AddSupplierDialog
                 End If
             Next
         Else
-            If _supplierAdapter.ScalarQuerySuplier(SupplierNameTextBox.Text, SupplierAddressTextBox.Text, SupplierContactTextBox.Text) = 0 Then
-                If _supplierAdapter.InsertQuerySupplier(SupplierNameTextBox.Text, SupplierAddressTextBox.Text, SupplierContactTextBox.Text, SupplierEmailTextBox.Text, SupplierCategoryComboBox.SelectedValue) <> 0 Then
-                    HandyControl.Controls.MessageBox.Info("Supplier has been added successfully.", "Success!")
-                    _DATAGRID.ItemsSource = _supplierAdapter.GetDataBySupplier()
-                Else
-                    HandyControl.Controls.MessageBox.Info("Failed to add supplier", "Failed!")
-                    _DATAGRID.ItemsSource = _supplierAdapter.GetDataBySupplier()
-                End If
-                For Each control In controls
-                    If String.IsNullOrEmpty(control.Text) Then
-                        If TryCast(control, TextBox) IsNot Nothing Then
-                            TryCast(control, TextBox).BorderBrush = Brushes.Gray
+            If IsValidPhone(SupplierContactTextBox.Text) Then
+                If IsValidEmail(SupplierEmailTextBox.Text) Then
+                    If _supplierAdapter.ScalarQuerySuplier(SupplierNameTextBox.Text, SupplierAddressTextBox.Text, SupplierContactTextBox.Text) = 0 Then
+                        If _supplierAdapter.InsertQuerySupplier(SupplierNameTextBox.Text, SupplierAddressTextBox.Text, SupplierContactTextBox.Text, SupplierEmailTextBox.Text, SupplierCategoryComboBox.SelectedValue) <> 0 Then
+                            HandyControl.Controls.MessageBox.Info("Supplier has been added successfully.", "Success!")
+                            _DATAGRID.ItemsSource = _supplierAdapter.GetDataBySupplier()
                         Else
-                            TryCast(control, ComboBox).BorderBrush = Brushes.Gray
+                            HandyControl.Controls.MessageBox.Info("Failed to add supplier", "Failed!")
+                            _DATAGRID.ItemsSource = _supplierAdapter.GetDataBySupplier()
                         End If
+                        For Each control In controls
+                            If String.IsNullOrEmpty(control.Text) Then
+                                If TryCast(control, TextBox) IsNot Nothing Then
+                                    TryCast(control, TextBox).BorderBrush = Brushes.Gray
+                                Else
+                                    TryCast(control, ComboBox).BorderBrush = Brushes.Gray
+                                End If
+                            End If
+                        Next
+                    Else
+                        HandyControl.Controls.MessageBox.Info("This supplier exists.", "Invalid Supplier Info")
                     End If
-                Next
+                Else
+                    SupplierEmailTextBox.BorderBrush = Brushes.Red
+                End If
             Else
-                HandyControl.Controls.MessageBox.Info("This supplier exists.", "Invalid Supplier Info")
+                SupplierContactTextBox.BorderBrush = Brushes.Red
             End If
         End If
     End Sub
 
     Private Sub UpdateButton_Click(sender As Object, e As RoutedEventArgs) Handles UpdateButton.Click
         If _id <> Nothing Then
-            If _supplierAdapter.ScalarQuerySuplier(SupplierNameTextBox.Text, SupplierAddressTextBox.Text, SupplierContactTextBox.Text) = 0 Then
-                If _supplierAdapter.UpdateQuerySupplier(SupplierNameTextBox.Text, SupplierAddressTextBox.Text, SupplierContactTextBox.Text, SupplierEmailTextBox.Text, SupplierCategoryComboBox.SelectedValue, _id) <> 0 Then
-                    HandyControl.Controls.MessageBox.Info("Supplier has been updated successfully.", "Update Success")
-                    _DATAGRID.ItemsSource = _supplierAdapter.GetDataBySupplier()
+            If IsValidEmail(SupplierEmailTextBox.Text) Then
+                If IsValidPhone(SupplierContactTextBox.Text) Then
+                    If _supplierAdapter.ScalarQuerySuplier(SupplierNameTextBox.Text, SupplierAddressTextBox.Text, SupplierContactTextBox.Text) = 0 Then
+                        If _supplierAdapter.UpdateQuerySupplier(SupplierNameTextBox.Text, SupplierAddressTextBox.Text, SupplierContactTextBox.Text, SupplierEmailTextBox.Text, SupplierCategoryComboBox.SelectedValue, _id) <> 0 Then
+                            HandyControl.Controls.MessageBox.Info("Supplier has been updated successfully.", "Update Success")
+                            _DATAGRID.ItemsSource = _supplierAdapter.GetDataBySupplier()
+                        Else
+                            HandyControl.Controls.MessageBox.Info("Failed to update supplier.", "Update Failed")
+                        End If
+                    Else
+                        HandyControl.Controls.MessageBox.Info("This supplier exists.", "Invalid Supplier Info")
+                    End If
                 Else
-                    HandyControl.Controls.MessageBox.Info("Failed to update supplier.", "Update Failed")
+                    SupplierContactTextBox.BorderBrush = Brushes.Red
                 End If
             Else
-                HandyControl.Controls.MessageBox.Info("This supplier exists.", "Invalid Supplier Info")
+                SupplierEmailTextBox.BorderBrush = Brushes.Red
             End If
         End If
     End Sub
@@ -102,17 +118,21 @@ Public Class AddSupplierDialog
             If _supplierAdapter.DeleteQuerySupplier(_id) <> 0 Then
                 HandyControl.Controls.MessageBox.Info("Supplier has been removed successfully.", "Delete Success")
                 _DATAGRID.ItemsSource = _supplierAdapter.GetDataBySupplier()
-                Dim peer As ButtonAutomationPeer = TryCast(UIElementAutomationPeer.CreatePeerForElement(Closebtn), ButtonAutomationPeer)
-                ' If the peer variable has found the button
-                If peer IsNot Nothing Then
-                    ' We invoke the click so that it the dialog will close
-                    Dim provider As IInvokeProvider = TryCast(peer.GetPattern(PatternInterface.Invoke), IInvokeProvider)
-                    If provider IsNot Nothing Then
-                        provider.Invoke()
-                    End If
-                End If
+                CloseForm()
             Else
                 HandyControl.Controls.MessageBox.Info("Failed to remove supplier.", "Delete Failed")
+            End If
+        End If
+    End Sub
+
+    Private Sub CloseForm()
+        Dim peer As ButtonAutomationPeer = TryCast(UIElementAutomationPeer.CreatePeerForElement(Closebtn), ButtonAutomationPeer)
+        ' If the peer variable has found the button
+        If peer IsNot Nothing Then
+            ' We invoke the click so that it the dialog will close
+            Dim provider As IInvokeProvider = TryCast(peer.GetPattern(PatternInterface.Invoke), IInvokeProvider)
+            If provider IsNot Nothing Then
+                provider.Invoke()
             End If
         End If
     End Sub

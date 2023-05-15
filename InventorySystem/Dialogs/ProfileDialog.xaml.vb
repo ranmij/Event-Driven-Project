@@ -20,6 +20,7 @@ Public Class ProfileDialog
     End Sub
 
     Private Sub LogOutButton_Click(sender As Object, e As RoutedEventArgs) Handles LogOutButton.Click
+        UserLog(2)
         My.Settings.UserID = -1
         My.Settings.isAdmin = False
         My.Settings.Save()

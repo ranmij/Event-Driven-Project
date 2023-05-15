@@ -60,9 +60,7 @@ Public Class NewProductDialog
                             _DATA_GRID.ItemsSource = GetDataGridByProduct().DefaultView
                             filePath = Nothing
                             For Each control In controls
-                                If String.IsNullOrEmpty(control.Text) Then
-                                    control.BrushColor = Brushes.Gray
-                                End If
+                                control.BorderBrush = Brushes.Gray
                             Next
                         Else
                             HandyControl.Controls.MessageBox.Info("Failed to add the product.", "Failed")

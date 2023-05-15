@@ -263,7 +263,7 @@
             </hc:SimplePanel>
 
             <!--#region  DASHBOARD PANEL-->
-            <StackPanel Name="DashboardPanel" Grid.Column="1" Visibility="Visible" Panel.ZIndex="5">
+            <StackPanel Name="DashboardPanel" Grid.Column="1" Visibility="Collapsed" Panel.ZIndex="5">
                 <hc:FlexPanel Height="64" Grid.Row="0" JustifyContent="FlexEnd" AlignContent="Center">
                     <StackPanel Margin="30 0">
                         <TextBlock x:Name="DateTextBlock" Margin="8 0 0 0" Padding="0 5 5 0" FontSize="14"/>
@@ -308,7 +308,7 @@
                                 <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                             />
                                 <StackPanel Orientation="Vertical"
-                                                Background="#0CAFFF">
+                                                Background="#0CAFFF" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown">
                                     <TextBlock Text="{StaticResource en_monthlysales}"
                                                    FontSize="25"
                                                    Padding="20 20 0 0"
@@ -329,7 +329,7 @@
                                 <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                            />
                                 <StackPanel Orientation="Vertical"
-                                                Background="#0CAFFF">
+                                                Background="#0CAFFF" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
                                     <TextBlock Text="{StaticResource en_annualsales}"
                                            FontSize="25"
                                            Padding="20 20 0 0"
@@ -352,7 +352,7 @@
                                 <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                             />
                                 <StackPanel Orientation="Vertical"
-                                            Background="#0CAFFF">
+                                            Background="#0CAFFF" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_2">
                                     <TextBlock Text="{StaticResource en_products}"
                                            FontSize="25"
                                            Padding="20 20 0 0"
@@ -373,7 +373,7 @@
                                 <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                             />
                                 <StackPanel Orientation="Vertical"
-                                                Background="#0CAFFF">
+                                                Background="#0CAFFF" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_3">
                                     <TextBlock Text="{StaticResource en_transactions}"
                                                    FontSize="25"
                                                    Padding="20 20 0 0"
@@ -579,7 +579,7 @@
             </Grid>
             <!--#endregion-->
             <!--#region POS PANEL-->
-            <Grid Name="POSPanel" Grid.Column="1" Visibility="Collapsed">
+            <Grid Name="POSPanel" Grid.Column="1" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -666,6 +666,42 @@
                 </DockPanel>
             </Grid>
             <!--#endregion-->
+            
+            <!--#region Log PANEL-->
+            <Grid Name="LogsPanel" Grid.Column="1" Visibility="Collapsed">
+                <Grid Margin="30">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Height="50">
+                        <hc:FlexPanel AlignContent="Center">
+                            <Button x:Name="RefreshLogsButton" Margin="0 0 10 0" Foreground="#fff" FontSize="9"
+                                                        hc:BorderElement.CornerRadius="0"
+                                                        Content="Refresh"
+                                                        hc:IconElement.Geometry="{StaticResource ic_refresh}"
+                                                        hc:IconElement.Height="12"
+                                                        hc:IconElement.Width="12"
+                                                        Height="28"
+                                                        Width="100"
+                                                        Padding="0"
+                                                        BorderThickness="0"
+                                                        Background="#0CAFFF"
+                                                        VerticalAlignment="Center"/>
+                        </hc:FlexPanel>
+                    </Grid>
+                    <DataGrid Grid.Row="1" RowStyle="{DynamicResource DataGridRowStyle1}"
+                                                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                                                      CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="LogsDataGridView"
+                                                      Style="{DynamicResource DataGridStyle1}"
+                                                      IsReadOnly="True"
+                                                      CanUserResizeColumns="False"
+                                                      AutoGenerateColumns="True"
+                                                      />
+                </Grid>
+            </Grid>
+            <!--#endregion-->
+            
             <!--#region HELP PANEL-->
             <Grid Name="HelpPanel" Grid.Column="1" Visibility="Collapsed">
                 <Border Padding="10" Margin="20" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}">
@@ -742,11 +778,7 @@
                     </hc:ScrollViewer>
                 </Border>
             </Grid>
-            <!--#region Log PANEL-->
-            <Grid Name="LogsPanel" Grid.Column="1" Visibility="Collapsed">
-
-            </Grid>
-            <!--#endregion-->
+            
         </Grid>
         <!--#endregion-->
         
@@ -813,7 +845,7 @@
                                 <GradientStop Color="#FFDDD6F9"/>
                             </LinearGradientBrush>
                         </Grid.Background>
-                        <TextBlock Text="POS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Text="POINT OF SALES" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <Grid.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>

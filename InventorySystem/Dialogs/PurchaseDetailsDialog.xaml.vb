@@ -1,4 +1,6 @@
 ﻿Imports System.Data
+Imports System.Windows.Automation.Peers
+Imports System.Windows.Automation.Provider
 
 Public Class PurchaseDetailsDialog
     Private _id As String
@@ -29,5 +31,17 @@ Public Class PurchaseDetailsDialog
         OrderedDateTextBox.Text = dataTable.Rows(0).Item(5)
         TotalPriceTextBox.Text = dataTable.Rows(0).Item(6)
         CustomerImage.Source = New BitmapImage(New Uri("pack://application:,,," & dataTable.Rows(0).Item(7)))
+    End Sub
+
+    Private Sub OkButton_Click(sender As Object, e As RoutedEventArgs) Handles OkButton.Click
+        Dim peer As ButtonAutomationPeer = TryCast(UIElementAutomationPeer.CreatePeerForElement(Closebtn), ButtonAutomationPeer)
+        ' If the peer variable has found the button
+        If peer IsNot Nothing Then
+            ' We invoke the click so that it the dialog will close
+            Dim provider As IInvokeProvider = TryCast(peer.GetPattern(PatternInterface.Invoke), IInvokeProvider)
+            If provider IsNot Nothing Then
+                provider.Invoke()
+            End If
+        End If
     End Sub
 End Class

@@ -1,5 +1,8 @@
-﻿Public Class ForgotPasswordForm
-    Private _phone As String
+﻿Imports System.Data
+
+Public Class ForgotPasswordForm
+    Private _phone As String = Nothing
+    Private _id As Integer = Nothing
     Private Sub CloseButton_Click(sender As Object, e As RoutedEventArgs) Handles CloseButton.Click
         Me.Close()
     End Sub
@@ -16,9 +19,15 @@
 
     Private Sub ChangePasswordButton_Click(sender As Object, e As RoutedEventArgs) Handles ChangePasswordButton.Click
         If NewPasswordTextBox.Text = ConfirmPasswordTextBox.Text Then
-            Dim loginF As New LoginForm
-            loginF.Show()
-            Me.Close()
+            If ChangePassword(ConfirmPasswordTextBox.Text, _id) Then
+                DeleteAuth(_phone)
+                HandyControl.Controls.MessageBox.Info("Password has been changed.", "Success!")
+                Dim loginF As New LoginForm
+                loginF.Show()
+                Me.Close()
+            Else
+                HandyControl.Controls.MessageBox.Info("Unable to change your password.", "Change failed!")
+            End If
         Else
             HandyControl.Controls.MessageBox.Info("Password doesn't match.")
         End If
@@ -29,7 +38,9 @@
         If IsAccountExists(UserIDTextBox.Text) Then
             FindContainer.Visibility = Visibility.Collapsed
             ConfirmContainer.Visibility = Visibility.Visible
-            _phone = GetUserByQuery(UserIDTextBox.Text).Rows.Item(0).Item(0)
+            Dim data As DataTable = GetUserByQuery(UserIDTextBox.Text)
+            _phone = data.Rows.Item(0).Item(0)
+            _id = data.Rows(0).Item(1)
             GenerateAuth(_phone)
             UserIDTextBox.BorderBrush = Brushes.Gray
         Else

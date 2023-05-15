@@ -34,7 +34,7 @@ Module UserModule
 
     Public Async Sub GenerateAuth(phone As String)
         Dim auth_code As String = New System.Random().Next(100000, 999999).ToString()
-        ' If it is existing then update
+        'If it Is existing Then update
         If IsAuthExists(phone) Then
             auth_code = GetAuthByPhone(phone)
             Try
@@ -67,14 +67,14 @@ Module UserModule
     End Sub
 
     Public Function ChangePassword(new_password As String, user_id As String) As Boolean
-        ' TODO Implement Sign In
+        Dim hash As String = HashPassword(new_password)
+        If tableAdapter.UpdateQueryPassword(hash, Integer.Parse(user_id)) <> 0 Then
+            Return True
+        End If
         Return False
     End Function
 
-    Public Function ForgotPassword() As Boolean
-        'TODO Implement Sign In
-        Return True
-    End Function
+
 
     Public Function Login(username As String, password As String) As Boolean
         ' TODO Implement Sign In
@@ -86,6 +86,7 @@ Module UserModule
                     My.Settings.UserID = CInt(.id)
                     My.Settings.isAdmin = If(.role_id = 1, True, False)
                     My.Settings.Save()
+                    UserLog()
                     Return True
                 Else
                     Return False

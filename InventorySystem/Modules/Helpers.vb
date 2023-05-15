@@ -163,8 +163,7 @@ Module Helpers
                                              product_name,
                                              unit_price,
                                              unit_in_stock,
-                                             image_path,
-                                             discount_percent
+                                             image_path
                                       FROM product
                                       WHERE id = @id;", _connection)
         _sqlcommand.Parameters.AddWithValue("@id", id)
@@ -251,7 +250,7 @@ Module Helpers
     ''' <param name="query">A string that contains a username or email of the user</param>
     ''' <returns>A datatable containing the number of the result user</returns>
     Public Function GetUserByQuery(query As String) As DataTable
-        _sqlcommand = New SqlCommand("SELECT phone FROM users WHERE email = @query OR username = @query", _connection)
+        _sqlcommand = New SqlCommand("SELECT phone, id FROM users WHERE email = @query OR username = @query", _connection)
         _sqlcommand.Parameters.AddWithValue("@query", query)
         _sqladapter = New SqlDataAdapter(_sqlcommand)
         _datatable = New DataTable
@@ -421,13 +420,13 @@ Module Helpers
 
     Public Function GetDataByMonthly() As DataTable
         _sqlcommand = New SqlCommand("SELECT o.id, CONCAT(u.first_name, ' ', u.last_name) Cashier,
-		            p.product_name Product ,
-                                                 o.item_count Item,
-		            o.total_price [Total Price],
-		            CAST(o.order_date AS DATE) [Order Date]
-		            FROM orders o
-            JOIN product p ON o.product_id = p.id
-            JOIN users u ON o.user_id = u.id  WHERE MONTH(order_date) = MONTH(GETDATE())", _connection)
+		                                        p.product_name Product ,
+                                                                             o.item_count Item,
+		                                        o.total_price [Total Price],
+		                                        SUBSTRING(CAST(o.order_date AS VARCHAR), 1, 12) [Order Date]
+		                                        FROM orders o
+                                        JOIN product p ON o.product_id = p.id
+                                        JOIN users u ON o.user_id = u.id  WHERE MONTH(order_date) = MONTH(GETDATE())", _connection)
         _sqladapter = New SqlDataAdapter(_sqlcommand)
         _datatable = New DataTable
         _sqladapter.Fill(_datatable)
@@ -436,13 +435,13 @@ Module Helpers
 
     Public Function GetDataByYearly() As DataTable
         _sqlcommand = New SqlCommand("SELECT o.id, CONCAT(u.first_name, ' ', u.last_name) Cashier,
-		            p.product_name Product ,
-                                                 o.item_count Item,
-		            o.total_price [Total Price],
-		            CAST(o.order_date AS DATE) [Order Date]
-		            FROM orders o
-            JOIN product p ON o.product_id = p.id
-            JOIN users u ON o.user_id = u.id  WHERE YEAR(order_date) = YEAR(GETDATE())", _connection)
+		                                        p.product_name Product ,
+                                                                             o.item_count Item,
+		                                        o.total_price [Total Price],
+		                                        SUBSTRING(CAST(o.order_date AS VARCHAR), 1, 12) [Order Date]
+		                                        FROM orders o
+                                        JOIN product p ON o.product_id = p.id
+                                        JOIN users u ON o.user_id = u.id  WHERE YEAR(order_date) = YEAR(GETDATE())", _connection)
         _sqladapter = New SqlDataAdapter(_sqlcommand)
         _datatable = New DataTable
         _sqladapter.Fill(_datatable)
@@ -451,17 +450,54 @@ Module Helpers
 
     Public Function GetDataBywWeekly() As DataTable
         _sqlcommand = New SqlCommand("SELECT o.id, CONCAT(u.first_name, ' ', u.last_name) Cashier,
-		            p.product_name Product ,
-                                                 o.item_count Item,
-		            o.total_price [Total Price],
-		            SUBSTRING(CAST(o.order_date AS VARCHAR), 1, 12) [Order Date]
-		            FROM orders o
-            JOIN product p ON o.product_id = p.id
-            JOIN users u ON o.user_id = u.id  WHERE CAST(order_date AS DATE) BETWEEN DATEADD(DAY, 1 - DATEPART(DW, GETDATE()), CAST(GETDATE() AS DATE)) AND DATEADD(DAY, 6, DATEADD(DAY, 1 - DATEPART(DW, GETDATE()), CAST(GETDATE() AS DATE)))", _connection)
+		                                        p.product_name Product ,
+                                                                             o.item_count Item,
+		                                        o.total_price [Total Price],
+		                                        SUBSTRING(CAST(o.order_date AS VARCHAR), 1, 12) [Order Date]
+		                                        FROM orders o
+                                        JOIN product p ON o.product_id = p.id
+                                        JOIN users u ON o.user_id = u.id  WHERE CAST(order_date AS DATE) BETWEEN DATEADD(DAY, 1 - DATEPART(DW, GETDATE()), CAST(GETDATE() AS DATE)) AND DATEADD(DAY, 6, DATEADD(DAY, 1 - DATEPART(DW, GETDATE()), CAST(GETDATE() AS DATE)))", _connection)
         _sqladapter = New SqlDataAdapter(_sqlcommand)
         _datatable = New DataTable
         _sqladapter.Fill(_datatable)
         Return _datatable
     End Function
 
+    Public Function GetAllProducts() As DataTable
+        _sqlcommand = New SqlCommand("SELECT product_code [Product Code], product_name [Product Name], unit_in_stock Stocks, unit_price Price, CONCAT(discount_percent, '%') Discount FROM product WHERE (unit_in_stock > 0)", _connection)
+        _sqladapter = New SqlDataAdapter(_sqlcommand)
+        _datatable = New DataTable
+        _sqladapter.Fill(_datatable)
+        Return _datatable
+    End Function
+
+    Public Sub UserLog(Optional typel As Integer = Nothing)
+        OpenConnection()
+        If typel = Nothing Then
+            _sqlcommand = New SqlCommand("INSERT INTO logs (user_id) VALUES (@id)", _connection)
+            _sqlcommand.Parameters.AddWithValue("@id", My.Settings.UserID)
+
+        Else
+            _sqlcommand = New SqlCommand("INSERT INTO logs (user_id, log_type) VALUES (@id, 'Log Out')", _connection)
+            _sqlcommand.Parameters.AddWithValue("@id", My.Settings.UserID)
+        End If
+        _sqlcommand.ExecuteNonQuery()
+    End Sub
+
+    Public Function GetLogs() As DataTable
+        _sqlcommand = New SqlCommand("SELECT CONCAT(CONCAT(UPPER(SUBSTRING(first_name,1, 1)), SUBSTRING(first_name, 2, LEN(first_name))),' ', CONCAT(UPPER(SUBSTRING(last_name,1, 1)), SUBSTRING(last_name, 2, LEN(last_name)))) Name, log_type [Log Type], date_log [Date] FROM logs l JOIN users u ON l.user_id = u.id", _connection)
+        _sqladapter = New SqlDataAdapter(_sqlcommand)
+        _datatable = New DataTable
+        _sqladapter.Fill(_datatable)
+        Return _datatable
+    End Function
+
+    Public Function GetProductCategoryAndUnit(id As Integer) As Integer()
+        _sqlcommand = New SqlCommand("SELECT category_id, unit_id FROM product WHERE id = @id", _connection)
+        _sqlcommand.Parameters.AddWithValue("@id", id)
+        _sqladapter = New SqlDataAdapter(_sqlcommand)
+        _datatable = New DataTable
+        _sqladapter.Fill(_datatable)
+        Return {_datatable.Rows(0).Item("category_id"), _datatable.Rows(0).Item("unit_id")}
+    End Function
 End Module

@@ -404,7 +404,7 @@ SELECT o.id, CONCAT(u.first_name, ' ', u.last_name) Cashier,
 		p.product_name Product ,
                                      o.item_count Item,
 		o.total_price "Total Price",
-		CAST(o.order_date AS DATE) "Order Date"
+		SUBSTRING(CAST(o.order_date AS VARCHAR), 1, 12) "Order Date"
 		FROM orders o
 JOIN product p ON o.product_id = p.id
 JOIN users u ON o.user_id = u.id;</CommandText>
@@ -692,8 +692,8 @@ SELECT id, supplier_name FROM supplier WHERE (id = @id)</CommandText>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="fk_category" msdata:parent="category" msdata:child="product" msdata:parentkey="id" msdata:childkey="category_id" msprop:Generator_UserParentTable="category" msprop:Generator_UserChildTable="product" msprop:Generator_RelationVarName="relationfk_category" msprop:Generator_ChildPropName="GetproductRows" msprop:Generator_ParentPropName="categoryRow" msprop:Generator_UserRelationName="fk_category" />
-      <msdata:Relationship name="fk_unit" msdata:parent="unit" msdata:child="product" msdata:parentkey="id" msdata:childkey="unit_id" msprop:Generator_UserParentTable="unit" msprop:Generator_UserChildTable="product" msprop:Generator_RelationVarName="relationfk_unit" msprop:Generator_ChildPropName="GetproductRows" msprop:Generator_ParentPropName="unitRow" msprop:Generator_UserRelationName="fk_unit" />
+      <msdata:Relationship name="fk_category" msdata:parent="category" msdata:child="product" msdata:parentkey="id" msdata:childkey="category_id" msprop:Generator_UserParentTable="category" msprop:Generator_UserChildTable="product" msprop:Generator_RelationVarName="relationfk_category" msprop:Generator_ChildPropName="GetproductRows" msprop:Generator_UserRelationName="fk_category" msprop:Generator_ParentPropName="categoryRow" />
+      <msdata:Relationship name="fk_unit" msdata:parent="unit" msdata:child="product" msdata:parentkey="id" msdata:childkey="unit_id" msprop:Generator_UserParentTable="unit" msprop:Generator_UserChildTable="product" msprop:Generator_RelationVarName="relationfk_unit" msprop:Generator_ChildPropName="GetproductRows" msprop:Generator_UserRelationName="fk_unit" msprop:Generator_ParentPropName="unitRow" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

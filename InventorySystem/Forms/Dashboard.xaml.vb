@@ -14,6 +14,10 @@ Public Class Dashboard
     Private ReadOnly _productAdapter As New productTableAdapter
     Private ReadOnly _supplierAdapter As New supplierTableAdapter
     Private ReadOnly _poslist As New List(Of ProductDetails)
+
+    Private weeklySales As String = Double.Parse(If(_orderAdapter.ScalarQueryWeeklySales() Is Nothing, 0, _orderAdapter.ScalarQueryWeeklySales().ToString))
+    Private monthlySales As String = Double.Parse(If(_orderAdapter.ScalarQueryMonthlySales() Is Nothing, 0, _orderAdapter.ScalarQueryMonthlySales().ToString))
+    Private yearlySales As String = Double.Parse(If(_orderAdapter.ScalarQueryYearlySales() Is Nothing, 0, _orderAdapter.ScalarQueryYearlySales().ToString))
     Public Sub New()
 
         ' This call is required by the designer.
@@ -23,9 +27,7 @@ Public Class Dashboard
 
     Private Sub Dashboard_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
 
-        Dim weeklySales As String = Double.Parse(If(_orderAdapter.ScalarQueryWeeklySales().ToString = "", 0, _orderAdapter.ScalarQueryWeeklySales().ToString))
-        Dim monthlySales As String = Double.Parse(If(_orderAdapter.ScalarQueryMonthlySales().ToString = "", 0, _orderAdapter.ScalarQueryMonthlySales().ToString))
-        Dim yearlySales As String = Double.Parse(If(_orderAdapter.ScalarQueryYearlySales().ToString = "", 0, _orderAdapter.ScalarQueryYearlySales().ToString))
+
 
         DateTextBlock.Text = Date.Now.ToLongDateString
         WeeklySalesLabel.Text = "₱ " & weeklySales
@@ -90,9 +92,6 @@ Public Class Dashboard
                     row = DirectCast(row, ProductDetails)
                     Dim index As Integer = _poslist.IndexOf(row)
                     Dialog.Show(New POSEditDialog(row, _poslist, index))
-                    '_poslist.Remove(row)
-                    'PosDataGridView.ItemsSource = Nothing
-                    'PosDataGridView.ItemsSource = _poslist
                 End If
                 Exit While
             End If
@@ -136,8 +135,8 @@ Public Class Dashboard
 
 
     Private Sub ChangePanelEvents(sender As Object, e As EventArgs) Handles SalesButton.Click, StocksButton.Click,
-            POSButton.Click, DashboardButton.Click, HelpButton.Click
-        Dim panels() As Object = {SalesPanel, StocksPanel, POSPanel, HelpPanel, DashboardPanel}
+            POSButton.Click, DashboardButton.Click, HelpButton.Click, LogsButton.Click
+        Dim panels() As Object = {SalesPanel, StocksPanel, POSPanel, HelpPanel, DashboardPanel, LogsPanel}
         ' Hide all the panels before setting the visibility of the requested panel
         For Each panel As Object In panels
             If panel.IsVisible Then
@@ -151,9 +150,9 @@ Public Class Dashboard
             DashboardPanel.Visibility = Visibility.Visible
 
             ' Assign all the values to the dashboard
-            WeeklySalesLabel.Text = "₱ " & _orderAdapter.ScalarQueryWeeklySales().ToString
-            MonthlySalesLabel.Text = "₱ " & _orderAdapter.ScalarQueryMonthlySales().ToString
-            YearlySalesLabel.Text = "₱ " & _orderAdapter.ScalarQueryYearlySales().ToString
+            WeeklySalesLabel.Text = "₱ " & weeklySales
+            MonthlySalesLabel.Text = "₱ " & monthlySales
+            YearlySalesLabel.Text = "₱ " & yearlySales
 
             ' Change the title of the panel
             FormTitle.Text = "Dashboard".ToUpper
@@ -185,6 +184,10 @@ Public Class Dashboard
         ElseIf sender.Equals(HelpButton) Then
             HelpPanel.Visibility = Visibility.Visible
             FormTitle.Text = "Help".ToUpper
+        ElseIf sender.Equals(LogsButton) Then
+            LogsPanel.Visibility = Visibility.Visible
+            FormTitle.Text = "Logs".ToUpper
+            LogsDataGridView.ItemsSource = GetLogs().DefaultView
         End If
     End Sub
 
@@ -323,20 +326,39 @@ Public Class Dashboard
     End Sub
 
     Private Sub BuyButton_DataContextChanged(sender As Object, e As RoutedEventArgs) Handles BuyButton.Click
-        Dim result() As Object = IsStocksEnough(PosDataGridView, _poslist)
-        If result(0) Then
-            If Not BuyProducts(PosDataGridView, _poslist) Then
-                HandyControl.Controls.MessageBox.Info("Purchased Successfully.", "Success")
+        If _poslist.Count > 0 Then
+            Dim result() As Object = IsStocksEnough(PosDataGridView, _poslist)
+            If result(0) Then
+                If Not BuyProducts(PosDataGridView, _poslist) Then
+                    HandyControl.Controls.MessageBox.Info("Purchased Successfully.", "Success")
+                Else
+                    HandyControl.Controls.MessageBox.Info("Purchased Failed.", "Failed")
+                End If
             Else
-                HandyControl.Controls.MessageBox.Info("Purchased Failed.", "Failed")
+                HandyControl.Controls.MessageBox.Info("Product quantity of " & result(1) & " exceeds the stocks.", "Invaid Quantity")
             End If
         Else
-            HandyControl.Controls.MessageBox.Info("Product quantity of " & result(1) & " exceeds the stocks.", "Invaid Quantity")
+            HandyControl.Controls.MessageBox.Info("Please add a product.", "Empty List")
         End If
     End Sub
 
     Private Sub DashboardDailyColBox_MouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs) Handles DashboardDailyColBox.MouseLeftButtonDown
-        Debug.WriteLine("called")
         Dialog.Show(New DashboardDialog(Me, "Weekly Sales Report", GetDataBywWeekly()))
+    End Sub
+
+    Private Sub StackPanel_MouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs)
+        Dialog.Show(New DashboardDialog(Me, "Monthly Sales Report", GetDataByMonthly()))
+    End Sub
+
+    Private Sub StackPanel_MouseLeftButtonDown_1(sender As Object, e As MouseButtonEventArgs)
+        Dialog.Show(New DashboardDialog(Me, "Annual Sales Report", GetDataByYearly()))
+    End Sub
+
+    Private Sub StackPanel_MouseLeftButtonDown_2(sender As Object, e As MouseButtonEventArgs)
+        Dialog.Show(New DashboardDialog(Me, "Products Report", GetAllProducts()))
+    End Sub
+
+    Private Sub StackPanel_MouseLeftButtonDown_3(sender As Object, e As MouseButtonEventArgs)
+        Dialog.Show(New DashboardDialog(Me, "Transactions Report", _orderAdapter.GetDataByOrders()))
     End Sub
 End Class

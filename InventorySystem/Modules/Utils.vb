@@ -6,6 +6,7 @@ Imports HandyControl.Controls
 Imports InventorySystem.InventorySystem.DataSets.ProductsDataSet
 Imports InventorySystem.InventorySystem.DataSets.ProductsDataSetTableAdapters
 Imports InventorySystem.InventorySystem.DataSets.UserDataSetTableAdapters
+Imports OtpS
 
 Public Class ProductDetails
     Public Property PRODUCT_ID As String
@@ -15,7 +16,6 @@ Public Class ProductDetails
 End Class
 Module Utils
     ReadOnly tableAdapter As New usersTableAdapter
-    Private ReadOnly MAX_PHONE_LENGTH As Integer = &HB
 
     ' Use as a data source context for the POS datagrid view
 
@@ -115,13 +115,8 @@ Module Utils
 
     ' Check if the phone number is valid
     Public Function IsValidPhone(phone As String) As Boolean
-        Console.WriteLine("ISMATCHED: " & Regex.IsMatch(phone, "([^0-9])+"))
         ' This pattern means all the characters that are not number can also be written ([^\d])+
-        If Not Regex.IsMatch(phone, "([^0-9])+") AndAlso phone.Length >= MAX_PHONE_LENGTH Then
-            Return True
-        Else
-            Return False
-        End If
+        Return Regex.IsMatch(phone, "^(09|\+639)\d{9}$")
     End Function
 
     ' To fill the products in the scroll view
@@ -155,4 +150,6 @@ Module Utils
         End If
         Return Nothing
     End Function
+
+
 End Module

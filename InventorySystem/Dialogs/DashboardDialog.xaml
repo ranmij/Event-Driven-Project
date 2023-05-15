@@ -15,6 +15,7 @@
         <hc:Row Height="100">
             <hc:Col>
                 <Grid Height="100" Grid.Row="0">
+                    <Button Name="Closebtn" Height="24" Width="24" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Command="hc:ControlCommands.Close" Margin="8"  Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
                     <Grid Name="FlexPanel" Margin="30 0">
                         <hc:FlexPanel Width="{Binding ElementName=FlexPanel, Path=ActualWidth}" VerticalAlignment="Center" JustifyContent="SpaceBetween">
                             <TextBlock Name="HeadingReportTextBox" Text="Sales Report" FontSize="40" HorizontalAlignment="Center"/>
