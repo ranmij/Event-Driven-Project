@@ -20,7 +20,7 @@
                    Height="{Binding ElementName=RelativePanel, Path=ActualHeight}">
             <StackPanel x:Name="StackTopPanel" Height="150" DockPanel.Dock="Top">
                 <Border Width="{Binding ElementName=StackTopPanel, Path=ActualWidth}"
-                        Height="{Binding ElementName=StackTopPanel,Path=ActualHeight}"
+                        Height="{Binding ElementName=RelativePanel, Path=ActualHeight}"
                         CornerRadius="5 5 0 0"
                         Background="#0CAFFF"/>
                 <Button Name="CloseButton" Height="24" Width="24" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Command="hc:ControlCommands.Close" Margin="8"  Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
@@ -32,7 +32,7 @@
             <hc:Gravatar Style="{StaticResource GravatarCircleImg}" Padding="0"  Height="160" Width="160" VerticalAlignment="Top" Margin="0 70 0 0">
                 <Image Source="{Binding USER_PROFILE}"/>
             </hc:Gravatar>
-            <TextBlock HorizontalAlignment="Center" Margin="0,240,0,0" TextWrapping="Wrap" Text="{Binding USER_NAME}" VerticalAlignment="Top" FontSize="30" FontWeight="Bold"/>
+            <TextBlock Text="{Binding USER_NAME}" HorizontalAlignment="Center" Margin="0,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" FontWeight="Bold"/>
             <Button x:Name="LogOutButton" Content="{StaticResource en_logout}" Background="#8F43EE" Foreground="#FFF" BorderThickness="0" hc:BorderElement.CornerRadius="0" Margin="0,450,10,0"
                                 Height="40" Width="100"
                                 HorizontalAlignment="Right" VerticalAlignment="Top"/>

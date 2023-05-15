@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="POSEditDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InventorySystem"
+             mc:Ignorable="d" 
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             d:DesignHeight="300" d:DesignWidth="400">
+    <hc:SimplePanel Name="Container" Background="#FFF">
+        <hc:SimplePanel>
+            <Button Name="Closebtn" Height="24" Width="24" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Command="hc:ControlCommands.Close" Margin="8"  Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <StackPanel Margin="15 60">
+                <StackPanel>
+                    <TextBlock Text="Product Name: " Padding="0 0 0 5" FontSize="16"  HorizontalAlignment="Left"/>
+                    <TextBox IsEnabled="False" Name="ProductNameTextBox" Text="{Binding PRODUCT_NAME}" Height="32" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
+                </StackPanel>
+                <StackPanel Margin="0 8 0 0">
+                    <TextBlock Padding="0 0 0 5" Text="Price: " FontSize="16" HorizontalAlignment="Left"/>
+                    <TextBox IsEnabled="False" Name="ProductPriceTextBox" Text="{Binding PRODUCT_PRICE}" Height="32" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
+                </StackPanel>
+                <StackPanel Margin="0 8 0 0">
+                    <TextBlock HorizontalAlignment="Left" Text="Quantity: "  FontSize="16" Padding="0 0 0 5" Width="80"/>
+                    <TextBox Name="ProductQuantityTextBox" Text="{Binding PRODUCT_QUANTITY}" Height="32" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
+                </StackPanel>
+            </StackPanel>
+            <Grid Height="60"
+                          Margin="0 0 0 5" VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+                <hc:FlexPanel x:Name="ButtonContainer" JustifyContent="FlexEnd">
+                    <Button HorizontalAlignment="Right" Name="SaveButton" Margin="0 0 15 0" Foreground="#fff" FontSize="12" hc:BorderElement.CornerRadius="0" Content="Save" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="32" Width="130" Padding="0" BorderThickness="0" Background="#32CD32"/>
+                </hc:FlexPanel>
+            </Grid>
+        </hc:SimplePanel>
+    </hc:SimplePanel>
+</UserControl>

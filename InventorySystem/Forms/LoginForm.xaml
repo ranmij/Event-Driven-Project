@@ -70,15 +70,18 @@
                                 Margin="0 0 0 5" hc:BorderElement.CornerRadius="0"
                                 hc:InfoElement.Placeholder="Username"/>
                     <hc:PasswordBox hc:InfoElement.Placeholder="Password" Height="40" Width="250" hc:InfoElement.Necessary="True"
-                                Margin="0 20 0 20" hc:BorderElement.CornerRadius="0"
+                                Margin="0 20 0 10" hc:BorderElement.CornerRadius="0"
                                 Name="PasswordTextBox" ShowEyeButton="True">
 
                     </hc:PasswordBox>
-                    <Button x:Name="LoginButton" Content="LOGIN" Width="250" Height="40" Background="#8F43EE" Foreground="#FFF" BorderThickness="0" hc:BorderElement.CornerRadius="0"/>
-                    <Button Style="{DynamicResource CustomButtonStyle}" x:Name="SignupButton" Padding="8" Margin="0 8 0 8" Height="40"
+                    <Button Style="{DynamicResource CustomButtonStyle}" x:Name="ForgotPasswordButton"
                             Background="#FFF" BorderThickness="0"
-                            Content="Create an account?">
-                    </Button>
+                            Content="Forgot password?" HorizontalAlignment="Right" Padding="0 0 0 8"/>
+                    <Button x:Name="LoginButton" Content="LOGIN" Width="250" Height="40" Background="#8F43EE" Foreground="#FFF" BorderThickness="0" hc:BorderElement.CornerRadius="0"/>
+                    <Button Style="{DynamicResource CustomButtonStyle}" x:Name="SignupButton" Margin="0 20 0 0"
+                            Background="#FFF" BorderThickness="0"
+                            Content="Create an account?"/>
+                    
                 </StackPanel>
             </Grid>
             

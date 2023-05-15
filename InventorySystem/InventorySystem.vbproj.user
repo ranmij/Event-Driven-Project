@@ -16,10 +16,16 @@
     <Compile Update="Dialogs\CategoryUnitDialog.xaml.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Dialogs\DashboardDialog.xaml.vb">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Dialogs\ErrorDialog.xaml.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Dialogs\NewProductDialog.xaml.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Dialogs\POSEditDialog.xaml.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Dialogs\ProductCard.xaml.vb">
@@ -31,10 +37,16 @@
     <Compile Update="Dialogs\ProfileDialog.xaml.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Dialogs\PurchaseDetailsDialog.xaml.vb">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Dialogs\SettingsDialog.xaml.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Forms\Dashboard.xaml.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Forms\ForgotPasswordForm.xaml.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Forms\LoginForm.xaml.vb">
@@ -68,10 +80,16 @@
     <Page Update="Dialogs\CategoryUnitDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Dialogs\DashboardDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Dialogs\ErrorDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Dialogs\NewProductDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Dialogs\POSEditDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Dialogs\ProductCard.xaml">
@@ -83,10 +101,16 @@
     <Page Update="Dialogs\ProfileDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Dialogs\PurchaseDetailsDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Dialogs\SettingsDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Forms\Dashboard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\ForgotPasswordForm.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Forms\SignUpForm.xaml">

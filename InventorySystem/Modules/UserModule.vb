@@ -34,13 +34,32 @@ Module UserModule
 
     Public Async Sub GenerateAuth(phone As String)
         Dim auth_code As String = New System.Random().Next(100000, 999999).ToString()
-        authDataAdapter.InsertQueryAuth(phone, auth_code)
-        Try
-            Dim client As New HttpClient()
-            Dim response As HttpResponseMessage = Await client.GetAsync(String.Format("http://{0}:8080/?phone={1}&message=OTP CODE {2}", My.Settings.smsIP, phone, auth_code))
-        Catch ex As Exception
-            MsgBox("Unknown Error")
-        End Try
+        ' If it is existing then update
+        If IsAuthExists(phone) Then
+            auth_code = GetAuthByPhone(phone)
+            Try
+                Dim client As New HttpClient()
+                Dim response As HttpResponseMessage = Await client.GetAsync(String.Format("http://{0}:8080/?phone={1}&message=OTP CODE {2}", My.Settings.smsIP, phone, auth_code))
+                If Not response.IsSuccessStatusCode Then
+                    HandyControl.Controls.MessageBox.Info("Unable to make a request.", "Request Error")
+                End If
+            Catch ex As Exception
+                HandyControl.Controls.MessageBox.Info("A unknown error occured please try again.", "Unknown Error")
+            End Try
+        Else
+            ' If it is not existing then insert
+            Try
+                Dim client As New HttpClient()
+                Dim response As HttpResponseMessage = Await client.GetAsync(String.Format("http://{0}:8080/?phone={1}&message=OTP CODE {2}", My.Settings.smsIP, phone, auth_code))
+                If response.IsSuccessStatusCode Then
+                    authDataAdapter.InsertQueryAuth(phone, auth_code)
+                Else
+                    HandyControl.Controls.MessageBox.Info("Unable to make a request.", "Request Error")
+                End If
+            Catch ex As Exception
+                HandyControl.Controls.MessageBox.Info("A unknown error occured please try again.", "Unknown Error")
+            End Try
+        End If
     End Sub
 
     Public Sub DeleteAuth(phone As String)
@@ -65,6 +84,7 @@ Module UserModule
                 Dim passwordHashed As String = .password.ToString()
                 If Verify(password, passwordHashed) Then
                     My.Settings.UserID = CInt(.id)
+                    My.Settings.isAdmin = If(.role_id = 1, True, False)
                     My.Settings.Save()
                     Return True
                 Else

@@ -107,37 +107,12 @@
                 <Border Width="50"
                         Height="{Binding Height, ElementName=LeftPanel}"
                         BorderThickness="0 0 1 0" BorderBrush="#D3D3D3"/>
-                <StackPanel Name="PanelControls" Orientation="Vertical" Height="200"
+                <StackPanel Name="PanelControls" Orientation="Vertical" Height="250"
                              VerticalAlignment="Top">
                     <!--#region DashboardButton-->
                     <Button Template="{DynamicResource CustomTemplateButton}" Name="DashboardButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
                             BorderThickness="0">
-                        <hc:ImageBlock Name="imageBlock3" Source="/Resources/ic_dashboard.png" Width="32"
-                                       Height="32" RenderTransformOrigin="0.5,0.5">
-                            <hc:ImageBlock.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform/>
-                                    <TranslateTransform/>
-                                </TransformGroup>
-                            </hc:ImageBlock.RenderTransform>
-                        </hc:ImageBlock>
-                        <Button.Triggers>
-                            <EventTrigger RoutedEvent="Button.MouseEnter">
-                                <BeginStoryboard Storyboard="{StaticResource RotateImg3}" />
-                                <BeginStoryboard Storyboard="{StaticResource DashboardTransitionPanel}"/>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="Button.MouseLeave">
-                                <BeginStoryboard Storyboard="{StaticResource HideDashboardTransitionPanel}"/>
-                            </EventTrigger>
-                        </Button.Triggers>
-                    </Button>
-                    <!--#endregion-->
-                    <!--#region SalesButton-->
-                    <Button Template="{DynamicResource CustomTemplateButton}" Name="SalesButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
-                            BorderThickness="0">
-                        <hc:ImageBlock x:Name="imageBlock" Source="/Resources/ic_sales.png" Width="32"
+                        <hc:ImageBlock Name="imageBlock" Source="/Resources/ic_dashboard.png" Width="32"
                                        Height="32" RenderTransformOrigin="0.5,0.5">
                             <hc:ImageBlock.RenderTransform>
                                 <TransformGroup>
@@ -151,18 +126,18 @@
                         <Button.Triggers>
                             <EventTrigger RoutedEvent="Button.MouseEnter">
                                 <BeginStoryboard Storyboard="{StaticResource RotateImg}" />
-                                <BeginStoryboard Storyboard="{StaticResource SalesTransitionPanel}"/>
+                                <BeginStoryboard Storyboard="{StaticResource DashboardTransitionPanel}"/>
                             </EventTrigger>
                             <EventTrigger RoutedEvent="Button.MouseLeave">
-                                <BeginStoryboard Storyboard="{StaticResource HideSalesTransitionPanel}"/>
+                                <BeginStoryboard Storyboard="{StaticResource HideDashboardTransitionPanel}"/>
                             </EventTrigger>
                         </Button.Triggers>
                     </Button>
                     <!--#endregion-->
-                    <!--#region StocksButton-->
-                    <Button Template="{DynamicResource CustomTemplateButton}" Name="StocksButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
+                    <!--#region SalesButton-->
+                    <Button Template="{DynamicResource CustomTemplateButton}" Name="SalesButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
                             BorderThickness="0">
-                        <hc:ImageBlock Name="imageBlock1"  Source="/Resources/ic_stocks.png" Width="32"
+                        <hc:ImageBlock x:Name="imageBlock1" Source="/Resources/ic_sales.png" Width="32"
                                        Height="32" RenderTransformOrigin="0.5,0.5">
                             <hc:ImageBlock.RenderTransform>
                                 <TransformGroup>
@@ -176,18 +151,18 @@
                         <Button.Triggers>
                             <EventTrigger RoutedEvent="Button.MouseEnter">
                                 <BeginStoryboard Storyboard="{StaticResource RotateImg1}" />
-                                <BeginStoryboard Storyboard="{StaticResource StocksTransitionPanel}"/>
+                                <BeginStoryboard Storyboard="{StaticResource SalesTransitionPanel}"/>
                             </EventTrigger>
                             <EventTrigger RoutedEvent="Button.MouseLeave">
-                                <BeginStoryboard Storyboard="{StaticResource HideStocksTransitionPanel}"/>
+                                <BeginStoryboard Storyboard="{StaticResource HideSalesTransitionPanel}"/>
                             </EventTrigger>
                         </Button.Triggers>
                     </Button>
                     <!--#endregion-->
-                    <!--#region POSButton-->
-                    <Button Template="{DynamicResource CustomTemplateButton}" Name="POSButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
+                    <!--#region StocksButton-->
+                    <Button Template="{DynamicResource CustomTemplateButton}" Name="StocksButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
                             BorderThickness="0">
-                        <hc:ImageBlock Name="imageBlock2" Source="/Resources/ic_pos.png" Width="32"
+                        <hc:ImageBlock Name="imageBlock2"  Source="/Resources/ic_stocks.png" Width="32"
                                        Height="32" RenderTransformOrigin="0.5,0.5">
                             <hc:ImageBlock.RenderTransform>
                                 <TransformGroup>
@@ -201,6 +176,31 @@
                         <Button.Triggers>
                             <EventTrigger RoutedEvent="Button.MouseEnter">
                                 <BeginStoryboard Storyboard="{StaticResource RotateImg2}" />
+                                <BeginStoryboard Storyboard="{StaticResource StocksTransitionPanel}"/>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Button.MouseLeave">
+                                <BeginStoryboard Storyboard="{StaticResource HideStocksTransitionPanel}"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <!--#endregion-->
+                    <!--#region POSButton-->
+                    <Button Template="{DynamicResource CustomTemplateButton}" Name="POSButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
+                            BorderThickness="0">
+                        <hc:ImageBlock Name="imageBlock3" Source="/Resources/ic_pos.png" Width="32"
+                                       Height="32" RenderTransformOrigin="0.5,0.5">
+                            <hc:ImageBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </hc:ImageBlock.RenderTransform>
+                        </hc:ImageBlock>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.MouseEnter">
+                                <BeginStoryboard Storyboard="{StaticResource RotateImg3}" />
                                 <BeginStoryboard Storyboard="{StaticResource PosTransitionPanel}"/>
                             </EventTrigger>
                             <EventTrigger RoutedEvent="Button.MouseLeave">
@@ -209,11 +209,36 @@
                         </Button.Triggers>
                     </Button>
                     <!--#endregion-->
+                    <!--#region LogsButton-->
+                    <Button Template="{DynamicResource CustomTemplateButton}" Name="LogsButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
+                            BorderThickness="0">
+                        <hc:ImageBlock Name="imageBlock4" Source="/Resources/ic_logs.png" Width="32"
+                                       Height="32" RenderTransformOrigin="0.5,0.5">
+                            <hc:ImageBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </hc:ImageBlock.RenderTransform>
+                        </hc:ImageBlock>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.MouseEnter">
+                                <BeginStoryboard Storyboard="{StaticResource RotateImg4}" />
+                                <BeginStoryboard Storyboard="{StaticResource LogsTransitionPanel}"/>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Button.MouseLeave">
+                                <BeginStoryboard Storyboard="{StaticResource HideLogsTransitionPanel}"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <!--#endregion-->
                 </StackPanel>
                 <!--#region HelpButton-->
                 <Button Template="{DynamicResource CustomTemplateButton}" Name="HelpButton" Style="{x:Null}" Height="50" Background="Transparent" Width="{Binding Width,ElementName=LeftPanel}"
                             BorderThickness="0" VerticalAlignment="Bottom">
-                    <hc:ImageBlock Name="imageBlock4" Source="/Resources/ic_help.png" Width="32"
+                    <hc:ImageBlock Name="imageBlock5" Source="/Resources/ic_help.png" Width="32"
                                        Height="32" RenderTransformOrigin="0.5,0.5">
                         <hc:ImageBlock.RenderTransform>
                             <TransformGroup>
@@ -226,7 +251,7 @@
                     </hc:ImageBlock>
                     <Button.Triggers>
                         <EventTrigger RoutedEvent="Button.MouseEnter">
-                            <BeginStoryboard Storyboard="{StaticResource RotateImg4}" />
+                            <BeginStoryboard Storyboard="{StaticResource RotateImg5}" />
                             <BeginStoryboard Storyboard="{StaticResource HelpTransitionPanel}"/>
                         </EventTrigger>
                         <EventTrigger RoutedEvent="Button.MouseLeave">
@@ -250,25 +275,29 @@
                 <DockPanel x:Name="DashboardTopContainer" Grid.Row="1" Height="240" LastChildFill="True">
                     <hc:Row x:Name="DashboardTopRow" DockPanel.Dock="Top" Height="105" VerticalAlignment="Center">
                         <hc:Col Span="8" Name="DashboardDailyCol">
-                            <hc:SimplePanel x:Name="DashboardDailyColBox"
-                                                Margin="30 0 30 0"
-                                                Height="105"
-                                                VerticalAlignment="Top"
-                                                HorizontalAlignment="Stretch">
+                     
+                                <hc:SimpleStackPanel  x:Name="DashboardDailyColBox"
+                                                    Margin="30 0 30 0"
+                                                    Height="105"
+                                                    VerticalAlignment="Top"
+                                                    HorizontalAlignment="Stretch">
+                                
                                 <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                            />
+                                                />
+
                                 <StackPanel Orientation="Vertical"
-                                            Background="#0CAFFF">
+                                                Background="#0CAFFF">
+
                                     <TextBlock Text="{StaticResource en_weeklysales}"
-                                           FontSize="25"
-                                           Padding="20 20 0 0"
-                                           Foreground="#FFF"/>
+                                               FontSize="25"
+                                               Padding="20 20 0 0"
+                                               Foreground="#FFF"/>
                                     <TextBlock x:Name="WeeklySalesLabel" Text="$2000"
-                                           FontSize="20"
-                                           Padding="20 5 0 10"
-                                           Foreground="#FFF"/>
+                                               FontSize="20"
+                                               Padding="20 5 0 10"
+                                               Foreground="#FFF"/>
                                 </StackPanel>
-                            </hc:SimplePanel>
+                            </hc:SimpleStackPanel>
                         </hc:Col>
                         <hc:Col Span="8" Name="DashboardMonthlyCol">
                             <hc:SimplePanel x:Name="DashboardMonthlyColBox" Grid.Row="0" Grid.Column="0"
@@ -369,12 +398,15 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="1" Name="SalesBottomWrapPanel">
-                    <StackPanel>
-                        <Grid Height="50"
-                      Grid.Row="0">
-
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Height="50" Grid.Row="0">
                             <hc:FlexPanel Margin="30 0" JustifyContent="SpaceBetween">
-                                <Button x:Name="RefreshButton" Margin="0 0 10 0" Foreground="#fff" FontSize="9"
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="RefreshButton" Margin="0 0 10 0" Foreground="#fff" FontSize="9"
                                                         hc:BorderElement.CornerRadius="0"
                                                         Content="Refresh"
                                                         hc:IconElement.Geometry="{StaticResource ic_refresh}"
@@ -386,7 +418,8 @@
                                                         BorderThickness="0"
                                                         Background="#0CAFFF"
                                                         VerticalAlignment="Bottom"/>
-                                <hc:SearchBar x:Name="SalesSearch" hc:InfoElement.Placeholder="Search" Width="360" Height="28" VerticalAlignment="Bottom" Style="{StaticResource SearchBarExtend}"/>
+                                </StackPanel>
+                                <hc:SearchBar x:Name="SalesSearch" IsRealTime="True" hc:InfoElement.Placeholder="Search" Width="200" Height="28" VerticalAlignment="Bottom" Style="{StaticResource SearchBarExtend}"/>
                             </hc:FlexPanel>
                         </Grid>
                         <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
@@ -398,16 +431,14 @@
                               CanUserResizeColumns="False"
                               AutoGenerateColumns="True"
                               Visibility="Visible">
-                            <DataGrid.Columns>
-                            </DataGrid.Columns>
                         </DataGrid>
-                    </StackPanel>
+                    </Grid>
 
                 </Grid>
             </Grid>
             <!--#endregion-->
             <!--#region STOCKS PANEL-->
-            <Grid Name="StocksPanel" Grid.Column="1" Visibility="Collapsed"   >
+            <Grid Name="StocksPanel" Grid.Column="1" Visibility="Collapsed">
                 <hc:TabControl IsAnimationEnabled="True" IsTabFillEnabled="True" TabItemHeight="40">
                     <hc:TabItem Header="Stocks" IsSelected="True">
                         <Grid Grid.Row="1" Name="BottomWrapPanel">
@@ -425,18 +456,17 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Grid Height="40" Grid.Row="0">
-                                    <hc:FlexPanel Margin="20,0,20,0" JustifyContent="FlexEnd" Grid.ColumnSpan="2">
-                                        
-                                        <hc:SearchBar x:Name="SearchItemTextBox" hc:InfoElement.Placeholder="Search Item" Width="360" Height="28" VerticalAlignment="Center" Style="{StaticResource SearchBarPlus}" HorizontalAlignment="Left"/>
+                                    <hc:FlexPanel Margin="20,0,20,0" JustifyContent="SpaceBetween" Grid.ColumnSpan="2">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="TOTAL ITEMS:" VerticalAlignment="Center"/>
+                                            <TextBlock Name="StocksTotalItems" Text="1000" VerticalAlignment="Center" Padding="8 0"/>
+                                        </StackPanel>
+                                        <hc:SearchBar x:Name="SearchItemTextBox" IsRealTime="True" hc:InfoElement.Placeholder="Search Item" Width="360" Height="28" VerticalAlignment="Center" Style="{StaticResource SearchBarPlus}" HorizontalAlignment="Left"/>
                                     </hc:FlexPanel>
                                 </Grid>
                                 <hc:Row x:Name="StocksTopRow" Grid.Row="1">
                                     <hc:Col Height="{Binding ElementName=StocksTopRow, Path=ActualHeight}">
                                         <hc:FlexPanel Margin="20 0" JustifyContent="SpaceBetween">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="TOTAL ITEMS:" VerticalAlignment="Center"/>
-                                                <TextBlock Name="StocksTotalItems" Text="1000" VerticalAlignment="Center" Padding="8 0"/>
-                                            </StackPanel>
                                             <StackPanel Orientation="Horizontal">
                                                 <Button x:Name="RefreshProductsButton" Margin="0 0 10 0" Foreground="#fff" FontSize="9"
                                                         hc:BorderElement.CornerRadius="0"
@@ -444,13 +474,13 @@
                                                         hc:IconElement.Geometry="{StaticResource ic_refresh}"
                                                         hc:IconElement.Height="12"
                                                         hc:IconElement.Width="12"
-                                                        Height="20"
+                                                        Height="24"
                                                         Width="80"
                                                         Padding="0"
                                                         BorderThickness="0"
                                                         Background="#0CAFFF"
                                                         VerticalAlignment="Center"/>
-                                                <Button x:Name="StocksAddButton" Foreground="#fff" FontSize="9" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_addproduct}" hc:IconElement.Geometry="{StaticResource ic_add}" hc:IconElement.Height="9" hc:IconElement.Width="9" Height="20" Width="80" Padding="0" BorderThickness="0" Background="#0CAFFF"/>
+                                                <Button x:Name="StocksAddButton" Foreground="#fff" FontSize="9" hc:BorderElement.CornerRadius="0" Content="{StaticResource en_addproduct}" hc:IconElement.Geometry="{StaticResource ic_add}" hc:IconElement.Height="9" hc:IconElement.Width="9" Height="24" Width="80" Padding="0" BorderThickness="0" Background="#0CAFFF"/>
                                             </StackPanel>
                                         </hc:FlexPanel>
                                     </hc:Col>
@@ -468,54 +498,52 @@
                     </hc:TabItem>
                     <hc:TabItem Header="Categories &amp; Units">
                         <Grid x:Name="CategoryTabPanel">
-                            <UniformGrid Rows="1" Columns="2">
-                                <Grid>
-                                    <StackPanel Margin="20 10">
-                                        <StackPanel>
-                                            <TextBlock Padding="0 5" Text="Category:" FontSize="18"/>
-                                            <TextBox x:Name="CategoryTextBox" Padding="5" Height="35"/>
-                                        </StackPanel>
-                                        <StackPanel>
-                                            <TextBlock Padding="0 5" Text="Unit:" FontSize="18"/>
-                                            <TextBox x:Name="UnitTextBox" Padding="5" Height="35"/>
-                                        </StackPanel>
-                                        <Button  Margin="0 10" x:Name="AddCategoryUnitButton" Foreground="#fff" FontSize="12" hc:BorderElement.CornerRadius="0" Content="ADD" Height="30" HorizontalAlignment="Stretch" BorderThickness="0" Background="#0CAFFF"/>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Height="60">
+                                <hc:FlexPanel VerticalAlignment="Center" JustifyContent="SpaceBetween" Height="40" Margin="20 0">
+                                    <StackPanel VerticalAlignment="Bottom">
+                                        <ComboBox Name="CategoryUnitComboBox" Width="180">
+                                            <ComboBoxItem Content="Category" IsSelected="True"/>
+                                            <ComboBoxItem Content="Unit"/>
+                                        </ComboBox>
                                     </StackPanel>
-
-                                </Grid>
-                                <Grid>
-                                    <UniformGrid Rows="2" Columns="1">
-                                        <Grid>
-                                            <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="AddCategoryUnitProductsButton" Foreground="#fff" FontSize="9"
+                                                        hc:BorderElement.CornerRadius="0"
+                                                        Content="Add"
+                                                        hc:IconElement.Geometry="{StaticResource ic_add}"
+                                                        hc:IconElement.Height="12"
+                                                        hc:IconElement.Width="12"
+                                                        Height="25"
+                                                        Width="80"
+                                                        BorderThickness="0"
+                                                        Background="#0CAFFF"
+                                                        VerticalAlignment="Bottom"/>
+                                    </StackPanel>
+                                </hc:FlexPanel>
+                            </Grid>
+                            <DataGrid Grid.Row="1" RowStyle="{DynamicResource DataGridRowStyle1}"
                                                       ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
-                                                      CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="CategoryDataGridView"
+                                                      CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="CategoryUnitDataGridView"
                                                       Style="{DynamicResource DataGridStyle1}"
                                                       IsReadOnly="True"
                                                       CanUserResizeColumns="False"
                                                       AutoGenerateColumns="True"
-                                                      Margin="0 10 20 10"/>
-                                        </Grid>
-                                        <Grid>
-                                            <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
-                                                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
-                                                      CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="UnitDataGridView"
-                                                      Style="{DynamicResource DataGridStyle1}"
-                                                      IsReadOnly="True"
-                                                      CanUserResizeColumns="False"
-                                                      AutoGenerateColumns="True"
-                                                      Margin="0 0 20 10"/>
-                                        </Grid>
-                                    </UniformGrid>
-                                </Grid>
-                            </UniformGrid>
+                                                      Margin="20 0 20 20"/>
                         </Grid>
                     </hc:TabItem>
                     <hc:TabItem Header="Suppliers">
-                        <StackPanel>
-                            <UniformGrid Rows="2" Columns="0" Height="80" Grid.Row="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <UniformGrid  Rows="2" Columns="0" Height="80" Grid.Row="0">
                                 <hc:FlexPanel Grid.Row="0" Margin="20,0,20,0" JustifyContent="FlexEnd" Grid.ColumnSpan="2">
-                                    
-                                    <hc:SearchBar x:Name="SearchSupplierTextBox" hc:InfoElement.Placeholder="Search Item" Width="360" Height="28" VerticalAlignment="Center" Style="{StaticResource SearchBarPlus}" HorizontalAlignment="Left"/>
+                                    <hc:SearchBar x:Name="SearchSupplierTextBox" IsRealTime="True" hc:InfoElement.Placeholder="Search Item" Width="360" Height="28" VerticalAlignment="Center" Style="{StaticResource SearchBarPlus}" HorizontalAlignment="Left"/>
                                 </hc:FlexPanel>
                                 <hc:SimpleStackPanel Grid.Row="1">
                                     <hc:FlexPanel Margin="20 0" JustifyContent="SpaceBetween">
@@ -537,7 +565,7 @@
                                     </hc:FlexPanel>
                                 </hc:SimpleStackPanel>
                             </UniformGrid>
-                            <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
+                            <DataGrid Grid.Row="1" RowStyle="{DynamicResource DataGridRowStyle1}"
                                                       ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
                                                       CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="SupplierDataGridView"
                                                       Style="{DynamicResource DataGridStyle1}"
@@ -545,7 +573,7 @@
                                                       CanUserResizeColumns="False"
                                                       AutoGenerateColumns="True"
                                                       Margin="20 0 20 20"/>
-                        </StackPanel>
+                        </Grid>
                     </hc:TabItem>
                 </hc:TabControl>
             </Grid>
@@ -565,42 +593,64 @@
                     </Grid.RowDefinitions>
                     <Grid Height="50"
                       Grid.Row="0">
-                        <hc:FlexPanel Margin="30 0" JustifyContent="SpaceBetween">
-                            <TextBlock x:Name="POSHeadingPanel" Text="{StaticResource en_posheading}" VerticalAlignment="Bottom"
-                                   FontSize="32"
-                                   FontWeight="ExtraLight"/>
-                            <hc:SearchBar Name="SearchProductPOS" Visibility="Collapsed" hc:InfoElement.Placeholder="Search Product" Width="360" Height="28" VerticalAlignment="Bottom" Style="{StaticResource SearchBarExtend}"/>
+                        <hc:FlexPanel JustifyContent="FlexEnd" Margin="30 0">
+                            <hc:SearchBar  Name="SearchProductPOS" Visibility="Visible" IsRealTime="True" hc:InfoElement.Placeholder="Search Product" Width="360" Height="28" VerticalAlignment="Bottom" Style="{StaticResource SearchBarExtend}"/>
                         </hc:FlexPanel>
                     </Grid>
                 </Grid>
                 <DockPanel Grid.Row="1" Name="PosWrapPanel">
                     <Grid Width="400" DockPanel.Dock="Left">
                         <DockPanel>
-                            <StackPanel DockPanel.Dock="Top" Height="80">
-                                <StackPanel Orientation="Horizontal" Height="40">
-                                    <TextBlock Text="TOTAL PRICE: "
-                                               Margin="30 0 0 0" FontSize="14"
-                                               VerticalAlignment="Center"/>
-                                    <TextBlock Name="PriceTotal" Text="0" FontSize="14" VerticalAlignment="Center"/>
-                                </StackPanel>
+                            <StackPanel DockPanel.Dock="Top" Height="40">
                                 <hc:FlexPanel JustifyContent="SpaceBetween" Height="40">
-                                    <hc:TextBox Width="200" Height="24" Margin="30 0 0 0" hc:InfoElement.Placeholder="Amount" hc:BorderElement.CornerRadius="0"/>
-                                    <Button HorizontalAlignment="Right" Name="BuyButton" Margin="0 0 15 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="Buy" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="100" Padding="0" BorderThickness="0" Background="#0CAFFF"/>
+                                    <hc:TextBox Width="200" Height="24" Margin="10 0 0 0" hc:InfoElement.Placeholder="Amount" hc:BorderElement.CornerRadius="0"/>
+                                    <Button HorizontalAlignment="Right" Name="BuyButton" Margin="0 0 10 0" Foreground="#fff" FontSize="11" hc:BorderElement.CornerRadius="0" Content="Buy" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="24" Width="100" Padding="0" BorderThickness="0" Background="#0CAFFF"/>
                                 </hc:FlexPanel>
                             </StackPanel>
                             <Grid DockPanel.Dock="Bottom" VerticalAlignment="Stretch">
-                                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
+                                <DataGrid FontSize="13" RowStyle="{DynamicResource DataGridRowStyle2}"
                                           ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
                                           CellStyle="{DynamicResource DataGridCellStyle1}" Name="PosDataGridView"
                                           Style="{DynamicResource DataGridStyle1}"
                                           IsReadOnly="True"
-                                          Margin="30 20 15 20"
+                                          Margin="10 15"
                                           CanUserResizeColumns="False"
                                           AutoGenerateColumns="False"
                                           Visibility="Visible">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Product Name" Binding="{Binding PRODUCT_NAME}"/>
-                                        <DataGridTextColumn Header="Price" Binding="{Binding PRODUCT_PRICE}"/>
+                                        <DataGridTextColumn FontSize="13" Header="Product" Binding="{Binding PRODUCT_NAME}"/>
+                                        <DataGridTextColumn FontSize="13" Header="Price" Binding="{Binding PRODUCT_PRICE}"/>
+                                        <DataGridTextColumn FontSize="13" Header="Quantity" Binding="{Binding PRODUCT_QUANTITY}"/>
+                                        <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Button Margin="5" Foreground="#fff" FontSize="9"
+                                                                hc:BorderElement.CornerRadius="0"
+                                                                hc:IconElement.Geometry="{StaticResource ic_edit}"
+                                                                hc:IconElement.Height="12"
+                                                                hc:IconElement.Width="12"
+                                                                Height="24"
+                                                                Width="24"
+                                                                Padding="0"
+                                                                BorderThickness="0"
+                                                                Background="#0CAFFF"
+                                                                VerticalAlignment="Center" Click="EditRowPOS"/>
+                                                        <Button Margin="5" Foreground="#fff" FontSize="9"
+                                                                hc:BorderElement.CornerRadius="0"
+                                                                hc:IconElement.Geometry="{StaticResource ic_delete}"
+                                                                hc:IconElement.Height="12"
+                                                                hc:IconElement.Width="12"
+                                                                Height="24"
+                                                                Width="24"
+                                                                Padding="0"
+                                                                BorderThickness="0"
+                                                                Background="#FF00"
+                                                                VerticalAlignment="Center" Click="DeleteRowPOS"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>
@@ -608,8 +658,8 @@
                     </Grid>
                     <Grid Name="PosProductPanel" Margin="0 0 30 10" Width="auto" HorizontalAlignment="Stretch" Background="LightSlateGray" DockPanel.Dock="Right">
                         <hc:ScrollViewer  Margin="4" hc:BorderThickness="1" hc:BorderBrush="gray">
-                            <WrapPanel Orientation="Horizontal" Name="PosProductContainer" HorizontalAlignment="Center" VerticalAlignment="Top">
-
+                            <WrapPanel Orientation="Horizontal" Name="PosProductContainer"  HorizontalAlignment="Center" VerticalAlignment="Top">
+                                
                             </WrapPanel>
                         </hc:ScrollViewer>
                     </Grid>
@@ -625,7 +675,7 @@
                                 <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
                                     <hc:Col Span="12" Height="150">
                                         <StackPanel Margin="10" DockPanel.Dock="Left" Orientation="Vertical"
-                                                    Background="#32CD32" MaxWidth="350">
+                                                    Background="#0CAFFF" MaxWidth="350">
                                             <TextBlock Text="Annual Sales"
                                                FontSize="25"
                                                Padding="20 20 0 0"
@@ -638,11 +688,8 @@
                                     </hc:Col>
                                     <hc:Col Span="12" Height="150" Name="RightHelpCol">
                                         <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
-                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
-                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
+                                            Displays the total amount of revenue generated by the business within a fiscal year. It represents
+                                            the aggregate value of products sold by the company's core operations over a 12-month period.
                                         </TextBlock>
                                     </hc:Col>
                                 </hc:Row>
@@ -651,7 +698,7 @@
                                 <hc:Row Width="{Binding ElementName=HelpContainer, Path=ActualWidth}" Height="150">
                                     <hc:Col Span="12" Height="150">
                                         <StackPanel Margin="10" Orientation="Vertical"
-                                                Background="#FFDA03" MaxWidth="350">
+                                                Background="#0CAFFF" MaxWidth="350">
                                             <TextBlock Text="Monthly Sales"
                                                    FontSize="25"
                                                    Padding="20 20 0 0"
@@ -664,11 +711,7 @@
                                     </hc:Col>
                                     <hc:Col Span="12" Height="150">
                                         <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
-                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
-                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
+                                            Displays the total revenue generated by a company or business within a specific calendar month. It represents the sum of all sales transactions, including the value of products sold, or other income earned during that particular month..
                                         </TextBlock>
                                     </hc:Col>
                                 </hc:Row>
@@ -690,11 +733,7 @@
                                     </hc:Col>
                                     <hc:Col Span="12" Height="150">
                                         <TextBlock Padding="5" Width="{Binding ElementName=RightHelpCol, Path=ActualWidth}" TextWrapping="Wrap" FontSize="14">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            Integer eget aliquet nibh praesent tristique magna sit amet purus.
-                                            Posuere urna nec tincidunt praesent semper feugiat nibh. Adipiscing elit duis tristique sollicitudin nibh.
-                                            Mus mauris vitae ultricies leo integer malesuada nunc vel.
+                                            Displays the total revenue generated by a company or business within a specific seven-day period, typically from Sunday to Saturday or Monday to Sunday. It represents the sum of all sales transactions, including the value of products sold, or other income earned during that particular week..
                                         </TextBlock>
                                     </hc:Col>
                                 </hc:Row>
@@ -703,13 +742,19 @@
                     </hc:ScrollViewer>
                 </Border>
             </Grid>
+            <!--#region Log PANEL-->
+            <Grid Name="LogsPanel" Grid.Column="1" Visibility="Collapsed">
+
+            </Grid>
+            <!--#endregion-->
         </Grid>
         <!--#endregion-->
-
-        <!--#region  RELATIVE PANEL-->
+        
+        
+    <!--#region  RELATIVE PANEL-->
         <hc:RelativePanel Name="RelativePanel"  Grid.Row="1">
             <hc:SimplePanel Height="{Binding ElementName=RelativePanel, Path=ActualHeight}" Width="150" Margin="50 0 0 0">
-                <StackPanel Height="200" VerticalAlignment="Top">
+                <StackPanel x:Name="TextTransitionPanel" Height="250" VerticalAlignment="Top">
                     <Grid x:Name="DashboardTransitionText" Width="150" Height="50"  RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
                         <Grid.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -769,6 +814,23 @@
                             </LinearGradientBrush>
                         </Grid.Background>
                         <TextBlock Text="POS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+                    </Grid>
+                    <Grid x:Name="LogsTransitionText" Width="150" Height="50" RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFB2A4FF" Offset="0"/>
+                                <GradientStop Color="#FFDDD6F9"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <TextBlock Text="LOGS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <Grid.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>

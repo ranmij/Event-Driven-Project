@@ -65,4 +65,10 @@ Public Class LoginForm
             Dialog.Show(New ErrorDialog("No internet connection."))
         End If
     End Sub
+
+    Private Sub ForgotPasswordButton_Click(sender As Object, e As RoutedEventArgs) Handles ForgotPasswordButton.Click
+        Dim forgotPass As New ForgotPasswordForm
+        forgotPass.Show()
+        Me.Close()
+    End Sub
 End Class

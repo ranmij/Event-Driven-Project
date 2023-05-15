@@ -6,15 +6,19 @@ Imports HandyControl.Controls
 Imports InventorySystem.InventorySystem.DataSets.ProductsDataSet
 Imports InventorySystem.InventorySystem.DataSets.ProductsDataSetTableAdapters
 Imports InventorySystem.InventorySystem.DataSets.UserDataSetTableAdapters
+
+Public Class ProductDetails
+    Public Property PRODUCT_ID As String
+    Public Property PRODUCT_NAME As String
+    Public Property PRODUCT_PRICE As String
+    Public Property PRODUCT_QUANTITY As Integer
+End Class
 Module Utils
     ReadOnly tableAdapter As New usersTableAdapter
     Private ReadOnly MAX_PHONE_LENGTH As Integer = &HB
 
     ' Use as a data source context for the POS datagrid view
-    Public Class ProductDetails
-        Public Property PRODUCT_NAME As String
-        Public Property PRODUCT_PRICE As String
-    End Class
+
 
     ' Use as a data source context for the Stocks datagrid view
     Public Class ProductData
@@ -127,25 +131,7 @@ Module Utils
         productsTableAdapter.Fill(productsDataTable)
         For i = 0 To productsDataTable.Rows.Count - 1
             With productsDataTable.Item(i)
-                Dim imagePath As String = .image_path
-                Dim cardTitle As String = .product_name
-                Dim cardPrice As String = CStr(.unit_price)
-                parentNode.Children.Add(New ProductCard(imagePath, cardTitle, cardPrice))
-            End With
-        Next
-    End Sub
-
-    ' To fill the products in the scroll view by search
-    Public Sub FillProductsBySearch(ByRef parentNode As WrapPanel, query As String)
-        Dim productsTableAdapter As New productTableAdapter
-        Dim productsDataTable As productDataTable = productsTableAdapter.GetDataByQuery(query)
-        MsgBox(productsDataTable.Count)
-        For i = 0 To productsDataTable.Count - 1
-            With productsDataTable.Item(i)
-                Dim imagePath As String = .image_path
-                Dim cardTitle As String = .product_name
-                Dim cardPrice As String = CStr(.unit_price)
-                parentNode.Children.Add(New ProductCard(imagePath, cardTitle, cardPrice))
+                parentNode.Children.Add(New ProductCard(.id.ToString))
             End With
         Next
     End Sub

@@ -5,8 +5,30 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:InventorySystem"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             d:DesignHeight="200" d:DesignWidth="400">
+    <hc:SimplePanel Name="Container" Background="#FFF">
+        <hc:SimplePanel>
+            <Button Name="Closebtn" Height="24" Width="24" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Command="hc:ControlCommands.Close" Margin="8"  Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <StackPanel x:Name="ControlContainer" Margin="30 60">
+                <StackPanel>
+                    <TextBlock Text="Category Name: " Padding="0 0 0 5" FontSize="16"  HorizontalAlignment="Left"/>
+                    <TextBox Name="CategoryNameTextBox" Height="32" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
+                </StackPanel>
+                <StackPanel Margin="0 8 0 0">
+                    <TextBlock Padding="0 0 0 5" Text="Unit Name:" FontSize="16" HorizontalAlignment="Left"/>
+                    <TextBox Name="UnitNameTextBox" Height="32" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
+                </StackPanel>
+            </StackPanel>
+            <Grid Height="60"
+                          Margin="30 0" VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+                <hc:FlexPanel x:Name="ButtonContainer" JustifyContent="FlexEnd">
+                    <Button HorizontalAlignment="Right" Name="DeleteButton" Margin="0 0 15 0" Foreground="#fff" FontSize="12" hc:BorderElement.CornerRadius="0" Content="Delete" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="28" Width="100" Padding="0" BorderThickness="0" Background="#E3242B"/>
+                    <Button HorizontalAlignment="Right" Name="UpdateButton" Foreground="#fff" FontSize="12" hc:BorderElement.CornerRadius="0" Content="Update" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="28" Width="100" Padding="0" BorderThickness="0" Background="#32CD32"/>
+                    <Button HorizontalAlignment="Right" Name="SaveButton" Foreground="#fff" FontSize="12" hc:BorderElement.CornerRadius="0" Content="Save" hc:IconElement.Height="12" hc:IconElement.Width="12" Height="28" Width="100" Padding="0" BorderThickness="0" Background="#32CD32"/>
+                </hc:FlexPanel>
+            </Grid>
+        </hc:SimplePanel>
+    </hc:SimplePanel>
 </UserControl>
+

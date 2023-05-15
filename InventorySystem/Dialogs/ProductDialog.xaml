@@ -19,7 +19,31 @@
                 <hc:SimplePanel>
                     <Button Name="Closebtn" Height="24" Width="24" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource ErrorGeometry}" Command="hc:ControlCommands.Close" Margin="8"  Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
                     <StackPanel Margin="15 60">
-                        <DockPanel>
+                        <StackPanel>
+                            <TextBlock Text="Item Code: " Padding="0 0 0 5" FontSize="16" Width="80" HorizontalAlignment="Left"/>
+                            <TextBox Name="CodeTextBox" Text="{Binding PRODUCT_CODE}" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
+                        </StackPanel>
+                        <StackPanel Margin="0 8 0 0">
+                            <TextBlock Padding="0 0 0 5" Text="Name: " FontSize="16" Width="80" HorizontalAlignment="Left"/>
+                            <TextBox Name="NameTextBox" Text="{Binding PRODUCT_NAME}" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
+                        </StackPanel>
+                        <StackPanel Margin="0 8 0 0">
+                            <TextBlock HorizontalAlignment="Left" Text="Price: " FontSize="16" Padding="0 0 0 5" Width="80"/>
+                            <TextBox Name="PriceTextBox" Text="{Binding PRODUCT_PRICE}" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
+                        </StackPanel>
+                        <StackPanel Margin="0 8 0 0">
+                            <TextBlock HorizontalAlignment="Left" Text="Stocks: " FontSize="16" Padding="0 0 8 0" Width="80"/>
+                            <TextBox Name="StocksTextBox" Text="{Binding PRODUCT_STOCKS}" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
+                        </StackPanel>
+                        <StackPanel Margin="0 8 0 0">
+                            <TextBlock HorizontalAlignment="Left" Text="Category: " FontSize="16" Padding="0 0 8 0" Width="80"/>
+                            <hc:ComboBox Name="ProductCategoryComboBox" Text="{Binding PRODUCT_STOCKS}" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
+                        </StackPanel>
+                        <StackPanel Margin="0 8 0 0">
+                            <TextBlock HorizontalAlignment="Left" Text="Unit: " FontSize="16" Padding="0 0 8 0" Width="80"/>
+                            <hc:ComboBox Name="ProductUnitComboBox" Text="{Binding PRODUCT_STOCKS}" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
+                        </StackPanel>
+                        <!--<DockPanel>
                             <TextBlock Text="Code: " FontSize="18" Padding="0 0 8 0" Width="70"/>
                             <TextBox Name="CodeTextBox" Text="{Binding PRODUCT_CODE}" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
                         </DockPanel>
@@ -35,6 +59,14 @@
                             <TextBlock Text="Stocks: " FontSize="18" Padding="0 0 8 0" Width="70"/>
                             <TextBox Name="StocksTextBox" Text="{Binding PRODUCT_STOCKS}" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
                         </DockPanel>
+                        <DockPanel Margin="0 15 0 0">
+                            <TextBlock Text="Category:" FontSize="18" Padding="0 0 8 0" Width="70"/>
+                            <TextBox Name="CategoryTextBox" Text="{Binding PRODUCT_STOCKS}" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
+                        </DockPanel>
+                        <DockPanel Margin="0 15 0 0">
+                            <TextBlock Text="Stocks: " FontSize="18" Padding="0 0 8 0" Width="70"/>
+                            <TextBox Name="UnitTextBox" Text="{Binding PRODUCT_STOCKS}" HorizontalAlignment="Stretch" hc:BorderElement.CornerRadius="0"/>
+                        </DockPanel>-->
                     </StackPanel>
                     <Grid Height="60"
                           Margin="0 0 0 5" VerticalAlignment="Bottom" HorizontalAlignment="Stretch">

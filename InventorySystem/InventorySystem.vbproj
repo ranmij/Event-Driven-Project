@@ -17,6 +17,7 @@
     <None Remove="Resources\ic_icon.ico" />
     <None Remove="Resources\ic_icon.png" />
     <None Remove="Resources\ic_invoice.png" />
+    <None Remove="Resources\ic_logs.png" />
     <None Remove="Resources\ic_maximize.png" />
     <None Remove="Resources\ic_minimize.png" />
     <None Remove="Resources\ic_pos.png" />
@@ -57,9 +58,7 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
-    <PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
     <PackageReference Include="HandyControls" Version="3.4.5" />
-    <PackageReference Include="Independentsoft.Office.Spreadsheet" Version="2.0.720" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
@@ -73,6 +72,7 @@
     <Resource Include="Resources\ic_close.png" />
     <Resource Include="Resources\ic_icon.png" />
     <Resource Include="Resources\ic_invoice.png" />
+    <Resource Include="Resources\ic_logs.png" />
     <Resource Include="Resources\ic_maximize.png" />
     <Resource Include="Resources\ic_minimize.png" />
     <Resource Include="Resources\ic_pos.png" />

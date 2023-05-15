@@ -1,7 +1,6 @@
 ﻿' This is for me
 
 Option Strict On
-Imports System.Net.NetworkInformation
 Imports HandyControl.Controls
 
 Public Class SignUpForm

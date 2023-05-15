@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="DashboardDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InventorySystem"
+             mc:Ignorable="d" 
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             d:DesignHeight="500" d:DesignWidth="800">
+    <Grid Name="Container" Background="#FFF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <hc:Row Height="100">
+            <hc:Col>
+                <Grid Height="100" Grid.Row="0">
+                    <Grid Name="FlexPanel" Margin="30 0">
+                        <hc:FlexPanel Width="{Binding ElementName=FlexPanel, Path=ActualWidth}" VerticalAlignment="Center" JustifyContent="SpaceBetween">
+                            <TextBlock Name="HeadingReportTextBox" Text="Sales Report" FontSize="40" HorizontalAlignment="Center"/>
+                        </hc:FlexPanel>
+                    </Grid>
+                </Grid>
+            </hc:Col>
+        </hc:Row>
+        <hc:Row Grid.Row="1" Name="BottomContainer">
+            <hc:Col Height="{Binding ElementName=BottomContainer, Path=ActualHeight}">
+                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}"
+                              ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                              CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="ReportDataGridView"
+                              Style="{DynamicResource DataGridStyle1}"
+                              IsReadOnly="True"
+                              Margin="30 20 30 20"
+                              CanUserResizeColumns="False"
+                              AutoGenerateColumns="True"
+                             />
+            </hc:Col>
+        </hc:Row>
+    </Grid>
+</UserControl>
+

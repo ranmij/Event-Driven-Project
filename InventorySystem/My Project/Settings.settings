@@ -12,20 +12,11 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\SCHOOL FILES\InventorySystem\InventorySystem\sais.mdf;Integrated Security=True</Value>
     </Setting>
-    <Setting Name="firebaseEnable" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="smsIP" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="firebasePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">https://cpsais-63c0a-default-rtdb.firebaseio.com/</Value>
-    </Setting>
-    <Setting Name="firebaseSecret" Type="System.String" Scope="User">
-      <Value Profile="(Default)">HVK2eso64AaT70enLNtA5fXoIl2lcZvR5Sx3NtnW</Value>
-    </Setting>
-    <Setting Name="firebaseUsername" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="isAdmin" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

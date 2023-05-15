@@ -59,32 +59,40 @@ Public Class AddSupplierDialog
                 End If
             Next
         Else
-            If _supplierAdapter.InsertQuerySupplier(SupplierNameTextBox.Text, SupplierAddressTextBox.Text, SupplierContactTextBox.Text, SupplierEmailTextBox.Text, SupplierCategoryComboBox.SelectedValue) <> 0 Then
-                HandyControl.Controls.MessageBox.Info("Supplier has been added successfully.", "Success!")
-                _DATAGRID.ItemsSource = _supplierAdapter.GetDataBySupplier()
-            Else
-                HandyControl.Controls.MessageBox.Info("Failed to add supplier", "Failed!")
-                _DATAGRID.ItemsSource = _supplierAdapter.GetDataBySupplier()
-            End If
-            For Each control In controls
-                If String.IsNullOrEmpty(control.Text) Then
-                    If TryCast(control, TextBox) IsNot Nothing Then
-                        TryCast(control, TextBox).BorderBrush = Brushes.Gray
-                    Else
-                        TryCast(control, ComboBox).BorderBrush = Brushes.Gray
-                    End If
+            If _supplierAdapter.ScalarQuerySuplier(SupplierNameTextBox.Text, SupplierAddressTextBox.Text, SupplierContactTextBox.Text) = 0 Then
+                If _supplierAdapter.InsertQuerySupplier(SupplierNameTextBox.Text, SupplierAddressTextBox.Text, SupplierContactTextBox.Text, SupplierEmailTextBox.Text, SupplierCategoryComboBox.SelectedValue) <> 0 Then
+                    HandyControl.Controls.MessageBox.Info("Supplier has been added successfully.", "Success!")
+                    _DATAGRID.ItemsSource = _supplierAdapter.GetDataBySupplier()
+                Else
+                    HandyControl.Controls.MessageBox.Info("Failed to add supplier", "Failed!")
+                    _DATAGRID.ItemsSource = _supplierAdapter.GetDataBySupplier()
                 End If
-            Next
+                For Each control In controls
+                    If String.IsNullOrEmpty(control.Text) Then
+                        If TryCast(control, TextBox) IsNot Nothing Then
+                            TryCast(control, TextBox).BorderBrush = Brushes.Gray
+                        Else
+                            TryCast(control, ComboBox).BorderBrush = Brushes.Gray
+                        End If
+                    End If
+                Next
+            Else
+                HandyControl.Controls.MessageBox.Info("This supplier exists.", "Invalid Supplier Info")
+            End If
         End If
     End Sub
 
     Private Sub UpdateButton_Click(sender As Object, e As RoutedEventArgs) Handles UpdateButton.Click
         If _id <> Nothing Then
-            If _supplierAdapter.UpdateQuerySupplier(SupplierNameTextBox.Text, SupplierAddressTextBox.Text, SupplierContactTextBox.Text, SupplierEmailTextBox.Text, SupplierCategoryComboBox.SelectedValue, _id) <> 0 Then
-                HandyControl.Controls.MessageBox.Info("Supplier has been updated successfully.", "Update Success")
-                _DATAGRID.ItemsSource = _supplierAdapter.GetDataBySupplier()
+            If _supplierAdapter.ScalarQuerySuplier(SupplierNameTextBox.Text, SupplierAddressTextBox.Text, SupplierContactTextBox.Text) = 0 Then
+                If _supplierAdapter.UpdateQuerySupplier(SupplierNameTextBox.Text, SupplierAddressTextBox.Text, SupplierContactTextBox.Text, SupplierEmailTextBox.Text, SupplierCategoryComboBox.SelectedValue, _id) <> 0 Then
+                    HandyControl.Controls.MessageBox.Info("Supplier has been updated successfully.", "Update Success")
+                    _DATAGRID.ItemsSource = _supplierAdapter.GetDataBySupplier()
+                Else
+                    HandyControl.Controls.MessageBox.Info("Failed to update supplier.", "Update Failed")
+                End If
             Else
-                HandyControl.Controls.MessageBox.Info("Failed to update supplier.", "Update Failed")
+                HandyControl.Controls.MessageBox.Info("This supplier exists.", "Invalid Supplier Info")
             End If
         End If
     End Sub

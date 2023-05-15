@@ -4,7 +4,7 @@
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection ConnectionStringObject="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\sais.mdf;Integrated Security=True" IsAppSettingsProperty="false" Modifier="Assembly" Name="saisConnectionString" ParameterPrefix="@" Provider="System.Data.SqlClient" />
+          <Connection ConnectionStringObject="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;D:\SCHOOL FILES\InventorySystem\InventorySystem\sais.mdf&quot;;Integrated Security=True" IsAppSettingsProperty="false" Modifier="Assembly" Name="saisConnectionString" ParameterPrefix="@" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="usersTableAdapter" GeneratorDataComponentClassName="usersTableAdapter" Name="users" UserDataComponentName="usersTableAdapter">
@@ -323,25 +323,25 @@ SELECT id, phone, auth_code, expire_time FROM auth WHERE (id = @id)</CommandText
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="auth" msprop:Generator_RowEvHandlerName="authRowChangeEventHandler" msprop:Generator_RowDeletedName="authRowDeleted" msprop:Generator_RowDeletingName="authRowDeleting" msprop:Generator_RowEvArgName="authRowChangeEvent" msprop:Generator_TablePropName="auth" msprop:Generator_RowChangedName="authRowChanged" msprop:Generator_RowChangingName="authRowChanging" msprop:Generator_TableClassName="authDataTable" msprop:Generator_RowClassName="authRow" msprop:Generator_TableVarName="tableauth" msprop:Generator_UserTableName="auth">
+        <xs:element name="auth" msprop:Generator_RowClassName="authRow" msprop:Generator_RowEvHandlerName="authRowChangeEventHandler" msprop:Generator_RowDeletedName="authRowDeleted" msprop:Generator_RowDeletingName="authRowDeleting" msprop:Generator_RowEvArgName="authRowChangeEvent" msprop:Generator_TablePropName="auth" msprop:Generator_RowChangedName="authRowChanged" msprop:Generator_UserTableName="auth" msprop:Generator_RowChangingName="authRowChanging" msprop:Generator_TableClassName="authDataTable" msprop:Generator_TableVarName="tableauth">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_UserColumnName="id" type="xs:int" />
-              <xs:element name="phone" msprop:Generator_ColumnPropNameInRow="phone" msprop:Generator_ColumnPropNameInTable="phoneColumn" msprop:Generator_ColumnVarNameInTable="columnphone" msprop:Generator_UserColumnName="phone">
+              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_UserColumnName="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnVarNameInTable="columnid" type="xs:int" />
+              <xs:element name="phone" msprop:Generator_UserColumnName="phone" msprop:Generator_ColumnPropNameInTable="phoneColumn" msprop:Generator_ColumnPropNameInRow="phone" msprop:Generator_ColumnVarNameInTable="columnphone">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="15" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="auth_code" msprop:Generator_ColumnPropNameInRow="auth_code" msprop:Generator_ColumnPropNameInTable="auth_codeColumn" msprop:Generator_ColumnVarNameInTable="columnauth_code" msprop:Generator_UserColumnName="auth_code">
+              <xs:element name="auth_code" msprop:Generator_UserColumnName="auth_code" msprop:Generator_ColumnPropNameInTable="auth_codeColumn" msprop:Generator_ColumnPropNameInRow="auth_code" msprop:Generator_ColumnVarNameInTable="columnauth_code">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="6" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="expire_time" msprop:Generator_ColumnPropNameInRow="expire_time" msprop:Generator_ColumnPropNameInTable="expire_timeColumn" msprop:Generator_ColumnVarNameInTable="columnexpire_time" msprop:Generator_UserColumnName="expire_time" type="xs:dateTime" />
+              <xs:element name="expire_time" msprop:Generator_UserColumnName="expire_time" msprop:Generator_ColumnPropNameInTable="expire_timeColumn" msprop:Generator_ColumnPropNameInRow="expire_time" msprop:Generator_ColumnVarNameInTable="columnexpire_time" type="xs:dateTime" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

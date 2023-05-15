@@ -14,12 +14,14 @@ Public Class NewProductDialog
     Private ReadOnly categoryTableAdapter As New categoryTableAdapter
     Private ReadOnly productTableAdapter As New productTableAdapter
 
+    Private _DATA_GRID As DataGrid
+
     ' The file path of the image, this always changes every time the user pick
     Private filePath As String = Nothing
 
-    Public Sub New(ByRef parent As Dashboard)
+    Public Sub New(ByRef parent As Dashboard, dataGrid As DataGrid)
         InitializeComponent()
-
+        _DATA_GRID = dataGrid
         ' We set the standard height and width of the dialog
         Me.Width = parent.MinWidth - 100
         Me.Height = parent.MinHeight - 100
@@ -48,13 +50,46 @@ Public Class NewProductDialog
     Private Sub SaveButton_Click(sender As Object, e As RoutedEventArgs) Handles SaveButton.Click
         Dim category_id As Integer = ProductCategoryComboBox.SelectedValue
         Dim unit_id As Integer = ProductUnitComboBox.SelectedValue
-        If productTableAdapter.InsertQueryProduct(unit_id, category_id, ProductCodeTextBox.TextWrapping, ProductNameTextBox.Text, ProductStocksTextBox.Text, ProductPriceTextBox.Text, 0, filePath) <> 0 Then
-            HandyControl.Controls.MessageBox.Info("Product has been added successfully.", "Success")
+        Dim controls() As Object = {ProductCodeTextBox, ProductNameTextBox, ProductStocksTextBox, ProductPriceTextBox, ProductCategoryComboBox, ProductUnitComboBox}
+        If IsNumeric(ProductPriceTextBox.Text) AndAlso IsNumeric(ProductStocksTextBox.Text) Then
+            If IsNotEmpty(controls) Then
+                If filePath <> Nothing Then
+                    If productTableAdapter.ScalarQueryItemCode(ProductCodeTextBox.Text) = 0 Then
+                        If productTableAdapter.InsertQueryProduct(unit_id, category_id, ProductCodeTextBox.Text, ProductNameTextBox.Text, ProductStocksTextBox.Text, ProductPriceTextBox.Text, 0, filePath) <> 0 Then
+                            HandyControl.Controls.MessageBox.Info("Product has been added successfully.", "Success")
+                            _DATA_GRID.ItemsSource = GetDataGridByProduct().DefaultView
+                            filePath = Nothing
+                            For Each control In controls
+                                If String.IsNullOrEmpty(control.Text) Then
+                                    control.BrushColor = Brushes.Gray
+                                End If
+                            Next
+                        Else
+                            HandyControl.Controls.MessageBox.Info("Failed to add the product.", "Failed")
+                        End If
+                    Else
+                        HandyControl.Controls.MessageBox.Info("This product already exists.", "Product Exists")
+                    End If
+                Else
+                    HandyControl.Controls.MessageBox.Info("Please provide an image for the product.")
+                End If
+            Else
+                For Each control In controls
+                    If String.IsNullOrEmpty(control.Text) Then
+                        control.BorderBrush = Brushes.Red
+                    End If
+                Next
+            End If
         Else
-            HandyControl.Controls.MessageBox.Info("Failed to add the product.", "Failed")
+            controls = {ProductPriceTextBox, ProductStocksTextBox}
+            For Each control In controls
+                If Not IsNumeric(control.Text) Then
+                    control.BorderBrush = Brushes.Red
+                End If
+            Next
         End If
 
-        filePath = Nothing
+
     End Sub
 
     ' Load all the categories and units in the combo box
